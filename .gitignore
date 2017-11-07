@@ -1,3 +1,5 @@
 # Intellij Project
 .idea
 *.iml
+test/java/*
+target
