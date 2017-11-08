@@ -35,7 +35,7 @@ public class LogDao {
     public LogDao() {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
-    public String qeuryAll(){
+    public String queryAll(){
         FindIterable<Document> it=collection.find();
         String result=null;
         for (Document d:it){
