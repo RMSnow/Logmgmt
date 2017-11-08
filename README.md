@@ -136,7 +136,7 @@ GET:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&da
 DELETE:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&datetime=2017-11-04
 
 ### 错误日志
-错误日志由的URI均为`errors`，由`error`集合维护。
+错误日志由的URI均为`logs/errors`，由`error`集合维护。
 
 #### 1. 新增日志
 
@@ -147,7 +147,7 @@ DELETE:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150
 #### [请求地址]
 
 - HTTP动词：`POST`
-- URI：`errors`
+- URI：`logs/errors`
 
 #### [请求参数]
 |参数|类型|描述|
@@ -187,7 +187,7 @@ at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)"
 #### [请求地址]
 
 - HTTP动词：`GET`
-- URI：`errors`
+- URI：`logs/errors`
 
 #### [请求参数]
 
@@ -213,7 +213,7 @@ GET:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&
 #### [请求地址]
 
 - HTTP动词：`DELETE`
-- URI：`errors`
+- URI：`logs/errors`
 
 #### [请求参数]
 |参数|类型|是否必填|描述|示例|

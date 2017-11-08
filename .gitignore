@@ -3,3 +3,4 @@
 *.iml
 test/java/*
 target
+classes
