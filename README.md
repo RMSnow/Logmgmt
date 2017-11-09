@@ -77,7 +77,7 @@ POST:http:ip:port/application/api/v1/logs?name=courseservice&content=123.207.73.
 "_id" : ObjectID("[特定值]"),
 "name" : courseservice,
 "ip" : "123.207.73.150",
-"datetime" : "04/Nov/2017:11:43:54",
+"dateTime" : "04/Nov/2017:11:43:54",
 "body" : "GET /application/api/v2/class? HTTP/1.1",
 "status" : 200,
 "client" : "Apache-HttpClient/4.5.2 (Java/1.8.0_151)"
@@ -101,14 +101,14 @@ POST:http:ip:port/application/api/v1/logs?name=courseservice&content=123.207.73.
 |:-:|:-:|:-:|:-:|:-:|
 |name|String|是|服务名|courseservice|
 |ip|String|否|IP地址|123.207.73.150|
-|datetime|Date|否|生成日期|2017-11-04|
+|dateTime|Date|否|生成日期|2017-11-04|
 |client|String|否|客户端|Apache-HttpClient/4.5.2 (Java/1.8.0_151)|
 
 #### [示例]
 
 要获取课程服务在2017-11-04，IP地址为123.207.73.150的普通日志，则请求地址：
 
-GET:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&datetime=2017-11-04
+GET:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&dateTime=2017-11-04
 
 #### 3. 删除日志
 
@@ -126,14 +126,14 @@ GET:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&da
 |:-:|:-:|:-:|:-:|:-:|
 |name|String|是|服务名称|courseservice|
 |ip|String|否|IP地址|123.207.73.150|
-|datetime|Date|否|生成日期|2017-11-04|
+|dateTime|Date|否|生成日期|2017-11-04|
 |client|String|否|客户端|Apache-HttpClient/4.5.2 (Java/1.8.0_151)|
 
 #### [示例]
 
 要删除课程服务2017-11-04，IP地址为123.207.73.150的普通日志，则请求地址：
 
-DELETE:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&datetime=2017-11-04
+DELETE:http:ip:port/application/api/v1/logs?name=courseservice&ip=123.207.73.150&dateTime=2017-11-04
 
 ### 错误日志
 错误日志由的URI均为`logs/errors`，由`error`集合维护。
@@ -167,7 +167,7 @@ POST:http:ip:port/application/api/v1/errors?name=courseservice&content=
 "_id" : ObjectID("[特定值]"),
 "name" : courseservice,
 "ip" : "123.207.73.150",
-"datetime" : "2017-11-04 11:43:42",
+"dateTime" : "2017-11-04 11:43:42",
 "body" : "Exception in thread "main" java.lang.ArithmeticException: / by zero
 at Main.main(Main.java:219)
 at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -195,14 +195,14 @@ at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)"
 |:-:|:-:|:-:|:-:|:-:|
 |name|String|是|服务名|courseservice|
 |ip|String|否|IP地址|123.207.73.150|
-|datetime|Date|否|生成日期|2017-11-04|
+|dateTime|Date|否|生成日期|2017-11-04|
 |client|String|否|客户端|Apache-HttpClient/4.5.2 (Java/1.8.0_151)|
 
 #### [示例]
 
 要获取课程服务在2017-11-04，IP地址为123.207.73.150的错误日志，则请求地址：
 
-GET:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&datetime=2017-11-04
+GET:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&dateTime=2017-11-04
 
 #### 3. 删除日志
 
@@ -220,11 +220,11 @@ GET:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&
 |:-:|:-:|:-:|:-:|:-:|
 |name|String|是|服务名称|courseservice|
 |ip|String|否|IP地址|123.207.73.150|
-|datetime|Date|否|生成日期|2017-11-04|
+|dateTime|Date|否|生成日期|2017-11-04|
 |client|String|否|客户端|Apache-HttpClient/4.5.2 (Java/1.8.0_151)|
 
 #### [示例]
 
 要删除课程服务2017-11-04，IP地址为123.207.73.150的错误日志，则请求地址：
 
-DELETE:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&datetime=2017-11-04
+DELETE:http:ip:port/application/api/v1/errors?name=courseservice&ip=123.207.73.150&dateTime=2017-11-04

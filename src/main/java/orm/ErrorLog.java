@@ -8,7 +8,7 @@ public class ErrorLog {
     private String ip;
     private String name;
     private String url;
-    private String datetime;
+    private String dateTime;
     private String data;
 
     public String getIp() {
@@ -35,12 +35,12 @@ public class ErrorLog {
         this.url = url;
     }
 
-    public String getDatetime() {
-        return datetime;
+    public String getDateTime() {
+        return dateTime;
     }
 
-    public void setDatetime(String datetime) {
-        this.datetime = datetime;
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public String getData() {

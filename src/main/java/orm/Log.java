@@ -4,12 +4,12 @@ package orm;
  * Created by WYJ on 2017/11/7.
  */
 public class Log {
-    String ip;
-    String dateTime;
-    String url;
-    int status;
-    String client;
-    String data;
+    private String ip;
+    private String dateTime;
+    private String url;
+    private int status;
+    private String client;
+    private String data;
 
     public String getIp() {
         return ip;

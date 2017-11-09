@@ -4,6 +4,7 @@ package mongodb.dao;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import orm.Log;
 import org.bson.Document;
@@ -53,9 +54,11 @@ public class LogDao {
             conditions.add(Filters.eq(KEY_IP,ip));
         }
         if (fromDatetime != null) {
+            fromDatetime=DateUtil.parseDate(fromDatetime);
             conditions.add(Filters.gte(KEY_DATETIME,fromDatetime));
         }
         if (toDatetime != null) {
+            toDatetime=DateUtil.parseDate(toDatetime);
             conditions.add(Filters.lte(KEY_DATETIME,toDatetime));
         }
         if (client != null) {
@@ -79,7 +82,7 @@ public class LogDao {
             d.append(KEY_DATA, log.getData());
         }
         if (log.getDateTime() != null) {
-            d.append(KEY_DATETIME, log.getDateTime());
+            d.append(KEY_DATETIME, DateUtil.parseDate(log.getDateTime()));
         }
         if (log.getIp() != null) {
             d.append(KEY_IP, log.getIp());
