@@ -2,8 +2,8 @@ package res;
 
 import com.codahale.metrics.annotation.Timed;
 import entity.Result;
+import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.validation.constraints.NotEmpty;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;

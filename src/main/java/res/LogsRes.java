@@ -3,7 +3,7 @@ package res;
 import com.codahale.metrics.annotation.Timed;
 import entity.Result;
 
-import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.NotEmpty;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 

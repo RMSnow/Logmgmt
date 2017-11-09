@@ -5,10 +5,10 @@ import com.codahale.metrics.health.HealthCheck;
 /**
  * 检查异常
  */
-public class LogMgmtHealCheck extends HealthCheck{
+public class LogMgmtHealthCheck extends HealthCheck{
     private final String name;
 
-    public LogMgmtHealCheck(String name) {
+    public LogMgmtHealthCheck(String name) {
         this.name = name;
     }
 
@@ -16,7 +16,7 @@ public class LogMgmtHealCheck extends HealthCheck{
     protected Result check() throws Exception{
         final String t = "logmgmt";
         if(!name.contains(t)){
-            return Result.unhealthy("URI doesn't include \"logs\"");
+            return Result.unhealthy("Errors in HealthCheck");
         }
         return Result.healthy();
     }
