@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
+import mongodb.JsonUtil;
 import org.bson.types.ObjectId;
 import orm.Log;
 import org.bson.Document;
@@ -39,11 +40,7 @@ public class LogDao {
     }
     public String queryAll(){
         FindIterable<Document> it=collection.find();
-        String result=null;
-        for (Document d:it){
-            result+=d.toJson();
-        }
-        return result;
+        return JsonUtil.parseFindIterableToJsonArray(it);
     }
 
     public String queryByParam(String name,String ip,String fromDatetime,String toDatetime,String client){
@@ -67,11 +64,7 @@ public class LogDao {
         }
         FindIterable<Document> it= collection.find(Filters.and(conditions));
 
-        String result=null;
-        for (Document d:it){
-            result+=d.toJson();
-        }
-        return result;
+        return JsonUtil.parseFindIterableToJsonArray(it);
     }
 
     public void add(Log log) {
