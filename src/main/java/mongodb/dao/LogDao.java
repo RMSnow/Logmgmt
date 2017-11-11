@@ -6,6 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
+import org.bson.types.ObjectId;
 import orm.Log;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -98,6 +99,6 @@ public class LogDao {
 
 
     public void delete(String id) {
-        collection.deleteOne(Filters.eq( KEY_ID, id));
+        collection.deleteOne(Filters.eq( KEY_ID, new ObjectId(id)));
     }
 }
