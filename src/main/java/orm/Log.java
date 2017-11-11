@@ -4,12 +4,23 @@ package orm;
  * Created by WYJ on 2017/11/7.
  */
 public class Log {
+    //新增name属性（日志所属的服务名称）
+    private String name;
+
     private String ip;
     private String dateTime;
     private String url;
     private int status;
     private String client;
     private String data;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getIp() {
         return ip;
