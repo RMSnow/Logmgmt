@@ -28,7 +28,28 @@ public class LogsRes {
 
     @GET
     @Timed
-    public String test(@QueryParam("name") String name){
-        return "hello" + name;
+    //查询日志：根据限制条件查询日志列表
+    public Result queryLogs(@NotEmpty @QueryParam("name") String name,
+                            @QueryParam("ip") String ip,
+                            @QueryParam("dateTime") String datetime,
+                            @QueryParam("client") String client){
+        return null;
+    }
+
+    @DELETE
+    @Timed
+    //删除日志：根据限制条件删除日志
+    public Result deleteLogs(@NotEmpty @QueryParam("name") String name,
+                             @QueryParam("ip") String ip,
+                             @QueryParam("dateTime") String datetime,
+                             @QueryParam("client") String client){
+        return null;
     }
 }
+
+/*
+（1）定义LogsRes、ErrorsRes中的所有方法 ok
+（2）调试DAO层
+（3）实现一个，并用工具／插件调试
+（4）实现其他的
+ */
