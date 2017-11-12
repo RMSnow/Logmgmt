@@ -53,7 +53,8 @@ public class DBExample {
     }
     private static void deleteLog(){
         //删除
-        MongoService.getLogCollection().delete("5a0187ffda72a61efc254fa2");
+//        MongoService.getLogCollection().delete("5a0187ffda72a61efc254fa2");
+        MongoService.getLogCollection().delete("5a07bed8ae678f0c9bd91339");
     }
     private static void addErrorLog(){
         String name="courseservice";

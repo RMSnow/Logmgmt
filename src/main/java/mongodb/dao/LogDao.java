@@ -81,6 +81,10 @@ public class LogDao {
         if (log.getIp() != null) {
             d.append(KEY_IP, log.getIp());
         }
+        //添加name
+        if (log.getName() != null){
+            d.append(KEY_NAME, log.getName());
+        }
         if (log.getStatus() != 0) {
             d.append(KEY_STATUS, log.getStatus());
         }
