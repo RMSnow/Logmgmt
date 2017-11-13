@@ -15,7 +15,7 @@ import java.util.Locale;
 public class DBExample {
     public static void main(String[] args) {
 //        addLog();
-//        queryLog();
+        queryLog();
 //        deleteLog();
 
 //        addErrorLog();

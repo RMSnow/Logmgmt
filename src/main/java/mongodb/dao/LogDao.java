@@ -3,6 +3,7 @@ package mongodb.dao;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.model.Filters;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
@@ -63,7 +64,6 @@ public class LogDao {
             conditions.add(Filters.eq(KEY_CLIENT,client));
         }
         FindIterable<Document> it= collection.find(Filters.and(conditions));
-
         return JsonUtil.parseFindIterableToJsonArray(it);
     }
 
