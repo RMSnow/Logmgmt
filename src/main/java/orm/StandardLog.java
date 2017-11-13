@@ -5,22 +5,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by WYJ on 2017/11/8.
  */
-public class ErrorLog {
+public class StandardLog {
 
-    private String ip;
-    private String name;
     private String url;
-    private String dateTime;
+    private String name;
+    private Integer level;
+    private String timestamp;
+    private String className;
     private String data;
 
     @JsonProperty
-    public String getIp() {
-        return ip;
+    public Integer getLevel() {
+        return level;
     }
 
     @JsonProperty
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     @JsonProperty
@@ -34,6 +35,16 @@ public class ErrorLog {
     }
 
     @JsonProperty
+    public String getClassName() {
+        return className;
+    }
+
+    @JsonProperty
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    @JsonProperty
     public String getUrl() {
         return url;
     }
@@ -44,13 +55,13 @@ public class ErrorLog {
     }
 
     @JsonProperty
-    public String getDateTime() {
-        return dateTime;
+    public String getTimestamp() {
+        return timestamp;
     }
 
     @JsonProperty
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @JsonProperty
@@ -62,6 +73,4 @@ public class ErrorLog {
     public void setData(String data) {
         this.data = data;
     }
-
-
 }

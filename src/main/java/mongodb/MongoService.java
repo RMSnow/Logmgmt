@@ -1,7 +1,7 @@
 package mongodb;
 
-import mongodb.dao.ErrorLogDao;
-import mongodb.dao.LogDao;
+import mongodb.dao.AccessLogDao;
+import mongodb.dao.StandardLogDao;
 
 /**
  * Created by WYJ on 2017/11/7.
@@ -9,11 +9,12 @@ import mongodb.dao.LogDao;
 public class MongoService {
 
 
-    public static LogDao getLogCollection(){
-        return new LogDao();
+    public static AccessLogDao getLogCollection() {
+        return new AccessLogDao();
     }
-    public static ErrorLogDao getErrorLogCollection(){
-        return new ErrorLogDao();
+
+    public static StandardLogDao getErrorLogCollection() {
+        return new StandardLogDao();
     }
 
 }

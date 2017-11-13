@@ -3,14 +3,8 @@
  */
 
 import mongodb.MongoService;
-import orm.ErrorLog;
-import orm.Log;
-
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import orm.StandardLog;
+import orm.AccessLog;
 
 public class DBExample {
     public static void main(String[] args) {
@@ -31,22 +25,22 @@ public class DBExample {
         int status=200;
         String ip="123.207.73.150";
         String client="Apache-HttpClient/4.5.2 (Java/1.8.0_151)";
-        Log log=new Log();
-        log.setData(data);
-        log.setIp(ip);
-        log.setName(name);
-        log.setUrl(url);
-        log.setStatus(status);
-        log.setClient(client);
-        log.setDateTime(dateTime);
-        MongoService.getLogCollection().add(log);
+        AccessLog accessLog =new AccessLog();
+        accessLog.setHost(ip);
+        accessLog.setName(name);
+        accessLog.setUrl(url);
+        accessLog.setStatus(status);
+        accessLog.setFacility(client);
+        accessLog.setTimestamp(dateTime);
+        MongoService.getLogCollection().add(accessLog);
     }
     private static void queryLog(){
         //        查询
         System.out.println(MongoService.getLogCollection().queryByParam(
-                null,
-                null,
-                "04/Nov/2017:11:43:54",
+                "courseservice",
+                "123.207.73.150",
+                "GET",
+                "Apache-HttpClient/4.5.2 (Java/1.8.0_151)",
                 null,
                 null
         ));
@@ -60,15 +54,13 @@ public class DBExample {
         String name="courseservice";
         String url="GET /application/api/v2/class? HTTP/1.1";
         String dateTime="04/Nov/2017:11:43:54";
-        String ip="123.207.73.150";
         String data="Exception in thread main java.lang.ArithmeticException: / by zero ";
-        ErrorLog errorLog=new ErrorLog();
-        errorLog.setData(data);
-        errorLog.setIp(ip);
-        errorLog.setName(name);
-        errorLog.setUrl(url);
-        errorLog.setDateTime(dateTime);
-        MongoService.getErrorLogCollection().add(errorLog);
+        StandardLog standardLog =new StandardLog();
+        standardLog.setData(data);
+        standardLog.setName(name);
+        standardLog.setUrl(url);
+        standardLog.setTimestamp(dateTime);
+        MongoService.getErrorLogCollection().add(standardLog);
     }
     private static void queryErrorLog(){
         System.out.println(MongoService.getErrorLogCollection().queryByParam(

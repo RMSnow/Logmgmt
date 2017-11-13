@@ -5,16 +5,25 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by WYJ on 2017/11/7.
  */
-public class Log {
-    //新增name属性（日志所属的服务名称）
+public class AccessLog {
+    private String host;
     private String name;
-
-    private String ip;
-    private String dateTime;
+    private String timestamp;
+    private String method;
     private String url;
-    private int status;
-    private String client;
-    private String data;
+    private Integer status;
+    private String facility;
+
+
+    @JsonProperty
+    public String getMethod() {
+        return method;
+    }
+
+    @JsonProperty
+    public void setMethod(String method) {
+        this.method = method;
+    }
 
     @JsonProperty
     public String getName() {
@@ -27,23 +36,23 @@ public class Log {
     }
 
     @JsonProperty
-    public String getIp() {
-        return ip;
+    public String getHost() {
+        return host;
     }
 
     @JsonProperty
-    public void setIp(String ip) {
-        this.ip = ip;
+    public void setHost(String host) {
+        this.host = host;
     }
 
     @JsonProperty
-    public String getDateTime() {
-        return dateTime;
+    public String getTimestamp() {
+        return timestamp;
     }
 
     @JsonProperty
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     @JsonProperty
@@ -67,24 +76,13 @@ public class Log {
     }
 
     @JsonProperty
-    public String getClient() {
-        return client;
+    public String getFacility() {
+        return facility;
     }
 
     @JsonProperty
-    public void setClient(String client) {
-        this.client = client;
+    public void setFacility(String facility) {
+        this.facility = facility;
     }
-
-    @JsonProperty
-    public String getData() {
-        return data;
-    }
-
-    @JsonProperty
-    public void setData(String data) {
-        this.data = data;
-    }
-
 
 }
