@@ -9,11 +9,11 @@ import mongodb.dao.StandardLogDao;
 public class MongoService {
 
 
-    public static AccessLogDao getLogCollection() {
+    public static AccessLogDao getAccessLogCollection() {
         return new AccessLogDao();
     }
 
-    public static StandardLogDao getErrorLogCollection() {
+    public static StandardLogDao getStandardLogCollection() {
         return new StandardLogDao();
     }
 
