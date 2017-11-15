@@ -31,6 +31,18 @@ public class AccessLogsRes {
 
         AccessLog accessLog = ContentParser.getAttrFromContent(name, content);
 
+        /*
+        (1)处理后的
+        <134>Nov 15 16:40:39 snow.local couseservice[1039]: [main] org.eclipse.jetty.server.handler.ContextHandler Started i.d.j.MutableServletContextHandler@d5ce97f{/application,null,AVAILABLE}
+
+        (2)原本的
+        INFO  [2017-11-04 11:43:42,343] org.eclipse.jetty.util.log: Logging initialized @1835ms
+        INFO  [2017-11-04 11:43:42,474] io.dropwizard.server.ServerFactory: Starting couseservice
+        INFO  [2017-11-04 11:43:42,481] io.dropwizard.server.SimpleServerFactory: Registering jersey handler with root path prefix: /application
+        INFO  [2017-11-04 11:43:42,495] io.dropwizard.server.SimpleServerFactory: Registering admin handler with root path prefix: /admin
+        INFO  [2017-11-04 11:43:42,556] org.eclipse.jetty.setuid.SetUIDListener: Opened couseservice@6e521c1e{HTTP/1.1}{0.0.0.0:7000}
+         */
+
         accessLogDao.add(accessLog);
 
         //创建成功时：

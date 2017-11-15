@@ -86,9 +86,9 @@ public class Server {
 		if ("udp".equals(syslogProtocol)) {
 			config = new UDPSyslogServerConfig();
 		} else if ("tcp".equals(syslogProtocol)) {
-			config = new TCPSyslogServerConfig();
+//			config = new TCPSyslogServerConfig();
 		} else if ("tls".equals(syslogProtocol)) {
-			config = new TLSSyslogServerConfig();
+//			config = new TLSSyslogServerConfig();
 		}
 		return config;
 	}

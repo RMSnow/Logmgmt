@@ -60,6 +60,17 @@ public class Rfc5424SyslogEvent implements SyslogServerEventIF {
 	public Rfc5424SyslogEvent(byte[] data, int offset, int length) {
 		raw = new byte[length - offset];
 		System.arraycopy(data, offset, raw, 0, length);
+
+		//MY-TEST
+		System.out.println("---------------");
+		try {
+			System.out.println(new String(raw, CHARSET));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		System.out.println("---------------");
+
+
 		int startPos = 0;
 		int endPos = -1;
 
