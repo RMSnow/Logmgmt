@@ -24,7 +24,6 @@ public class StandardLogDao {
 
 
     private static final String KEY_ID = "_id";
-    private static final String KEY_NAME = "name";
     private static final String KEY_LEVEL = "level";
     private static final String KEY_TIMESTAMP = "timestamp";
     private static final String KEY_CLASS_NAME = "class_name";
@@ -46,9 +45,6 @@ public class StandardLogDao {
         if (level != null) {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
         }
-        if (name != null) {
-            conditions.add(Filters.eq(KEY_NAME, name));
-        }
         if (fromDatetime != null) {
             fromDatetime = DateUtil.parseDate(fromDatetime);
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
@@ -69,9 +65,6 @@ public class StandardLogDao {
         }
         if (standardLog.getTimestamp() != null) {
             d.append(KEY_TIMESTAMP, DateUtil.parseDate(standardLog.getTimestamp()));
-        }
-        if (standardLog.getName() != null) {
-            d.append(KEY_CLASS_NAME, standardLog.getClassName());
         }
         if (standardLog.getLevel() != null) {
             d.append(KEY_LEVEL, standardLog.getLevel());

@@ -45,10 +45,10 @@ public class AccessLogDao {
     }
 
 
-    public String queryByParam(String service, String host, String method, String facility, String fromTimestamp, String toTimestamp) {
+    public String queryByParam(String name, String host, String method, String facility, String fromTimestamp, String toTimestamp) {
         List<Bson> conditions = new ArrayList<Bson>();
-        if (service != null) {
-            conditions.add(Filters.eq(KEY_NAME, service));
+        if (name != null) {
+            conditions.add(Filters.eq(KEY_NAME, name));
         }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));
@@ -83,9 +83,11 @@ public class AccessLogDao {
         if (accessLog.getHost() != null) {
             d.append(KEY_HOST, accessLog.getHost());
         }
-        //添加name
         if (accessLog.getName() != null) {
             d.append(KEY_NAME, accessLog.getName());
+        }
+        if (accessLog.getMethod() != null) {
+            d.append(KEY_METHOD, accessLog.getMethod());
         }
         if (accessLog.getStatus() != 0) {
             d.append(KEY_STATUS, accessLog.getStatus());

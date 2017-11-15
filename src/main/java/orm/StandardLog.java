@@ -7,8 +7,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class StandardLog {
 
-    private String url;
-    private String name;
     private Integer level;
     private String timestamp;
     private String className;
@@ -25,16 +23,6 @@ public class StandardLog {
     }
 
     @JsonProperty
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @JsonProperty
     public String getClassName() {
         return className;
     }
@@ -42,16 +30,6 @@ public class StandardLog {
     @JsonProperty
     public void setClassName(String className) {
         this.className = className;
-    }
-
-    @JsonProperty
-    public String getUrl() {
-        return url;
-    }
-
-    @JsonProperty
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     @JsonProperty

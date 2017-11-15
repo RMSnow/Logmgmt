@@ -8,13 +8,13 @@ import orm.AccessLog;
 
 public class DBExample {
     public static void main(String[] args) {
-        addAccessLog();
-        queryAccessLog();
-        deleteAccessLog();
-
-        addStandardLog();
+//        addAccessLog();
+//        queryAccessLog();
+//        deleteAccessLog();
+//
+//        addStandardLog();
         queryStandardLog();
-        deleteStandardLog();
+//        deleteStandardLog();
     }
     private static void addAccessLog(){
         //新增
@@ -40,7 +40,7 @@ public class DBExample {
         System.out.println(MongoService.getAccessLogCollection().queryByParam(
                 "courseservice",
                 "123.207.73.150",
-                "GET",
+                null,
                 "Apache-HttpClient/4.5.2 (Java/1.8.0_151)",
                 null,
                 null
@@ -52,14 +52,14 @@ public class DBExample {
         MongoService.getAccessLogCollection().delete("5a07bed8ae678f0c9bd91339");
     }
     private static void addStandardLog(){
-        String name="courseservice";
-        String url="GET /application/api/v2/class? HTTP/1.1";
+        String className="io.dropwizard.server.SimpleServerFactory";
         String dateTime="04/Nov/2017:11:43:54";
-        String data="Exception in thread main java.lang.ArithmeticException: / by zero ";
+        int level=6;
+        String data="Registering admin handler with root path prefix: /admin";
         StandardLog standardLog =new StandardLog();
+        standardLog.setLevel(level);
         standardLog.setData(data);
-        standardLog.setName(name);
-        standardLog.setUrl(url);
+        standardLog.setClassName(className);
         standardLog.setTimestamp(dateTime);
         MongoService.getStandardLogCollection().add(standardLog);
     }
@@ -67,7 +67,7 @@ public class DBExample {
         System.out.println(MongoService.getStandardLogCollection().queryByParam(
                 null,
                 null,
-                "04/Nov/2017:10:43:54",
+                "04/Nov/2017:11:43:54",
                 null
         ));
     }

@@ -3,9 +3,9 @@ package res;
 import com.codahale.metrics.annotation.Timed;
 import entity.Result;
 import entity.Status;
-import mongodb.dao.LogDao;
+import mongodb.dao.AccessLogDao;
 import org.hibernate.validator.constraints.NotEmpty;
-import orm.Log;
+import orm.AccessLog;
 import util.ContentParser;
 
 import javax.ws.rs.*;
@@ -16,11 +16,11 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/api/v1/logs")
 @Produces(MediaType.APPLICATION_JSON)
-public class LogsRes {
-    private LogDao logDao;
+public class AccessLogsRes {
+    private AccessLogDao accessLogDao;
 
-    public LogsRes() {
-        logDao = new LogDao();
+    public AccessLogsRes() {
+        accessLogDao = new AccessLogDao();
     }
 
     @POST
@@ -29,9 +29,9 @@ public class LogsRes {
     public Result createLog(@NotEmpty @QueryParam("name") String name,
                             @NotEmpty @QueryParam("content") String content) {
 
-        Log log = ContentParser.getAttrFromContent(name, content);
+        AccessLog accessLog = ContentParser.getAttrFromContent(name, content);
 
-        logDao.add(log);
+        accessLogDao.add(accessLog);
 
         //创建成功时：
         return new Result("CREATED", Status.CREATED, "");
@@ -46,7 +46,7 @@ public class LogsRes {
                             @QueryParam("toDateTime") String toDateTime,
                             @QueryParam("client") String client) {
 
-        String data = logDao.queryByParam(name, ip, fromDateTime, toDateTime, client);
+        String data = accessLogDao.queryByParam(name, ip,null, client, fromDateTime, toDateTime);
         if (data == null) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
@@ -64,7 +64,7 @@ public class LogsRes {
                              @QueryParam("client") String client) {
 
         //----------------------------待完善----------------------------
-        //logDao.delete();
+        //accessLogDao.delete();
         //-------------------------------------------------------------
 
 

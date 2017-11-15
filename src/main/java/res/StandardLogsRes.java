@@ -12,8 +12,8 @@ import javax.ws.rs.core.MediaType;
  */
 @Path("/api/v1/logs/errors")
 @Produces(MediaType.APPLICATION_JSON)
-public class ErrorsRes {
-    public ErrorsRes(){
+public class StandardLogsRes {
+    public StandardLogsRes(){
 
     }
 
