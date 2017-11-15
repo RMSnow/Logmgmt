@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * Created by snow on 15/11/2017.
  */
-public class SyslogEvent implements SyslogServerEventIF {
+public class StandardSyslogEvent implements SyslogServerEventIF {
     private static final long serialVersionUID = 1L;
     private static final char SP = ' ';
     private static final String CHARSET = "UTF-8";
@@ -73,7 +73,7 @@ public class SyslogEvent implements SyslogServerEventIF {
         WARNING: A resource, Resource{"api/v1/homework", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "api/v1/homework" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
      */
 
-    public SyslogEvent(byte[] data, int offset, int length) {
+    public StandardSyslogEvent(byte[] data, int offset, int length) {
         raw = new byte[length - offset];
         System.arraycopy(data, offset, raw, 0, length);
 
