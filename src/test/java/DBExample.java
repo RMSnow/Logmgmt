@@ -5,6 +5,7 @@
 import mongodb.MongoService;
 import orm.StandardLog;
 import orm.AccessLog;
+import syslog.AccessSyslogEvent;
 
 public class DBExample {
     public static void main(String[] args) {
@@ -13,8 +14,10 @@ public class DBExample {
 //        deleteAccessLog();
 //
 //        addStandardLog();
-        queryStandardLog();
+//        queryStandardLog();
 //        deleteStandardLog();
+
+
     }
     private static void addAccessLog(){
         //新增
