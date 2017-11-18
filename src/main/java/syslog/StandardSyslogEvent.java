@@ -9,6 +9,8 @@ import java.util.Date;
 
 /**
  * Created by snow on 15/11/2017.
+ *
+ * 处理API运行日志、以及异常访问日志（WARNING、ERROR）
  */
 public class StandardSyslogEvent implements SyslogServerEventIF {
     private static final long serialVersionUID = 1L;
@@ -36,43 +38,6 @@ public class StandardSyslogEvent implements SyslogServerEventIF {
     private final String className;
     private final String content;
 
-    /*
-    (3)要存到数据库中的
-        {
-            "_id" : ObjectID("[特定值]"),
-            "name" : "courseservice",
-            "level" : 6,
-            "timestamp" : ISODate("2017-11-04 11:43:42"),
-            "class : "io.dropwizard.server.SimpleServerFactory",
-            "data" : "Registering admin handler with root path prefix: /admin"
-        }
-     */
-
-    /*
-        <134>
-        Nov 15 16:40:39
-        snow.local
-        couseservice[1039]:
-        [main] org.eclipse.jetty.server.handler.ContextHandler
-        Started i.d.j.MutableServletContextHandler@de77232{/admin,null,AVAILABLE}
-
-        <134>
-        Nov 15 16:40:39
-        snow.local
-        couseservice[1039]:
-        [main] org.eclipse.jetty.server.Server
-        Started
-        @28191ms
-
-        <132>
-        Nov 15 17:14:48
-        snow.local
-        couseservice[1212]:
-        [main] org.glassfish.jersey.internal.Errors
-        The following warnings have been detected: WARNING: A resource, Resource{"api/v1/answer", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "api/v1/answer" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
-        WARNING: A resource, Resource{"api/v1/homework", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "api/v1/homework" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
-     */
-
     public StandardSyslogEvent(byte[] data, int offset, int length) {
         raw = new byte[length - offset];
         System.arraycopy(data, offset, raw, 0, length);
@@ -90,7 +55,7 @@ public class StandardSyslogEvent implements SyslogServerEventIF {
         int endPos = -1;
         int tempPos = endPos;
 
-        //level: <132>、<134>
+        //prival: <132>、<134>
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');
         priority = getString(raw, startPos, endPos);
