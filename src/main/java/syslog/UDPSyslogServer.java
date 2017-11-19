@@ -25,6 +25,7 @@ import org.productivity.java.syslog4j.SyslogConstants;
 import org.productivity.java.syslog4j.SyslogRuntimeException;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 import org.productivity.java.syslog4j.server.impl.net.udp.UDPNetSyslogServer;
+import syslog.demo.SyslogEvent;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -60,7 +61,7 @@ public class UDPSyslogServer extends UDPNetSyslogServer {
             try {
                 final DatagramPacket dp = new DatagramPacket(receiveData, receiveData.length);
                 this.ds.receive(dp);
-                final SyslogServerEventIF event = new StandardSyslogEvent(receiveData, dp.getOffset(), dp.getLength());
+                final SyslogServerEventIF event = new SyslogEvent(receiveData, dp.getOffset(), dp.getLength());
                 System.out.println(">>> Syslog message came: " + event);
             } catch (SocketException se) {
                 se.printStackTrace();

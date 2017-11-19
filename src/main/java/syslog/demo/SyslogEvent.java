@@ -26,7 +26,11 @@ public class SyslogEvent implements SyslogServerEventIF {
     //类名
     protected String className;
 
-    public SyslogEvent(){
+    protected int startPos;
+    protected int endPos;
+    protected int tempPos;
+
+    public SyslogEvent() {
 
     }
 
@@ -43,17 +47,13 @@ public class SyslogEvent implements SyslogServerEventIF {
         }
         System.out.println("---------------");
 
-        int startPos = 0;
-        int endPos = -1;
-        int tempPos = endPos;
-
         //PRI: <131>、<132>、<134>等
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');
         priVal = Integer.parseInt(getString(raw, startPos, endPos));
         level = priVal & 7;
         facility = (priVal - level) >> 3;
-        System.out.printf(priVal + "\t" + level + "\t" + facility +"\n");
+        //System.out.printf(priVal + "\t" + level + "\t" + facility + "\n");
 
         /**
          * 判断是否是异常日志
@@ -68,11 +68,15 @@ public class SyslogEvent implements SyslogServerEventIF {
               6       Informational: informational messages
               7       Debug: debug-level messages
          */
+        if (level == 3) {
+            //TODO: 修改判定范围
+            new LoggingSyslog(this);
+        }
 
         //TODO: divide the event into different types
 
 
-//        //time: Nov 15 17:14:48
+        //time: Nov 15 17:14:48
 //        startPos = endPos + 1;
 //        tempPos = searchChar(raw, startPos, ' ');
 //        tempPos = searchChar(raw, tempPos + 1, ' ');
@@ -103,8 +107,8 @@ public class SyslogEvent implements SyslogServerEventIF {
 //        //content
 //        startPos = endPos +1;
 //        endPos = raw.length;
-//        content = getString(raw, startPos,endPos);
-//        System.out.printf(content + "\n");
+//        message = getString(raw, startPos,endPos);
+//        System.out.printf(message + "\n");
 
     }
 
@@ -201,7 +205,27 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     @Override
     public String toString() {
-        //TODO: print the log
+//        protected int priVal;
+//        protected int facility;
+//        protected int level;
+//        protected String timestamp;
+//        protected String host;
+//        protected String message;
+//
+//        protected static final String CHARSET = "UTF-8";
+//
+//        //服务名
+//        protected String serviceName;
+//        //类名
+//        protected String className;
+
+//        return "\nfacility: " + facility + "\n" +
+//                "level: " + level + "\n" +
+//                "timestamp: " + timestamp + "\n" +
+//                "host: " + host + "\n" +
+//                "serviceName: " + serviceName + "\n" +
+//                "className: " + className + "\n" +
+//                "message: " + message + "\n";
 
         return "doing...";
     }

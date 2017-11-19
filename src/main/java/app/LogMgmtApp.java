@@ -13,6 +13,7 @@ import res.AccessLogsRes;
 public class LogMgmtApp extends Application<LogMgmtConf> {
     @Override
     public String getName() {
+        //to modify
         return "logmgmt";
     }
 
