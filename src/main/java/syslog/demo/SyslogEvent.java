@@ -21,10 +21,8 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     protected static final String CHARSET = "UTF-8";
 
-    //服务名
-    protected String serviceName;
-    //类名
-    protected String className;
+    protected String serviceName;       //服务名
+    protected String className;     //类名
 
     protected int startPos;
     protected int endPos;
@@ -47,17 +45,12 @@ public class SyslogEvent implements SyslogServerEventIF {
         }
         System.out.println("---------------");
 
-        //PRI: <131>、<132>、<134>等
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');
         priVal = Integer.parseInt(getString(raw, startPos, endPos));
         level = priVal & 7;
         facility = (priVal - level) >> 3;
-        //System.out.printf(priVal + "\t" + level + "\t" + facility + "\n");
 
-        /**
-         * 判断是否是异常日志
-         */
         /*
               0       Emergency: system is unusable
               1       Alert: action must be taken immediately
@@ -68,47 +61,13 @@ public class SyslogEvent implements SyslogServerEventIF {
               6       Informational: informational messages
               7       Debug: debug-level messages
          */
+
         if (level == 3) {
-            //TODO: 修改判定范围
-            new LoggingSyslog(this);
+            new LoggingSyslog(this, LoggingSyslog.ERROR_LOG);
+            return;
         }
 
-        //TODO: divide the event into different types
-
-
-        //time: Nov 15 17:14:48
-//        startPos = endPos + 1;
-//        tempPos = searchChar(raw, startPos, ' ');
-//        tempPos = searchChar(raw, tempPos + 1, ' ');
-//        endPos = searchChar(raw, tempPos + 1, ' ');
-//        timestamp = getString(raw, startPos, endPos);
-//        System.out.printf(timestamp + "\n");
-//
-//        //host: snow.local
-//        startPos = endPos + 1;
-//        endPos = searchChar(raw, startPos, ' ');
-//        host = getString(raw, startPos, endPos);
-//        System.out.printf(host + "\n");
-//
-//        //name of service: courseservice
-//        startPos = endPos + 1;
-//        endPos = searchChar(raw, startPos, '[');
-//        serviceName = getString(raw, startPos, endPos);
-//        System.out.printf(serviceName+"\n");
-//
-//        //class: org.eclipse.jetty.server.ServerConnector
-//        startPos = endPos + 1;
-//        tempPos = searchChar(raw, startPos, ']');
-//        startPos = searchChar(raw, tempPos + 1, ']') + 2;
-//        endPos = searchChar(raw,startPos,' ');
-//        className = getString(raw, startPos, endPos);
-//        System.out.printf(className + "\n");
-//
-//        //content
-//        startPos = endPos +1;
-//        endPos = raw.length;
-//        message = getString(raw, startPos,endPos);
-//        System.out.printf(message + "\n");
+        //TODO: distinguish normal logs between RequestSyslog and LoggingSyslog
 
     }
 
@@ -205,28 +164,14 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     @Override
     public String toString() {
-//        protected int priVal;
-//        protected int facility;
-//        protected int level;
-//        protected String timestamp;
-//        protected String host;
-//        protected String message;
-//
-//        protected static final String CHARSET = "UTF-8";
-//
-//        //服务名
-//        protected String serviceName;
-//        //类名
-//        protected String className;
+        return "\nfacility: " + facility + "\n" +
+                "level: " + level + "\n" +
+                "timestamp: " + timestamp + "\n" +
+                "host: " + host + "\n" +
+                "serviceName: " + serviceName + "\n" +
+                "className: " + className + "\n" +
+                "message: " + message + "\n";
 
-//        return "\nfacility: " + facility + "\n" +
-//                "level: " + level + "\n" +
-//                "timestamp: " + timestamp + "\n" +
-//                "host: " + host + "\n" +
-//                "serviceName: " + serviceName + "\n" +
-//                "className: " + className + "\n" +
-//                "message: " + message + "\n";
-
-        return "doing...";
+        //return "doing...";
     }
 }
