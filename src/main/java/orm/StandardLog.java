@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class StandardLog {
 
     private Integer level;
-    private String timestamp;
+    private String datetime;
     private String className;
     private String data;
 
@@ -33,13 +33,13 @@ public class StandardLog {
     }
 
     @JsonProperty
-    public String getTimestamp() {
-        return timestamp;
+    public String getDatetime() {
+        return datetime;
     }
 
     @JsonProperty
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     @JsonProperty

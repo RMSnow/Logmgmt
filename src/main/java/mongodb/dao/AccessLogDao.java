@@ -31,7 +31,7 @@ public class AccessLogDao {
     private static final String KEY_METHOD = "method";
     private static final String KEY_URL = "url";
     private static final String KEY_STATUS = "status";
-    private static final String KEY_FACILITY = "facility";
+    private static final String KEY_CLIENT = "client";
 
     MongoCollection<Document> collection;
 
@@ -65,7 +65,7 @@ public class AccessLogDao {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toTimestamp));
         }
         if (facility != null) {
-            conditions.add(Filters.eq(KEY_FACILITY, facility));
+            conditions.add(Filters.eq(KEY_CLIENT, facility));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
         return JsonUtil.parseFindIterableToJsonArray(it);
@@ -74,11 +74,11 @@ public class AccessLogDao {
 
     public void add(AccessLog accessLog) {
         Document d = new Document();
-        if (accessLog.getFacility() != null) {
-            d.append(KEY_FACILITY, accessLog.getFacility());
+        if (accessLog.getClient() != null) {
+            d.append(KEY_CLIENT, accessLog.getClient());
         }
-        if (accessLog.getTimestamp() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseDate(accessLog.getTimestamp()));
+        if (accessLog.getDatetime() != null) {
+            d.append(KEY_TIMESTAMP, DateUtil.parseDate(accessLog.getDatetime()));
         }
         if (accessLog.getHost() != null) {
             d.append(KEY_HOST, accessLog.getHost());

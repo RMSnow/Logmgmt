@@ -8,11 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AccessLog {
     private String host;
     private String name;
-    private String timestamp;
+    private String datetime;
     private String method;
     private String url;
     private Integer status;
-    private String facility;
+    private String client;
 
 
     @JsonProperty
@@ -46,13 +46,13 @@ public class AccessLog {
     }
 
     @JsonProperty
-    public String getTimestamp() {
-        return timestamp;
+    public String getDatetime() {
+        return datetime;
     }
 
     @JsonProperty
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
+    public void setDatetime(String datetime) {
+        this.datetime = datetime;
     }
 
     @JsonProperty
@@ -76,13 +76,13 @@ public class AccessLog {
     }
 
     @JsonProperty
-    public String getFacility() {
-        return facility;
+    public String getClient() {
+        return client;
     }
 
     @JsonProperty
-    public void setFacility(String facility) {
-        this.facility = facility;
+    public void setClient(String client) {
+        this.client = client;
     }
 
 }

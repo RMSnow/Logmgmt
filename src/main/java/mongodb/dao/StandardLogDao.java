@@ -63,8 +63,8 @@ public class StandardLogDao {
         if (standardLog.getData() != null) {
             d.append(KEY_DATA, standardLog.getData());
         }
-        if (standardLog.getTimestamp() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseDate(standardLog.getTimestamp()));
+        if (standardLog.getDatetime() != null) {
+            d.append(KEY_TIMESTAMP, DateUtil.parseDate(standardLog.getDatetime()));
         }
         if (standardLog.getLevel() != null) {
             d.append(KEY_LEVEL, standardLog.getLevel());
