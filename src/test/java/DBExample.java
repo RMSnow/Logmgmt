@@ -5,7 +5,6 @@
 import mongodb.MongoService;
 import orm.StandardLog;
 import orm.AccessLog;
-import syslog.AccessSyslogEvent;
 
 public class DBExample {
     public static void main(String[] args) {
@@ -34,8 +33,8 @@ public class DBExample {
         accessLog.setMethod(method);
         accessLog.setUrl(url);
         accessLog.setStatus(status);
-        accessLog.setFacility(facility);
-        accessLog.setTimestamp(dateTime);
+        accessLog.setClient(facility);
+        accessLog.setDatetime(dateTime);
         MongoService.getAccessLogCollection().add(accessLog);
     }
     private static void queryAccessLog(){
@@ -61,9 +60,9 @@ public class DBExample {
         String data="Registering admin handler with root path prefix: /admin";
         StandardLog standardLog =new StandardLog();
         standardLog.setLevel(level);
-        standardLog.setData(data);
+        standardLog.setMessage(data);
         standardLog.setClassName(className);
-        standardLog.setTimestamp(dateTime);
+        standardLog.setDatetime(dateTime);
         MongoService.getStandardLogCollection().add(standardLog);
     }
     private static void queryStandardLog(){

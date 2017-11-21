@@ -7,10 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class StandardLog {
 
+    private String name;
     private Integer level;
     private String datetime;
     private String className;
-    private String data;
+    private String message;
 
     @JsonProperty
     public Integer getLevel() {
@@ -43,12 +44,22 @@ public class StandardLog {
     }
 
     @JsonProperty
-    public String getData() {
-        return data;
+    public String getMessage() {
+        return message;
     }
 
     @JsonProperty
-    public void setData(String data) {
-        this.data = data;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    @JsonProperty
+    public String getName() {
+        return name;
+    }
+
+    @JsonProperty
+    public void setName(String name) {
+        this.name = name;
     }
 }

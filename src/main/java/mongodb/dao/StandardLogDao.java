@@ -24,10 +24,11 @@ public class StandardLogDao {
 
 
     private static final String KEY_ID = "_id";
+    private static final String KEY_NAME = "name";
     private static final String KEY_LEVEL = "level";
-    private static final String KEY_TIMESTAMP = "timestamp";
+    private static final String KEY_DATETIME = "datetime";
     private static final String KEY_CLASS_NAME = "class_name";
-    private static final String KEY_DATA = "data";
+    private static final String KEY_MESSAGE = "message";
 
     MongoCollection<Document> collection;
 
@@ -42,16 +43,19 @@ public class StandardLogDao {
 
     public String queryByParam(Integer level, String name, String fromDatetime, String toDatetime) {
         List<Bson> conditions = new ArrayList<Bson>();
+        if (name != null) {
+            conditions.add(Filters.eq(KEY_NAME,name));
+        }
         if (level != null) {
-            conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
+            conditions.add(Filters.gte(KEY_DATETIME, fromDatetime));
         }
         if (fromDatetime != null) {
             fromDatetime = DateUtil.parseDate(fromDatetime);
-            conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
+            conditions.add(Filters.gte(KEY_DATETIME, fromDatetime));
         }
         if (toDatetime != null) {
             toDatetime = DateUtil.parseDate(toDatetime);
-            conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
+            conditions.add(Filters.lte(KEY_DATETIME, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
 
@@ -60,11 +64,14 @@ public class StandardLogDao {
 
     public void add(StandardLog standardLog) {
         Document d = new Document();
-        if (standardLog.getData() != null) {
-            d.append(KEY_DATA, standardLog.getData());
+        if (standardLog.getName() != null) {
+            d.append(KEY_NAME, standardLog.getName());
+        }
+        if (standardLog.getMessage() != null) {
+            d.append(KEY_MESSAGE, standardLog.getMessage());
         }
         if (standardLog.getDatetime() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseDate(standardLog.getDatetime()));
+            d.append(KEY_DATETIME, DateUtil.parseDate(standardLog.getDatetime()));
         }
         if (standardLog.getLevel() != null) {
             d.append(KEY_LEVEL, standardLog.getLevel());

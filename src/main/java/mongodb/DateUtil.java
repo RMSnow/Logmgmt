@@ -10,7 +10,7 @@ import java.util.Locale;
  */
 public class DateUtil {
     public static String parseDate(String dateStr) {
-        SimpleDateFormat originFormat = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss", Locale.ENGLISH);
+        SimpleDateFormat originFormat = new SimpleDateFormat("dd/MMM/yyyy:hh:mm:ss", Locale.CHINA);
         SimpleDateFormat newFormat = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
 
         Date d = null;

@@ -1,5 +1,8 @@
 package syslog.demo;
 
+import mongodb.MongoService;
+import orm.AccessLog;
+
 import java.util.regex.Pattern;
 
 /**
@@ -16,11 +19,13 @@ public class RequestSyslog extends SyslogEvent {
     <134>Nov 20 22:30:53 DESKTOP-9EODV8A couseservice[8796]: [main] org.eclipse.jetty.server.Server jetty-9.2.13.v20150730
      */
 
+    //access log
     private String datetime;
     private String method;
     private String url;
     private int status;
     private String client;
+
 
     public RequestSyslog(SyslogEvent event) {
         int startPos=event.startPos;
@@ -55,21 +60,7 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, ' ');
         host = getString(raw, startPos, endPos);
         System.out.printf(host + "\n");
-        if (isRequestLog(host)){
-            parseRequestLog();
-        }else{
-            parseInfoLog();
-        }
-    }
-    private boolean isRequestLog(String msg){
-        String infoPattern="\\d{1,3}(:\\d){2,}";
-        return Pattern.matches(infoPattern,msg);
-    }
-    private void parseInfoLog(){
-        startPos=endPos+1;
-        String msg=getString(raw,startPos,raw.length);
-    }
-    private void parseRequestLog(){
+
         //date
         startPos=endPos+1;
         startPos=searchChar(raw,startPos,'[')+1;
@@ -107,5 +98,16 @@ public class RequestSyslog extends SyslogEvent {
         endPos=searchChar(raw,startPos,'\"');
         client=getString(raw,startPos,endPos);
         System.out.println(client);
+
+        AccessLog log=new AccessLog();
+        log.setClient(client);
+        log.setDatetime(datetime);
+        log.setStatus(status);
+        log.setHost(host);
+        log.setMethod(method);
+        log.setName(serviceName);
+        log.setUrl(url);
+        MongoService.getAccessLogCollection().add(log);
     }
+
 }

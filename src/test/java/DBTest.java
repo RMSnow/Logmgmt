@@ -16,8 +16,8 @@ public class DBTest {
         accessLog.setName(name);
         accessLog.setUrl(url);
         accessLog.setStatus(status);
-        accessLog.setFacility(client);
-        accessLog.setTimestamp(dateTime);
+        accessLog.setClient(client);
+        accessLog.setDatetime(dateTime);
 
     }
 }

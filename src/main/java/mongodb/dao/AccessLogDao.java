@@ -27,7 +27,7 @@ public class AccessLogDao {
     private static final String KEY_ID = "_id";
     private static final String KEY_HOST = "host";
     private static final String KEY_NAME = "name";
-    private static final String KEY_TIMESTAMP = "timestamp";
+    private static final String KEY_DATETIME = "datetime";
     private static final String KEY_METHOD = "method";
     private static final String KEY_URL = "url";
     private static final String KEY_STATUS = "status";
@@ -58,11 +58,11 @@ public class AccessLogDao {
         }
         if (fromTimestamp != null) {
             fromTimestamp = DateUtil.parseDate(fromTimestamp);
-            conditions.add(Filters.gte(KEY_TIMESTAMP, fromTimestamp));
+            conditions.add(Filters.gte(KEY_DATETIME, fromTimestamp));
         }
         if (toTimestamp != null) {
             toTimestamp = DateUtil.parseDate(toTimestamp);
-            conditions.add(Filters.lte(KEY_TIMESTAMP, toTimestamp));
+            conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
         }
         if (facility != null) {
             conditions.add(Filters.eq(KEY_CLIENT, facility));
@@ -78,7 +78,7 @@ public class AccessLogDao {
             d.append(KEY_CLIENT, accessLog.getClient());
         }
         if (accessLog.getDatetime() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseDate(accessLog.getDatetime()));
+            d.append(KEY_DATETIME, DateUtil.parseDate(accessLog.getDatetime()));
         }
         if (accessLog.getHost() != null) {
             d.append(KEY_HOST, accessLog.getHost());

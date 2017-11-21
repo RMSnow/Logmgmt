@@ -4,6 +4,7 @@ import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * Created by snow on 18/11/2017.
@@ -66,11 +67,33 @@ public class SyslogEvent implements SyslogServerEventIF {
             new LoggingSyslog(this, LoggingSyslog.ERROR_LOG);
             return;
         }
-        if (level==6){
-            new RequestSyslog(this);
-        }
+
         //TODO: distinguish normal logs between RequestSyslog and LoggingSyslog
 
+        if (level==6){
+            int lastPos=raw.length;
+            int beforeLastPos=0;
+            for (int i = lastPos-1; i >lastPos-10; i--) {
+                if (raw[i]==' '){
+                    beforeLastPos=i;
+                }
+            }
+            String numOrNot=getString(raw,beforeLastPos+1,lastPos);
+            System.out.println(numOrNot);
+            if (isRequestLog(numOrNot)){
+                new RequestSyslog(this);
+            }else {
+                new LoggingSyslog(this,LoggingSyslog.NORMAL_LOG);
+            }
+        }
+
+
+    }
+
+    private boolean isRequestLog(String msg){
+//        String infoPattern="\\d{1,3}(:\\d){2,}";
+        String infoPattern="[0-9]+";
+        return Pattern.matches(infoPattern,msg);
     }
 
     protected String getString(byte[] data, int startPos, int endPos) {
