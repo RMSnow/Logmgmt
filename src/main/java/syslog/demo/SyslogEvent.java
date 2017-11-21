@@ -66,7 +66,7 @@ public class SyslogEvent implements SyslogServerEventIF {
             new LoggingSyslog(this, LoggingSyslog.ERROR_LOG);
             return;
         }
-        if (level==4){
+        if (level==6){
             new RequestSyslog(this);
         }
         //TODO: distinguish normal logs between RequestSyslog and LoggingSyslog
