@@ -1,4 +1,4 @@
-package syslog;
+package syslog.toDelete;
 
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 

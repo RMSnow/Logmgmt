@@ -61,8 +61,11 @@ public class UDPSyslogServer extends UDPNetSyslogServer {
             try {
                 final DatagramPacket dp = new DatagramPacket(receiveData, receiveData.length);
                 this.ds.receive(dp);
-                final SyslogServerEventIF event = new SyslogEvent(receiveData, dp.getOffset(), dp.getLength());
-                System.out.println(">>> Syslog message came: " + event);
+                //final SyslogServerEventIF event = new SyslogEvent(receiveData, dp.getOffset(), dp.getLength());
+                //System.out.println(">>> Syslog message came: " + event);
+
+                new SyslogEvent(receiveData, dp.getOffset(), dp.getLength());
+
             } catch (SocketException se) {
                 se.printStackTrace();
             } catch (IOException ioe) {

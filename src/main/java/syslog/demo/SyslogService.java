@@ -5,4 +5,18 @@ package syslog.demo;
  */
 public class SyslogService {
 
+    // Logging中的正常日志（INFO/WARNING等）
+    public static void addLoggingNormal(LoggingSyslog syslog){
+
+    }
+
+    // Logging中的异常日志（ERROR）
+    public static void addLoggingError(LoggingSyslog syslog){
+
+    }
+
+    // RequestLog
+    public static void addRequestLog(RequestSyslog syslog){
+
+    }
 }

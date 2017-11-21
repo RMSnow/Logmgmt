@@ -1,8 +1,6 @@
 package syslog.demo;
 
 /**
- * Created by snow on 18/11/2017.
- * <p>
  * 处理运行API的日志
  */
 public class LoggingSyslog extends SyslogEvent {
@@ -10,41 +8,68 @@ public class LoggingSyslog extends SyslogEvent {
     public static final boolean ERROR_LOG = false;
 
     public LoggingSyslog(SyslogEvent event, boolean tag) {
-        event.startPos = event.endPos + 1;
-        event.tempPos = searchChar(event.raw, event.startPos, ' ');
-        event.tempPos = searchChar(event.raw, event.tempPos + 1, ' ');
-        event.endPos = searchChar(event.raw, event.tempPos + 1, ' ');
-        event.timestamp = getString(event.raw, event.startPos, event.endPos);
+        init(event);
 
-        event.startPos = event.endPos + 1;
-        event.endPos = searchChar(event.raw, event.startPos, ' ');
-        event.host = getString(event.raw, event.startPos, event.endPos);
+        startPos = endPos + 1;
+        tempPos = searchChar(raw, startPos, ' ');
+        tempPos = searchChar(raw, tempPos + 1, ' ');
+        endPos = searchChar(raw, tempPos + 1, ' ');
+        timestamp = getString(raw, startPos, endPos);
+
+        startPos = endPos + 1;
+        endPos = searchChar(raw, startPos, ' ');
+        host = getString(raw, startPos, endPos);
 
         if (tag == NORMAL_LOG) {
-            logging(event);
+            logging();
+            System.out.println(toString());
+            SyslogService.addLoggingNormal(this);
         } else {
-            errorLogging(event);
+            errorLogging();
+            System.out.println(toString());
+            SyslogService.addLoggingError(this);
         }
 
     }
 
     /**
+     * 域的初始化
+     *
+     * @param event
+     */
+    private void init(SyslogEvent event) {
+        this.raw = event.raw;
+        this.priVal = event.priVal;
+        this.facility = event.facility;
+        this.level = event.level;
+        this.timestamp = event.timestamp;
+        this.host = event.host;
+        this.message = event.message;
+        this.serviceName = event.serviceName;
+        this.className = event.className;
+
+        this.startPos = event.startPos;
+        this.endPos = event.endPos;
+        this.tempPos = event.tempPos;
+    }
+
+    /**
      * 正常日志（INFO/WARNING等）
      */
-    public void logging(SyslogEvent event) {
-        event.startPos = event.endPos + 1;
-        event.endPos = searchChar(event.raw, event.startPos, '[');
-        event.serviceName = getString(event.raw, event.startPos, event.endPos);
+    public void logging() {
+        startPos = endPos + 1;
+        endPos = searchChar(raw, startPos, '[');
+        serviceName = getString(raw, startPos, endPos);
 
-        event.startPos = event.endPos + 1;
-        event.tempPos = searchChar(event.raw, event.startPos, ']');
-        event.startPos = searchChar(event.raw, event.tempPos + 1, ']') + 2;
-        event.endPos = searchChar(event.raw, event.startPos, ' ');
-        event.className = getString(event.raw, event.startPos, event.endPos);
+        startPos = endPos + 1;
+        tempPos = searchChar(raw, startPos, ']');
+        startPos = searchChar(raw, tempPos + 1, ']') + 2;
+        endPos = searchChar(raw, startPos, ' ');
+        className = getString(raw, startPos, endPos);
 
-        event.startPos = event.endPos + 1;
-        event.endPos = event.raw.length;
-        event.message = getString(event.raw, event.startPos, event.endPos);
+        startPos = endPos + 1;
+        endPos = raw.length;
+        message = getString(raw, startPos, endPos);
     }
 
     /**
@@ -52,31 +77,43 @@ public class LoggingSyslog extends SyslogEvent {
      * type1：header，即包含报错的信息头
      * type2：body，即堆栈信息（只有第一条是错误类型说明，其他均为行号的报错）
      */
-    public void errorLogging(SyslogEvent event) {
+    public void errorLogging() {
         //当event为type2时，host后面是一个空格 + 一个tab键
-        event.startPos = event.endPos + 1;
-        String flagChar = getString(event.raw, event.startPos, event.startPos + 1);
+        startPos = endPos + 1;
+        String flagChar = getString(raw, startPos, startPos + 1);
+
         if (flagChar.equals("\t")) {      //type2
-            event.startPos++;
-            event.endPos = event.raw.length;
-            event.message = getString(event.raw, event.startPos, event.endPos);
+            startPos++;
+            endPos = raw.length;
+            message = getString(raw, startPos, endPos);
         } else {     //type1
-            event.endPos = searchChar(event.raw, event.startPos, '[');
-            event.serviceName = getString(event.raw, event.startPos, event.endPos);
+            endPos = searchChar(raw, startPos, '[');
+            serviceName = getString(raw, startPos, endPos);
 
-            event.tempPos = event.endPos + 1;
-            event.endPos = searchChar(event.raw, event.tempPos, '[');
-            event.startPos = event.endPos + 1;
-            event.endPos = searchChar(event.raw, event.startPos, ']');
-            event.message = getString(event.raw, event.startPos, event.endPos);
+            tempPos = endPos + 1;
+            endPos = searchChar(raw, tempPos, '[');
+            startPos = endPos + 1;
+            endPos = searchChar(raw, startPos, ']');
+            message = getString(raw, startPos, endPos);
 
-            event.startPos = event.endPos + 2;
-            event.endPos = searchChar(event.raw, event.startPos, ' ');
-            event.className = getString(event.raw, event.startPos, event.endPos);
+            startPos = endPos + 2;
+            endPos = searchChar(raw, startPos, ' ');
+            className = getString(raw, startPos, endPos);
 
-            event.startPos = event.endPos + 1;
-            event.endPos = event.raw.length;
-            event.message = "[" + event.message + "] " + getString(event.raw, event.startPos, event.endPos);
+            startPos = endPos + 1;
+            endPos = raw.length;
+            message = "[" + message + "] " + getString(raw, startPos, endPos);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "facility: " + facility + "\n" +
+                "level: " + level + "\n" +
+                "timestamp: " + timestamp + "\n" +
+                "host: " + host + "\n" +
+                "serviceName: " + serviceName + "\n" +
+                "className: " + className + "\n" +
+                "message: " + message + "\n";
     }
 }

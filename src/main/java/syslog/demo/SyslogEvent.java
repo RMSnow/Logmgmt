@@ -68,32 +68,37 @@ public class SyslogEvent implements SyslogServerEventIF {
             return;
         }
 
-        //TODO: distinguish normal logs between RequestSyslog and LoggingSyslog
+        /* distinguish normal logs between RequestSyslog and LoggingSyslog */
 
-        if (level==6){
-            int lastPos=raw.length;
-            int beforeLastPos=0;
-            for (int i = lastPos-1; i >lastPos-10; i--) {
-                if (raw[i]==' '){
-                    beforeLastPos=i;
+        if (level == 6) {
+            int lastPos = raw.length;
+            int beforeLastPos = 0;
+            for (int i = lastPos - 1; i > lastPos - 10; i--) {
+                if (raw[i] == ' ') {
+                    beforeLastPos = i;
                 }
             }
-            String numOrNot=getString(raw,beforeLastPos+1,lastPos);
-            System.out.println(numOrNot);
-            if (isRequestLog(numOrNot)){
+            String numOrNot = getString(raw, beforeLastPos + 1, lastPos);
+            //System.out.println(numOrNot);
+            if (isRequestLog(numOrNot)) {
                 new RequestSyslog(this);
-            }else {
-                new LoggingSyslog(this,LoggingSyslog.NORMAL_LOG);
+                return;
+            } else {
+                new LoggingSyslog(this, LoggingSyslog.NORMAL_LOG);
+                return;
             }
+        }else {
+            // warning: level = 4
+            new LoggingSyslog(this, LoggingSyslog.NORMAL_LOG);
+            return;
         }
-
-
     }
 
-    private boolean isRequestLog(String msg){
-//        String infoPattern="\\d{1,3}(:\\d){2,}";
-        String infoPattern="[0-9]+";
-        return Pattern.matches(infoPattern,msg);
+    private boolean isRequestLog(String msg) {
+        //String infoPattern="\\d{1,3}(:\\d){2,}";
+        String infoPattern = "[0-9]+";
+        return Pattern.matches(infoPattern, msg);
+
     }
 
     protected String getString(byte[] data, int startPos, int endPos) {
@@ -187,16 +192,14 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     }
 
-    @Override
-    public String toString() {
-        return "\nfacility: " + facility + "\n" +
-                "level: " + level + "\n" +
-                "timestamp: " + timestamp + "\n" +
-                "host: " + host + "\n" +
-                "serviceName: " + serviceName + "\n" +
-                "className: " + className + "\n" +
-                "message: " + message + "\n";
-
-        //return "doing...";
-    }
+//    @Override
+//    public String toString() {
+//        return "\nfacility: " + facility + "\n" +
+//                "level: " + level + "\n" +
+//                "timestamp: " + timestamp + "\n" +
+//                "host: " + host + "\n" +
+//                "serviceName: " + serviceName + "\n" +
+//                "className: " + className + "\n" +
+//                "message: " + message + "\n";
+//    }
 }
