@@ -60,15 +60,14 @@ public class RequestSyslog extends SyslogEvent {
         }else{
             parseInfoLog();
         }
-
-
     }
     private boolean isRequestLog(String msg){
         String infoPattern="\\d{1,3}(:\\d){2,}";
         return Pattern.matches(infoPattern,msg);
     }
     private void parseInfoLog(){
-
+        startPos=endPos+1;
+        String msg=getString(raw,startPos,raw.length);
     }
     private void parseRequestLog(){
         //date
