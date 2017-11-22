@@ -15,6 +15,7 @@ public class RequestSyslog extends SyslogEvent {
      */
 
     //access log
+    private String clientIP;
     private String datetime;
     private String method;
     private String url;
@@ -38,24 +39,25 @@ public class RequestSyslog extends SyslogEvent {
         tempPos = searchChar(raw, tempPos + 1, ' ');
         endPos = searchChar(raw, tempPos + 1, ' ');
         timestamp = getString(raw, startPos, endPos);
-        //System.out.printf(timestamp + "\n");
+
+        //hostname
+        startPos=endPos+1;
+        endPos=searchChar(raw, startPos, ' ');
+        host=getString(raw, startPos, endPos);
 
         //name
         startPos = endPos + 1;
-        startPos = searchChar(raw, startPos, ' ') + 1;
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
-        //System.out.printf(serviceName + "\n");
 
-        //host or not
+        //clientIP
         startPos = endPos + 1;
         tempPos = searchChar(raw, startPos, ' ');
         tempPos = searchChar(raw, tempPos + 1, ' ');
         tempPos = searchChar(raw, tempPos + 1, ' ');
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
-        host = getString(raw, startPos, endPos);
-        //System.out.printf(host + "\n");
+        clientIP = getString(raw, startPos, endPos);
 
         //date
         startPos = endPos + 1;
@@ -102,15 +104,7 @@ public class RequestSyslog extends SyslogEvent {
          */
         SyslogService.addRequestLog(this);
 
-//        AccessLog log = new AccessLog();
-//        log.setClient(client);
-//        log.setDatetime(datetime);
-//        log.setStatus(status);
-//        log.setHost(host);
-//        log.setMethod(method);
-//        log.setName(serviceName);
-//        log.setUrl(url);
-//        MongoService.getAccessLogCollection().add(log);
+
     }
 
     /**
@@ -127,6 +121,33 @@ public class RequestSyslog extends SyslogEvent {
         this.raw = event.raw;
     }
 
+    public String getClientIP() {
+        return clientIP;
+    }
+
+    public String getDatetime() {
+        return datetime;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getClient() {
+        return client;
+    }
+    public String getServiceName(){
+        return serviceName;
+    }
+
     @Override
     public String toString() {
         return "facility: " + facility + "\n" +
@@ -134,6 +155,7 @@ public class RequestSyslog extends SyslogEvent {
                 "timestamp: " + timestamp + "\n" +
                 "host: " + host + "\n" +
                 "serviceName: " + serviceName + "\n" +
+                "clientIP: " + clientIP + "\n" +
                 "datetime: " + datetime + "\n" +
                 "method: " + method + "\n" +
                 "url: " + url + "\n" +
