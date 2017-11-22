@@ -5,8 +5,6 @@ import entity.Result;
 import entity.Status;
 import mongodb.dao.AccessLogDao;
 import org.hibernate.validator.constraints.NotEmpty;
-import orm.AccessLog;
-import util.ContentParser;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -29,7 +27,7 @@ public class AccessLogsRes {
     public Result createLog(@NotEmpty @QueryParam("name") String name,
                             @NotEmpty @QueryParam("content") String content) {
 
-        AccessLog accessLog = ContentParser.getAttrFromContent(name, content);
+        //AccessLog accessLog = ContentParser.getAttrFromContent(name, content);
 
         /*
         (1)处理后的
@@ -43,7 +41,7 @@ public class AccessLogsRes {
         INFO  [2017-11-04 11:43:42,556] org.eclipse.jetty.setuid.SetUIDListener: Opened couseservice@6e521c1e{HTTP/1.1}{0.0.0.0:7000}
          */
 
-        accessLogDao.add(accessLog);
+        //accessLogDao.add(accessLog);
 
         //创建成功时：
         return new Result("CREATED", Status.CREATED, "");

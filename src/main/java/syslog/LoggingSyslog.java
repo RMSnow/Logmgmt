@@ -1,4 +1,4 @@
-package syslog.demo;
+package syslog;
 
 /**
  * 处理运行API的日志
@@ -6,6 +6,12 @@ package syslog.demo;
 public class LoggingSyslog extends SyslogEvent {
     public static final boolean NORMAL_LOG = true;
     public static final boolean ERROR_LOG = false;
+
+    protected String errDetails;
+
+    public LoggingSyslog(){
+
+    }
 
     public LoggingSyslog(SyslogEvent event, boolean tag) {
         init(event);
@@ -23,13 +29,12 @@ public class LoggingSyslog extends SyslogEvent {
         if (tag == NORMAL_LOG) {
             logging();
             System.out.println(toString());
-            SyslogService.addLoggingNormal(this);
+            //SyslogService.addLoggingNormal(this);
         } else {
             errorLogging();
             System.out.println(toString());
-            SyslogService.addLoggingError(this);
+            SyslogService.handleLoggingError(this);
         }
-
     }
 
     /**
@@ -114,6 +119,7 @@ public class LoggingSyslog extends SyslogEvent {
                 "host: " + host + "\n" +
                 "serviceName: " + serviceName + "\n" +
                 "className: " + className + "\n" +
-                "message: " + message + "\n";
+                "message: " + message + "\n" +
+                "errDetails: " + errDetails + "\n";
     }
 }

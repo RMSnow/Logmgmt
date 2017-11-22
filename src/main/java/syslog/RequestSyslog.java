@@ -1,4 +1,4 @@
-package syslog.demo;
+package syslog;
 
 /**
  * Created by snow on 18/11/2017.
@@ -102,7 +102,7 @@ public class RequestSyslog extends SyslogEvent {
         /**
          * 将日志存储到数据库中
          */
-        SyslogService.addRequestLog(this);
+        //SyslogService.addRequestLog(this);
 
 
     }

@@ -1,4 +1,4 @@
-package syslog.demo;
+package syslog;
 
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 
@@ -191,15 +191,4 @@ public class SyslogEvent implements SyslogServerEventIF {
     public void setCharSet(String s) {
 
     }
-
-//    @Override
-//    public String toString() {
-//        return "\nfacility: " + facility + "\n" +
-//                "level: " + level + "\n" +
-//                "timestamp: " + timestamp + "\n" +
-//                "host: " + host + "\n" +
-//                "serviceName: " + serviceName + "\n" +
-//                "className: " + className + "\n" +
-//                "message: " + message + "\n";
-//    }
 }
