@@ -1,4 +1,4 @@
-import orm.AccessLog;
+import orm.RequestLog;
 
 /**
  * Created by snow on 11/11/2017.
@@ -11,13 +11,13 @@ public class DBTest {
         int status=200;
         String ip="123.207.73.150";
         String client="Apache-HttpClient/4.5.2 (Java/1.8.0_151)";
-        AccessLog accessLog =new AccessLog();
-        accessLog.setHost(ip);
-        accessLog.setName(name);
-        accessLog.setUrl(url);
-        accessLog.setStatus(status);
-        accessLog.setClient(client);
-        accessLog.setDatetime(dateTime);
+        RequestLog requestLog =new RequestLog();
+        requestLog.setHost(ip);
+        requestLog.setName(name);
+        requestLog.setUrl(url);
+        requestLog.setStatus(status);
+        requestLog.setClient(client);
+        requestLog.setDatetime(dateTime);
 
     }
 }

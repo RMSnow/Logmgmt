@@ -3,9 +3,9 @@ package res;
 import com.codahale.metrics.annotation.Timed;
 import entity.Result;
 import entity.Status;
-import mongodb.dao.AccessLogDao;
+import mongodb.dao.RequestLogDao;
 import org.hibernate.validator.constraints.NotEmpty;
-import orm.AccessLog;
+import orm.RequestLog;
 import util.ContentParser;
 
 import javax.ws.rs.*;
@@ -17,10 +17,10 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/logs")
 @Produces(MediaType.APPLICATION_JSON)
 public class AccessLogsRes {
-    private AccessLogDao accessLogDao;
+    private RequestLogDao requestLogDao;
 
     public AccessLogsRes() {
-        accessLogDao = new AccessLogDao();
+        requestLogDao = new RequestLogDao();
     }
 
     @POST
@@ -29,7 +29,7 @@ public class AccessLogsRes {
     public Result createLog(@NotEmpty @QueryParam("name") String name,
                             @NotEmpty @QueryParam("content") String content) {
 
-        AccessLog accessLog = ContentParser.getAttrFromContent(name, content);
+        RequestLog requestLog = ContentParser.getAttrFromContent(name, content);
 
         /*
         (1)处理后的
@@ -43,7 +43,7 @@ public class AccessLogsRes {
         INFO  [2017-11-04 11:43:42,556] org.eclipse.jetty.setuid.SetUIDListener: Opened couseservice@6e521c1e{HTTP/1.1}{0.0.0.0:7000}
          */
 
-        accessLogDao.add(accessLog);
+        requestLogDao.add(requestLog);
 
         //创建成功时：
         return new Result("CREATED", Status.CREATED, "");
@@ -58,7 +58,7 @@ public class AccessLogsRes {
                             @QueryParam("toDateTime") String toDateTime,
                             @QueryParam("client") String client) {
 
-        String data = accessLogDao.queryByParam(name, ip,null, client, fromDateTime, toDateTime);
+        String data = requestLogDao.queryByParam(name, ip,null, client, fromDateTime, toDateTime);
         if (data == null) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
@@ -76,7 +76,7 @@ public class AccessLogsRes {
                              @QueryParam("client") String client) {
 
         //----------------------------待完善----------------------------
-        //accessLogDao.delete();
+        //requestLogDao.delete();
         //-------------------------------------------------------------
 
 

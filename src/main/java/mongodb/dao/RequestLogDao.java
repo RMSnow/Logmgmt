@@ -8,7 +8,7 @@ import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import mongodb.JsonUtil;
 import org.bson.types.ObjectId;
-import orm.AccessLog;
+import orm.RequestLog;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
@@ -18,7 +18,7 @@ import java.util.List;
 /**
  * Created by WYJ on 2017/11/7.
  */
-public class AccessLogDao {
+public class RequestLogDao {
 
     private static final String DB_NAME = "logs";
 
@@ -35,7 +35,7 @@ public class AccessLogDao {
 
     MongoCollection<Document> collection;
 
-    public AccessLogDao() {
+    public RequestLogDao() {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
 
@@ -72,28 +72,28 @@ public class AccessLogDao {
     }
 
 
-    public void add(AccessLog accessLog) {
+    public void add(RequestLog requestLog) {
         Document d = new Document();
-        if (accessLog.getClient() != null) {
-            d.append(KEY_CLIENT, accessLog.getClient());
+        if (requestLog.getClient() != null) {
+            d.append(KEY_CLIENT, requestLog.getClient());
         }
-        if (accessLog.getDatetime() != null) {
-            d.append(KEY_DATETIME, DateUtil.parseDate(accessLog.getDatetime()));
+        if (requestLog.getDatetime() != null) {
+            d.append(KEY_DATETIME, DateUtil.parseDate(requestLog.getDatetime()));
         }
-        if (accessLog.getHost() != null) {
-            d.append(KEY_HOST, accessLog.getHost());
+        if (requestLog.getHost() != null) {
+            d.append(KEY_HOST, requestLog.getHost());
         }
-        if (accessLog.getName() != null) {
-            d.append(KEY_NAME, accessLog.getName());
+        if (requestLog.getServiceName() != null) {
+            d.append(KEY_NAME, requestLog.getServiceName());
         }
-        if (accessLog.getMethod() != null) {
-            d.append(KEY_METHOD, accessLog.getMethod());
+        if (requestLog.getMethod() != null) {
+            d.append(KEY_METHOD, requestLog.getMethod());
         }
-        if (accessLog.getStatus() != 0) {
-            d.append(KEY_STATUS, accessLog.getStatus());
+        if (requestLog.getUrl() != null) {
+            d.append(KEY_URL, requestLog.getUrl());
         }
-        if (accessLog.getUrl() != null) {
-            d.append(KEY_URL, accessLog.getUrl());
+        if (requestLog.getStatus() != 0) {
+            d.append(KEY_STATUS, requestLog.getStatus());
         }
         collection.insertOne(d);
     }

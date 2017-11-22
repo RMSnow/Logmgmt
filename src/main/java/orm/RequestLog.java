@@ -5,9 +5,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Created by WYJ on 2017/11/7.
  */
-public class AccessLog {
+public class RequestLog {
+
     private String host;
-    private String name;
+    private String serviceName;
+    private String className;
+    private Integer facility;
+    private String clientIP;
     private String datetime;
     private String method;
     private String url;
@@ -25,15 +29,6 @@ public class AccessLog {
         this.method = method;
     }
 
-    @JsonProperty
-    public String getName() {
-        return name;
-    }
-
-    @JsonProperty
-    public void setName(String name) {
-        this.name = name;
-    }
 
     @JsonProperty
     public String getHost() {
@@ -85,4 +80,48 @@ public class AccessLog {
         this.client = client;
     }
 
+    @JsonProperty
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    @JsonProperty
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    @JsonProperty
+    public String getClassName() {
+        return className;
+    }
+
+    @JsonProperty
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    @JsonProperty
+    public Integer getFacility() {
+        return facility;
+    }
+
+    @JsonProperty
+    public void setFacility(Integer facility) {
+        this.facility = facility;
+    }
+
+    @JsonProperty
+    public String getClientIP() {
+        return clientIP;
+    }
+
+    @JsonProperty
+    public void setClientIP(String clientIP) {
+        this.clientIP = clientIP;
+    }
+
+    @JsonProperty
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }

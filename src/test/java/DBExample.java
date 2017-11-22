@@ -3,8 +3,8 @@
  */
 
 import mongodb.MongoService;
-import orm.StandardLog;
-import orm.AccessLog;
+import orm.LoggingLog;
+import orm.RequestLog;
 
 public class DBExample {
     public static void main(String[] args) {
@@ -27,15 +27,15 @@ public class DBExample {
         int status=200;
         String ip="123.207.73.150";
         String facility="Apache-HttpClient/4.5.2 (Java/1.8.0_151)";
-        AccessLog accessLog =new AccessLog();
-        accessLog.setHost(ip);
-        accessLog.setName(name);
-        accessLog.setMethod(method);
-        accessLog.setUrl(url);
-        accessLog.setStatus(status);
-        accessLog.setClient(facility);
-        accessLog.setDatetime(dateTime);
-        MongoService.getAccessLogCollection().add(accessLog);
+        RequestLog requestLog =new RequestLog();
+        requestLog.setHost(ip);
+        requestLog.setName(name);
+        requestLog.setMethod(method);
+        requestLog.setUrl(url);
+        requestLog.setStatus(status);
+        requestLog.setClient(facility);
+        requestLog.setDatetime(dateTime);
+        MongoService.getAccessLogCollection().add(requestLog);
     }
     private static void queryAccessLog(){
         //        查询
@@ -58,12 +58,12 @@ public class DBExample {
         String dateTime="04/Nov/2017:11:43:54";
         int level=6;
         String data="Registering admin handler with root path prefix: /admin";
-        StandardLog standardLog =new StandardLog();
-        standardLog.setLevel(level);
-        standardLog.setMessage(data);
-        standardLog.setClassName(className);
-        standardLog.setDatetime(dateTime);
-        MongoService.getStandardLogCollection().add(standardLog);
+        LoggingLog loggingLog =new LoggingLog();
+        loggingLog.setLevel(level);
+        loggingLog.setMessage(data);
+        loggingLog.setClassName(className);
+        loggingLog.setDatetime(dateTime);
+        MongoService.getStandardLogCollection().add(loggingLog);
     }
     private static void queryStandardLog(){
         System.out.println(MongoService.getStandardLogCollection().queryByParam(

@@ -1,14 +1,14 @@
 package util;
 
-import orm.AccessLog;
+import orm.RequestLog;
 
 /**
  * 解析日志的content属性
  */
 public class ContentParser {
-    public static AccessLog getAttrFromContent(String name, String content){
-        AccessLog accessLog = new AccessLog();
-        accessLog.setName(name);
+    public static RequestLog getAttrFromContent(String name, String content){
+        RequestLog requestLog = new RequestLog();
+        requestLog.setName(name);
 
         //解析content
 //        {
@@ -23,7 +23,7 @@ public class ContentParser {
 
 
 
-        return accessLog;
+        return requestLog;
     }
 }
 
