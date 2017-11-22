@@ -2,6 +2,8 @@ package syslog.demo;
 
 import mongodb.MongoService;
 import orm.RequestLog;
+import syslog.LoggingSyslog;
+import syslog.RequestSyslog;
 
 /**
  * 对外的接口：在这里实现对数据库的存储

@@ -8,7 +8,7 @@ import orm.RequestLog;
 public class ContentParser {
     public static RequestLog getAttrFromContent(String name, String content){
         RequestLog requestLog = new RequestLog();
-        requestLog.setName(name);
+        requestLog.setServiceName(name);
 
         //解析content
 //        {
