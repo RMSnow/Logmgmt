@@ -1,7 +1,7 @@
 package syslog;
 
 import mongodb.MongoService;
-import orm.AccessLog;
+import orm.RequestLog;
 
 /**
  * 实现对数据库的存储
@@ -63,15 +63,15 @@ public class SyslogService {
      * @param syslog
      */
     public static void addRequestLog(RequestSyslog syslog) {
-        AccessLog log = new AccessLog();
+        RequestLog log = new RequestLog();
         log.setClient(syslog.getClient());
         log.setDatetime(syslog.getDatetime());
         log.setStatus(syslog.getStatus());
         log.setHost(syslog.getHost());
         log.setMethod(syslog.getMethod());
-        log.setName(syslog.getServiceName());
+        log.setServiceName(syslog.getServiceName());
         log.setUrl(syslog.getUrl());
-        MongoService.getAccessLogCollection().add(log);
+        MongoService.getRequestLogCollection().add(log);
     }
 }
 

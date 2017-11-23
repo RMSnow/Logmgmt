@@ -29,17 +29,17 @@ public class DBExample {
         String facility="Apache-HttpClient/4.5.2 (Java/1.8.0_151)";
         RequestLog requestLog =new RequestLog();
         requestLog.setHost(ip);
-        requestLog.setName(name);
+        requestLog.setServiceName(name);
         requestLog.setMethod(method);
         requestLog.setUrl(url);
         requestLog.setStatus(status);
         requestLog.setClient(facility);
         requestLog.setDatetime(dateTime);
-        MongoService.getAccessLogCollection().add(requestLog);
+        MongoService.getRequestLogCollection().add(requestLog);
     }
     private static void queryAccessLog(){
         //        查询
-        System.out.println(MongoService.getAccessLogCollection().queryByParam(
+        System.out.println(MongoService.getRequestLogCollection().queryByParam(
                 "courseservice",
                 "123.207.73.150",
                 null,
@@ -51,7 +51,7 @@ public class DBExample {
     private static void deleteAccessLog(){
         //删除
 //        MongoService.getAccessLogCollection().delete("5a0187ffda72a61efc254fa2");
-        MongoService.getAccessLogCollection().delete("5a07bed8ae678f0c9bd91339");
+        MongoService.getRequestLogCollection().delete("5a07bed8ae678f0c9bd91339");
     }
     private static void addStandardLog(){
         String className="io.dropwizard.server.SimpleServerFactory";
@@ -62,11 +62,11 @@ public class DBExample {
         loggingLog.setLevel(level);
         loggingLog.setMessage(data);
         loggingLog.setClassName(className);
-        loggingLog.setDatetime(dateTime);
-        MongoService.getStandardLogCollection().add(loggingLog);
+        loggingLog.setTimestamp(dateTime);
+        MongoService.getLoggingLogCollection().add(loggingLog);
     }
     private static void queryStandardLog(){
-        System.out.println(MongoService.getStandardLogCollection().queryByParam(
+        System.out.println(MongoService.getLoggingLogCollection().queryByParam(
                 null,
                 null,
                 "04/Nov/2017:11:43:54",
@@ -75,6 +75,6 @@ public class DBExample {
     }
     private static void deleteStandardLog(){
 
-        MongoService.getStandardLogCollection().delete("5a0722d2a9eba32a28da1d70");
+        MongoService.getLoggingLogCollection().delete("5a0722d2a9eba32a28da1d70");
     }
 }
