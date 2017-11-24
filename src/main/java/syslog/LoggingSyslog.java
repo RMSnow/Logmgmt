@@ -9,7 +9,7 @@ public class LoggingSyslog extends SyslogEvent {
 
     protected String errDetails;
 
-    public LoggingSyslog(){
+    public LoggingSyslog() {
 
     }
 
@@ -29,10 +29,10 @@ public class LoggingSyslog extends SyslogEvent {
         if (tag == NORMAL_LOG) {
             logging();
             System.out.println(toString());
-            //SyslogService.addLoggingNormal(this);
+            SyslogService.addLoggingNormal(this, null);
         } else {
             errorLogging();
-            System.out.println(toString());
+            //System.out.println(toString());
             SyslogService.handleLoggingError(this);
         }
     }
@@ -113,13 +113,17 @@ public class LoggingSyslog extends SyslogEvent {
 
     @Override
     public String toString() {
-        return "facility: " + facility + "\n" +
-                "level: " + level + "\n" +
-                "timestamp: " + timestamp + "\n" +
-                "host: " + host + "\n" +
-                "serviceName: " + serviceName + "\n" +
-                "className: " + className + "\n" +
-                "message: " + message + "\n" +
-                "errDetails: " + errDetails + "\n";
+        return "[facility]\t" + facility + "\n" +
+                "[level]\t" + level + "\n" +
+                "[timestamp]\t" + timestamp + "\n" +
+                "[host]\t" + host + "\n" +
+                "[serviceName]\t" + serviceName + "\n" +
+                "[className]\t" + className + "\n" +
+                "[message]\n" + message + "\n" +
+                "[errDetails]\n" + errDetails + "\n";
+    }
+
+    public String getErrDetails() {
+        return errDetails;
     }
 }

@@ -1,6 +1,7 @@
 package syslog;
 
 import mongodb.MongoService;
+import orm.LoggingLog;
 import orm.RequestLog;
 
 /**
@@ -14,17 +15,28 @@ public class SyslogService {
      * Logging - Normal (Info/Warning)
      *
      * @param syslog
+     * @param errDetails
      */
-    public static void addLoggingNormal(LoggingSyslog syslog) {
+    public static void addLoggingNormal(LoggingSyslog syslog, String errDetails) {
+        LoggingLog log = new LoggingLog();
+        log.setFacility(String.valueOf(syslog.getFacility()));
+        log.setLevel(syslog.getLevel());
+        log.setTimestamp(syslog.getTimestamp());        //-----------------
+        log.setHost(syslog.getHost());
+        log.setServiceName(syslog.getServiceName());
+        log.setClassName(syslog.getClassName());
+        log.setMessage(syslog.getMessage());
+        log.setErrDetails(errDetails);
 
+        MongoService.getLoggingLogCollection().add(log);
     }
 
     /**
      * Logging - Error
      */
     public static void addLoggingError() {
-        //add errHeader
         System.out.println(errHeader.toString());
+        addLoggingNormal(errHeader, errHeader.getErrDetails());
     }
 
     public static void handleLoggingError(LoggingSyslog syslog) {
@@ -40,21 +52,22 @@ public class SyslogService {
         //        className
 
         if (syslog.serviceName != null) {     //header
-            if (errHeader.timestamp != syslog.timestamp && errHeader.timestamp != null) {       //a new err header
-                //addLoggingError();
-                errBodySum = 0;
-            }
-            errHeader = syslog;
+            errLogInit(syslog);
         } else {     //body
             if (errBodySum == 0) {
-                errHeader.message = errHeader.message + "\n[INFO] "
+                errHeader.message = errHeader.message + " [BASIC ERROR-DETAILS] "
                         + syslog.message;
                 errHeader.errDetails = "";
             } else {
-                errHeader.errDetails += syslog.message;
+                errHeader.errDetails = errHeader.errDetails + "\n" + syslog.message;
             }
             errBodySum++;
         }
+    }
+
+    static void errLogInit(LoggingSyslog syslog) {
+        errHeader = syslog;
+        errBodySum = 0;
     }
 
     /**
@@ -71,6 +84,7 @@ public class SyslogService {
         log.setMethod(syslog.getMethod());
         log.setServiceName(syslog.getServiceName());
         log.setUrl(syslog.getUrl());
+
         MongoService.getRequestLogCollection().add(log);
     }
 }

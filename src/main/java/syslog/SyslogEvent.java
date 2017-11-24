@@ -29,6 +29,8 @@ public class SyslogEvent implements SyslogServerEventIF {
     protected int endPos;
     protected int tempPos;
 
+    private static int savedSyslogLevel;        //保存上一条日志的类型
+
     public SyslogEvent() {
 
     }
@@ -64,6 +66,7 @@ public class SyslogEvent implements SyslogServerEventIF {
          */
 
         if (level == 3) {
+            savedSyslogLevel = level;
             new LoggingSyslog(this, LoggingSyslog.ERROR_LOG);
             return;
         }
@@ -71,6 +74,10 @@ public class SyslogEvent implements SyslogServerEventIF {
         /* distinguish normal logs between RequestSyslog and LoggingSyslog */
 
         if (level == 6) {
+            if (savedSyslogLevel == 3){     //当访问日志前面一条日志为错误日志
+                SyslogService.addLoggingError();
+            }
+
             int lastPos = raw.length;
             int beforeLastPos = 0;
             for (int i = lastPos - 1; i > lastPos - 10; i--) {
@@ -79,7 +86,9 @@ public class SyslogEvent implements SyslogServerEventIF {
                 }
             }
             String numOrNot = getString(raw, beforeLastPos + 1, lastPos);
-            //System.out.println(numOrNot);
+
+            savedSyslogLevel = level;
+
             if (isRequestLog(numOrNot)) {
                 new RequestSyslog(this);
                 return;
@@ -89,6 +98,7 @@ public class SyslogEvent implements SyslogServerEventIF {
             }
         }else {
             // warning: level = 4
+            savedSyslogLevel = level;
             new LoggingSyslog(this, LoggingSyslog.NORMAL_LOG);
             return;
         }
@@ -190,5 +200,17 @@ public class SyslogEvent implements SyslogServerEventIF {
     @Override
     public void setCharSet(String s) {
 
+    }
+
+    public String getTimestamp() {
+        return timestamp;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public String getClassName() {
+        return className;
     }
 }

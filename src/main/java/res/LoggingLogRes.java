@@ -8,21 +8,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
- * 错误信息资源
+ * 运行日志资源（主要为错误信息）
  */
 @Path("/api/v1/logs/errors")
 @Produces(MediaType.APPLICATION_JSON)
-public class StandardLogsRes {
-    public StandardLogsRes(){
+public class LoggingLogRes {
+    public LoggingLogRes(){
 
-    }
-
-    @POST
-    @Timed
-    //创建一条新日志：需提供服务名称与日志内容
-    public Result createLog(@NotEmpty @QueryParam("name") String name,
-                            @NotEmpty @QueryParam("content") String content){
-        return null;
     }
 
     @GET
