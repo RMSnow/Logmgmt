@@ -2,9 +2,11 @@
  * Created by WYJ on 2017/11/7.
  */
 
+import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
 import orm.RequestLog;
+
 
 public class DBExample {
     public static void main(String[] args) {
@@ -15,7 +17,11 @@ public class DBExample {
 //        addStandardLog();
 //        queryStandardLog();
 //        deleteStandardLog();
+//        String s="17/十一月/2017:06:28:39";
+//        System.out.println(DateUtil.parseReqLogDateTime(s));
 
+        String timestamp=DateUtil.getDateNow();
+        System.out.println(timestamp);
 
     }
     private static void addAccessLog(){

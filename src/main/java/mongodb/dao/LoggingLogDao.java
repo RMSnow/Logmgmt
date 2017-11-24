@@ -54,11 +54,11 @@ public class LoggingLogDao {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
         }
         if (fromDatetime != null) {
-            fromDatetime = DateUtil.parseDate(fromDatetime);
+            fromDatetime = DateUtil.parseReqLogDateTime(fromDatetime);
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
         }
         if (toDatetime != null) {
-            toDatetime = DateUtil.parseDate(toDatetime);
+            toDatetime = DateUtil.parseReqLogDateTime(toDatetime);
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
@@ -75,7 +75,7 @@ public class LoggingLogDao {
             d.append(KEY_LEVEL, loggingLog.getLevel());
         }
         if (loggingLog.getTimestamp() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseDate(loggingLog.getTimestamp()));
+            d.append(KEY_TIMESTAMP, DateUtil.parseTimeStamp(loggingLog.getTimestamp()));
         }
         if (loggingLog.getHost() != null) {
             d.append(KEY_HOST,loggingLog.getHost());
