@@ -47,7 +47,12 @@ public class RequestLogDao {
         FindIterable<Document> it = collection.find();
         return JsonUtil.parseFindIterableToJsonArray(it);
     }
-
+    /*
+    *query datetime format:
+    *   dd-MM-yyyy hh:mm:ss
+    *example:
+    *   24-11-2017 23:11:40
+     */
 
     public String queryByParam(String serviceName, String host, String fromTimestamp,
                                String toTimestamp, String method, String status) {
@@ -59,11 +64,9 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_HOST, host));
         }
         if (fromTimestamp != null) {
-            fromTimestamp = DateUtil.parseReqLogDateTime(fromTimestamp);
             conditions.add(Filters.gte(KEY_DATETIME, fromTimestamp));
         }
         if (toTimestamp != null) {
-            toTimestamp = DateUtil.parseReqLogDateTime(toTimestamp);
             conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
         }
         if (method != null) {
@@ -95,7 +98,7 @@ public class RequestLogDao {
             d.append(KEY_SERVICE_NAME, requestLog.getServiceName());
         }
         if (requestLog.getDatetime() != null) {
-            d.append(KEY_DATETIME, requestLog.getDatetime());
+            d.append(KEY_DATETIME,DateUtil.parseReqLogDateTime(requestLog.getDatetime()));
         }
         if (requestLog.getMethod() != null) {
             d.append(KEY_METHOD, requestLog.getMethod());

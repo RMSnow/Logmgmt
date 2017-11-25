@@ -5,10 +5,15 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
+import java.util.ArrayList;
+
 /**
  * Created by WYJ on 2017/11/7.
  */
 public class MongoConnector {
+
+    //TODO: build a connection pool or release connections
+
     private static final String host = "localhost";
     private static final int port = 27017;
 

@@ -30,7 +30,6 @@ public class LoggingLogDao {
     private static final String KEY_HOST = "host";
     private static final String KEY_SERVICE_NAME = "service_name";
     private static final String KEY_CLASS_NAME = "class_name";
-    private static final String KEY_NAME = "name";
     private static final String KEY_MESSAGE = "message";
     private static final String KEY_ERR_DETAILS = "err_details";
 
@@ -45,20 +44,24 @@ public class LoggingLogDao {
         return JsonUtil.parseFindIterableToJsonArray(it);
     }
 
-    public String queryByParam(Integer level, String name, String fromDatetime, String toDatetime) {
+    /*
+    *query datetime format:
+    *   dd-MM-yyyy hh:mm:ss
+    *example:
+    *   24-11-2017 23:11:40
+     */
+    public String queryByParam(Integer level, String serviceName, String fromDatetime, String toDatetime) {
         List<Bson> conditions = new ArrayList<Bson>();
-        if (name != null) {
-            conditions.add(Filters.eq(KEY_NAME,name));
-        }
         if (level != null) {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
         }
+        if (serviceName != null) {
+            conditions.add(Filters.gte(KEY_SERVICE_NAME, serviceName));
+        }
         if (fromDatetime != null) {
-            fromDatetime = DateUtil.parseReqLogDateTime(fromDatetime);
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
         }
         if (toDatetime != null) {
-            toDatetime = DateUtil.parseReqLogDateTime(toDatetime);
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
@@ -75,7 +78,7 @@ public class LoggingLogDao {
             d.append(KEY_LEVEL, loggingLog.getLevel());
         }
         if (loggingLog.getTimestamp() != null) {
-            d.append(KEY_TIMESTAMP, DateUtil.parseTimeStamp(loggingLog.getTimestamp()));
+            d.append(KEY_TIMESTAMP, DateUtil.getDateNow());
         }
         if (loggingLog.getHost() != null) {
             d.append(KEY_HOST,loggingLog.getHost());
@@ -83,9 +86,6 @@ public class LoggingLogDao {
         if (loggingLog.getServiceName() != null) {
             d.append(KEY_SERVICE_NAME,loggingLog.getServiceName());
         }
-//        if (loggingLog.getClassName() != null) {
-//            d.append(KEY_NAME, loggingLog.getClassName());
-//        }
         if (loggingLog.getMessage() != null) {
             d.append(KEY_MESSAGE, loggingLog.getMessage());
         }

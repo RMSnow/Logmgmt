@@ -2,14 +2,19 @@
  * Created by WYJ on 2017/11/7.
  */
 
+import com.fasterxml.jackson.core.*;
 import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
 import orm.RequestLog;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.StringWriter;
+
 
 public class DBExample {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 //        addAccessLog();
 //        queryAccessLog();
 //        deleteAccessLog();
@@ -20,12 +25,36 @@ public class DBExample {
 //        String s="17/十一月/2017:06:28:39";
 //        System.out.println(DateUtil.parseReqLogDateTime(s));
 
-        String timestamp=DateUtil.getDateNow();
-        System.out.println(timestamp);
+//        String timestamp=DateUtil.getDateNow();
+//        System.out.println(timestamp);
+        JsonFactory jfactory = new JsonFactory();
+        StringWriter writer=new StringWriter();
+        /*** write to file ***/
+        JsonGenerator jGenerator = jfactory.createGenerator(writer);
+        jGenerator.writeStartObject(); // {
+
+        jGenerator.writeStringField("name", "mkyong"); // "name" : "mkyong"
+        jGenerator.writeNumberField("age", 29); // "age" : 29
+
+        jGenerator.writeFieldName("messages"); // "messages" :
+        jGenerator.writeStartArray(); // [
+
+        jGenerator.writeString("msg 1"); // "msg 1"
+        jGenerator.writeString("msg 2"); // "msg 2"
+        jGenerator.writeString("msg 3"); // "msg 3"
+
+        jGenerator.writeEndArray(); // ]
+
+        jGenerator.writeEndObject(); // }
+        jGenerator.close();
+
+        System.out.println(writer.toString());
 
     }
     private static void addAccessLog(){
         //新增
+        //<134>Nov 17 14:28:39 DESKTOP-9EODV8A couseservice[12624]: [dw-17] http.request 0:0:0:0:0:0:0:1 - - [17/十一月/2017:06:28:39 +0000] "GET /application/kk HTTP/1.1" 404 43 "-" "PostmanRuntime/6.4.1" 231
+
         String name="courseservice";
         String url="/application/api/v2/class? HTTP/1.1";
         String method="GET";
@@ -46,10 +75,10 @@ public class DBExample {
     private static void queryAccessLog(){
         //        查询
         System.out.println(MongoService.getRequestLogCollection().queryByParam(
-                "courseservice",
-                "123.207.73.150",
                 null,
-                "Apache-HttpClient/4.5.2 (Java/1.8.0_151)",
+                null,
+                "24-11-2017 23:11:40",
+                null,
                 null,
                 null
         ));
