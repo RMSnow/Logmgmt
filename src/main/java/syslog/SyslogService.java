@@ -21,7 +21,7 @@ public class SyslogService {
         LoggingLog log = new LoggingLog();
         log.setFacility(String.valueOf(syslog.getFacility()));
         log.setLevel(syslog.getLevel());
-        log.setTimestamp(syslog.getTimestamp());        //-----------------
+        log.setTimestamp(syslog.getTimestamp());
         log.setHost(syslog.getHost());
         log.setServiceName(syslog.getServiceName());
         log.setClassName(syslog.getClassName());
@@ -77,12 +77,14 @@ public class SyslogService {
      */
     public static void addRequestLog(RequestSyslog syslog) {
         RequestLog log = new RequestLog();
+        log.setFacility(syslog.getFacility());
         log.setClient(syslog.getClient());
         log.setDatetime(syslog.getDatetime());
         log.setStatus(syslog.getStatus());
         log.setHost(syslog.getHost());
         log.setMethod(syslog.getMethod());
         log.setServiceName(syslog.getServiceName());
+        log.setClassName(syslog.getClassName());
         log.setUrl(syslog.getUrl());
 
         MongoService.getRequestLogCollection().add(log);
@@ -116,7 +118,7 @@ public class SyslogService {
 
     facility
     //level
-    timestamp (服务器的时间)
+    //timestamp (服务器的时间)
     host
     serviceName
     className

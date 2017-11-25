@@ -83,9 +83,9 @@ public class LoggingLogDao {
         if (loggingLog.getServiceName() != null) {
             d.append(KEY_SERVICE_NAME,loggingLog.getServiceName());
         }
-        if (loggingLog.getClassName() != null) {
-            d.append(KEY_NAME, loggingLog.getClassName());
-        }
+//        if (loggingLog.getClassName() != null) {
+//            d.append(KEY_NAME, loggingLog.getClassName());
+//        }
         if (loggingLog.getMessage() != null) {
             d.append(KEY_MESSAGE, loggingLog.getMessage());
         }

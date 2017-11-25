@@ -1,4 +1,5 @@
 import app.LogMgmtApp;
+import syslog.Server;
 
 import java.util.Arrays;
 
@@ -7,6 +8,7 @@ import java.util.Arrays;
  */
 public class LogMgmt {
     public static void main(final String[] args) {
+        //App入口
         Arrays.asList(new LogMgmtApp()).forEach(
                 (l) -> {
                     try{
@@ -16,6 +18,13 @@ public class LogMgmt {
                     }
                 }
         );
+
+        System.out.println();
+        System.out.println("------------------------------------------");
+        System.out.println();
+
+        //Syslog入口
+        Server syslogServer = new Server();
     }
 
 }

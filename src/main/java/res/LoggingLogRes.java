@@ -10,30 +10,39 @@ import javax.ws.rs.core.MediaType;
 /**
  * 运行日志资源（主要为错误信息）
  */
-@Path("/api/v1/logs/errors")
+@Path("/api/v1/loggings")
 @Produces(MediaType.APPLICATION_JSON)
 public class LoggingLogRes {
-    public LoggingLogRes(){
-
-    }
 
     @GET
     @Timed
-    //查询日志：根据限制条件查询日志列表
-    public Result queryLogs(@NotEmpty @QueryParam("name") String name,
-                            @QueryParam("ip") String ip,
-                            @QueryParam("dateTime") String datetime,
-                            @QueryParam("client") String client){
+    public Result queryLoggings(@NotEmpty @QueryParam("serviceName") String serviceName,
+                            @QueryParam("level") String level,
+                            @QueryParam("host") String host,
+                            @QueryParam("fromTimeStamp") String fromTimeStamp,
+                            @QueryParam("toTimeStamp") String toTimeStamp,
+                            @QueryParam("errDetails") String queryOrNot){
+        /*
+            注：(1)参数queryOrNot的值为0或1，当值为0时，则不显示errDetails的信息；
+               当值为1时，显示errDetails的信息。其默认值为0。
+               (2)标注一下参数fromTimeStamp和toTimeStamp的格式，之后我把写到api文档上
+               (3)可添加一个查询到的日志数量sum
+         */
+
         return null;
     }
 
     @DELETE
     @Timed
-    //删除日志：根据限制条件删除日志
-    public Result deleteLogs(@NotEmpty @QueryParam("name") String name,
-                             @QueryParam("ip") String ip,
-                             @QueryParam("dateTime") String datetime,
-                             @QueryParam("client") String client){
+    public Result deleteLoggings(@NotEmpty @QueryParam("serviceName") String serviceName,
+                                 @QueryParam("level") String level,
+                                 @QueryParam("host") String host,
+                                 @QueryParam("fromTimeStamp") String fromTimeStamp,
+                                 @QueryParam("toTimeStamp") String toTimeStamp){
+        /*
+            注：缺少获得ID的方法
+         */
+
         return null;
     }
 }

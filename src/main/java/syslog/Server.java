@@ -34,8 +34,12 @@ public class Server {
 
     public static final int SYSLOG_PORT = 9898;
 
+    //test
     public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {
+        new Server();
+    }
 
+    public Server(){
         // Details for the properties -
         // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/JSSERefGuide.html
         System.setProperty("jsse.enableSNIExtension", "false");

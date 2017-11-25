@@ -3,7 +3,7 @@ package res;
 import com.codahale.metrics.annotation.Timed;
 import entity.Result;
 import entity.Status;
-import mongodb.dao.RequestLogDao;
+import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.ws.rs.*;
@@ -12,43 +12,47 @@ import javax.ws.rs.core.MediaType;
 /**
  * 访问日志资源
  */
-@Path("/api/v1/logs")
+@Path("/api/v1/requests")
 @Produces(MediaType.APPLICATION_JSON)
 public class RequestLogRes {
-    private RequestLogDao requestLogDao;
-
-    public RequestLogRes() {
-        requestLogDao = new RequestLogDao();
-    }
-
     @GET
     @Timed
-    //查询日志：根据限制条件查询日志列表
-    public Result queryLogs(@NotEmpty @QueryParam("name") String name,
-                            @QueryParam("ip") String ip,
+    public Result queryRequests(@NotEmpty @QueryParam("serviceName") String serviceName,
+                            @QueryParam("host") String host,
                             @QueryParam("fromDateTime") String fromDateTime,
                             @QueryParam("toDateTime") String toDateTime,
-                            @QueryParam("client") String client) {
+                            @QueryParam("method") String method,
+                            @QueryParam("status") String status) {
 
-        String data = requestLogDao.queryByParam(name, ip,null, client, fromDateTime, toDateTime);
+        String data = MongoService.getRequestLogCollection().queryByParam(serviceName,
+                host,fromDateTime,toDateTime,method,status);
         if (data == null) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
 
-        //----------后期：添加查询到的日志数量（参见courserservice中的Page），data的返回类型----------
-        return new Result("", Status.OK, data);
+        /*
+            注：(1)可添加一个查询到的日志数量sum
+                (2)标注一下参数fromTimeStamp和toTimeStamp的格式，之后我把写到api文档上
+         */
+
+        return new Result("[SUM] outcome", Status.OK, data);
+
     }
 
     @DELETE
     @Timed
-    //删除日志：根据限制条件删除日志
-    public Result deleteLogs(@NotEmpty @QueryParam("name") String name,
-                             @QueryParam("ip") String ip,
-                             @QueryParam("dateTime") String datetime,
-                             @QueryParam("client") String client) {
+    public Result deleteRequests(@NotEmpty @QueryParam("serviceName") String serviceName,
+                                 @QueryParam("host") String host,
+                                 @QueryParam("fromDateTime") String fromDateTime,
+                                 @QueryParam("toDateTime") String toDateTime,
+                                 @QueryParam("method") String method,
+                                 @QueryParam("status") String status) {
 
-        //删除成功时：
-        return new Result("", Status.NO_CONTENT, "");
+        /*
+            缺少获得ID的方法
+         */
+
+        return new Result("", Status.OK, "");
     }
 }
 

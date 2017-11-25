@@ -49,16 +49,14 @@ public class RequestLogDao {
     }
 
 
-    public String queryByParam(String name, String host, String method, String facility, String fromTimestamp, String toTimestamp) {
+    public String queryByParam(String serviceName, String host, String fromTimestamp,
+                               String toTimestamp, String method, String status) {
         List<Bson> conditions = new ArrayList<Bson>();
-        if (name != null) {
-            conditions.add(Filters.eq(KEY_SERVICE_NAME, name));
+        if (serviceName != null) {
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));
-        }
-        if (method != null) {
-            conditions.add(Filters.eq(KEY_METHOD, method));
         }
         if (fromTimestamp != null) {
             fromTimestamp = DateUtil.parseReqLogDateTime(fromTimestamp);
@@ -68,8 +66,11 @@ public class RequestLogDao {
             toTimestamp = DateUtil.parseReqLogDateTime(toTimestamp);
             conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
         }
-        if (facility != null) {
-            conditions.add(Filters.eq(KEY_CLIENT, facility));
+        if (method != null) {
+            conditions.add(Filters.eq(KEY_METHOD, method));
+        }
+        if (status != null) {
+            conditions.add(Filters.eq(KEY_STATUS, status));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
         return JsonUtil.parseFindIterableToJsonArray(it);
@@ -78,16 +79,16 @@ public class RequestLogDao {
 
     public void add(RequestLog requestLog) {
         Document d = new Document();
-        if (requestLog.getDatetime() != null) {
+        if (requestLog.getFacility() != null) {
             d.append(KEY_FACILITY, requestLog.getFacility());
         }
         if (requestLog.getHost() != null) {
             d.append(KEY_HOST, requestLog.getHost());
         }
-        if (requestLog.getDatetime() != null) {
+        if (requestLog.getClientIP() != null) {
             d.append(KEY_CLIENT_IP, requestLog.getClientIP());
         }
-        if (requestLog.getDatetime() != null) {
+        if (requestLog.getClassName() != null) {
             d.append(KEY_CLASS_NAME, requestLog.getClassName());
         }
         if (requestLog.getServiceName() != null) {
