@@ -3,6 +3,7 @@
  */
 
 import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
@@ -16,7 +17,7 @@ import java.io.StringWriter;
 public class DBExample {
     public static void main(String[] args) throws IOException{
 //        addAccessLog();
-//        queryAccessLog();
+        queryAccessLog();
 //        deleteAccessLog();
 //
 //        addStandardLog();
@@ -27,28 +28,7 @@ public class DBExample {
 
 //        String timestamp=DateUtil.getDateNow();
 //        System.out.println(timestamp);
-        JsonFactory jfactory = new JsonFactory();
-        StringWriter writer=new StringWriter();
-        /*** write to file ***/
-        JsonGenerator jGenerator = jfactory.createGenerator(writer);
-        jGenerator.writeStartObject(); // {
 
-        jGenerator.writeStringField("name", "mkyong"); // "name" : "mkyong"
-        jGenerator.writeNumberField("age", 29); // "age" : 29
-
-        jGenerator.writeFieldName("messages"); // "messages" :
-        jGenerator.writeStartArray(); // [
-
-        jGenerator.writeString("msg 1"); // "msg 1"
-        jGenerator.writeString("msg 2"); // "msg 2"
-        jGenerator.writeString("msg 3"); // "msg 3"
-
-        jGenerator.writeEndArray(); // ]
-
-        jGenerator.writeEndObject(); // }
-        jGenerator.close();
-
-        System.out.println(writer.toString());
 
     }
     private static void addAccessLog(){

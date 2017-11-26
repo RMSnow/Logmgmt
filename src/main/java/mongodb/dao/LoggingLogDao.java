@@ -41,7 +41,7 @@ public class LoggingLogDao {
 
     public String queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToJsonArray(it);
+        return JsonUtil.parseFindIterableToJson(it);
     }
 
     /*
@@ -66,7 +66,7 @@ public class LoggingLogDao {
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
 
-        return JsonUtil.parseFindIterableToJsonArray(it);
+        return JsonUtil.parseFindIterableToJson(it);
     }
 
     public void add(LoggingLog loggingLog) {

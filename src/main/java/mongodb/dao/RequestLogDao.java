@@ -45,7 +45,7 @@ public class RequestLogDao {
 
     public String queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToJsonArray(it);
+        return JsonUtil.parseFindIterableToJson(it);
     }
     /*
     *query datetime format:
@@ -76,7 +76,7 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_STATUS, status));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
-        return JsonUtil.parseFindIterableToJsonArray(it);
+        return JsonUtil.parseFindIterableToJson(it);
     }
 
 
