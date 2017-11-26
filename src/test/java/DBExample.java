@@ -85,7 +85,7 @@ public class DBExample {
     private static void queryStandardLog(){
         System.out.println(MongoService.getLoggingLogCollection().queryByParam(
                 null,
-                "6",
+                "3",
                 null,
                 null,
                 null,

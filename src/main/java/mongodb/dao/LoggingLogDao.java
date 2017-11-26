@@ -60,13 +60,13 @@ public class LoggingLogDao {
                                String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
-            conditions.add(Filters.gte(KEY_SERVICE_NAME, serviceName));
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
         if (level != null) {
-            conditions.add(Filters.gte(KEY_LEVEL, Integer.valueOf(level)));
+            conditions.add(Filters.eq(KEY_LEVEL, Integer.valueOf(level)));
         }
         if (host != null) {
-            conditions.add(Filters.gte(KEY_HOST, host));
+            conditions.add(Filters.eq(KEY_HOST, host));
         }
         if (fromDatetime != null) {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
