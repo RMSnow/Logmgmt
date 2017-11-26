@@ -17,11 +17,11 @@ import java.io.StringWriter;
 public class DBExample {
     public static void main(String[] args) throws IOException{
 //        addAccessLog();
-        queryAccessLog();
+//        queryAccessLog();
 //        deleteAccessLog();
 //
 //        addStandardLog();
-//        queryStandardLog();
+        queryStandardLog();
 //        deleteStandardLog();
 //        String s="17/十一月/2017:06:28:39";
 //        System.out.println(DateUtil.parseReqLogDateTime(s));
@@ -60,8 +60,10 @@ public class DBExample {
                 "24-11-2017 23:11:40",
                 null,
                 null,
+                null,
                 null
         ));
+//        System.out.println(MongoService.getRequestLogCollection().queryAll());
     }
     private static void deleteAccessLog(){
         //删除
@@ -83,9 +85,12 @@ public class DBExample {
     private static void queryStandardLog(){
         System.out.println(MongoService.getLoggingLogCollection().queryByParam(
                 null,
+                "6",
                 null,
-                "04/Nov/2017:11:43:54",
-                null
+                null,
+                null,
+                "0",
+                "3"
         ));
     }
     private static void deleteStandardLog(){

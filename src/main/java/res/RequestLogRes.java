@@ -25,7 +25,7 @@ public class RequestLogRes {
                             @QueryParam("status") String status) {
 
         String data = MongoService.getRequestLogCollection().queryByParam(serviceName,
-                host,fromDateTime,toDateTime,method,status);
+                host,fromDateTime,toDateTime,method,status,null);
         if (data == null) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }

@@ -78,7 +78,6 @@ public class RequestSyslog extends SyslogEvent {
         client = getString(raw, startPos, endPos);
         //System.out.println(client);
 
-        System.out.println(toString());
         SyslogService.addRequestLog(this);
     }
 

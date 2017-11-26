@@ -26,6 +26,7 @@ public class JsonUtil {
 
         int index=0;
         String result="{";
+        System.out.println(it.toString());
         for (Document d : it) {
             if(index>0){
                 result += ",";
@@ -55,6 +56,7 @@ public class JsonUtil {
 //        }catch (IOException e){
 //            e.printStackTrace();
 //        }
+//        return json;
 
     }
 }

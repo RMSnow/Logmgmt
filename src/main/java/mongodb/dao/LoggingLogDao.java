@@ -1,5 +1,6 @@
 package mongodb.dao;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -50,13 +51,22 @@ public class LoggingLogDao {
     *example:
     *   24-11-2017 23:11:40
      */
-    public String queryByParam(Integer level, String serviceName, String fromDatetime, String toDatetime) {
+    public String queryByParam(String serviceName,
+                               String level,
+                               String host,
+                               String fromDatetime,
+                               String toDatetime,
+                               String queryDetails,
+                               String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
-        if (level != null) {
-            conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
-        }
         if (serviceName != null) {
             conditions.add(Filters.gte(KEY_SERVICE_NAME, serviceName));
+        }
+        if (level != null) {
+            conditions.add(Filters.gte(KEY_LEVEL, Integer.valueOf(level)));
+        }
+        if (host != null) {
+            conditions.add(Filters.gte(KEY_HOST, host));
         }
         if (fromDatetime != null) {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDatetime));
@@ -65,6 +75,14 @@ public class LoggingLogDao {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
+        if (queryDetails.equals("0")){
+            it=it.projection(
+                    new BasicDBObject(KEY_ERR_DETAILS,0)
+            );
+        }
+        if (limit != null) {
+            it.limit(Integer.valueOf(limit));
+        }
 
         return JsonUtil.parseFindIterableToJson(it);
     }

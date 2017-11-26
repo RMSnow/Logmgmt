@@ -1,6 +1,7 @@
 package mongodb.dao;
 
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
@@ -37,7 +38,7 @@ public class RequestLogDao {
     private static final String KEY_STATUS = "status";
     private static final String KEY_CLIENT = "client";
 
-    MongoCollection<Document> collection;
+    private MongoCollection<Document> collection;
 
     public RequestLogDao() {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
@@ -54,8 +55,13 @@ public class RequestLogDao {
     *   24-11-2017 23:11:40
      */
 
-    public String queryByParam(String serviceName, String host, String fromTimestamp,
-                               String toTimestamp, String method, String status) {
+    public String queryByParam(String serviceName,
+                               String host,
+                               String fromTimestamp,
+                               String toTimestamp,
+                               String method,
+                               String status,
+                               String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -76,6 +82,9 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_STATUS, status));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
+        if (limit != null) {
+            it.limit(Integer.valueOf(limit));
+        }
         return JsonUtil.parseFindIterableToJson(it);
     }
 
