@@ -6,6 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import entity.MongoQueryResult;
 import entity.Result;
 import org.bson.Document;
 import org.bson.json.JsonMode;
@@ -22,7 +23,7 @@ import java.util.List;
 public class JsonUtil {
 
 
-    public static String parseFindIterableToJson(FindIterable<Document> it) {
+    public static MongoQueryResult parseFindIterableToQueryResult(FindIterable<Document> it) {
 
         int index=0;
         String result="{";
@@ -36,7 +37,8 @@ public class JsonUtil {
             index++;
         }
         result +="}";
-        return result;
+        System.out.println(it.toString());
+        return new MongoQueryResult(index,result);
 //        String json = null;
 //        StringWriter writer=new StringWriter();
 //        JsonFactory factory=new JsonFactory();

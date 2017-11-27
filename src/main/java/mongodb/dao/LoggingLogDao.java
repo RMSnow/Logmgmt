@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import entity.MongoQueryResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import mongodb.JsonUtil;
@@ -40,9 +41,9 @@ public class LoggingLogDao {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
 
-    public String queryAll() {
+    public MongoQueryResult queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToJson(it);
+        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
     /*
@@ -50,8 +51,12 @@ public class LoggingLogDao {
     *   dd-MM-yyyy hh:mm:ss
     *example:
     *   24-11-2017 23:11:40
+    *another format:
+    *   24-11-2017
+    *equals:
+    *   24-11-2017 00:00:00
      */
-    public String queryByParam(String serviceName,
+    public MongoQueryResult queryByParam(String serviceName,
                                String level,
                                String host,
                                String fromDatetime,
@@ -84,7 +89,7 @@ public class LoggingLogDao {
             it.limit(Integer.valueOf(limit));
         }
 
-        return JsonUtil.parseFindIterableToJson(it);
+        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
     public void add(LoggingLog loggingLog) {

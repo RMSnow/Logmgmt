@@ -34,7 +34,9 @@ public class MongoConnector {
             builder.threadsAllowedToBlockForConnectionMultiplier(BLOCKSIZE);
 
             MongoClientOptions myOpt=builder.build();
+
             client=new MongoClient(HOST,myOpt);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

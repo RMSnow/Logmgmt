@@ -1,10 +1,10 @@
 package mongodb.dao;
 
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import entity.MongoQueryResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import mongodb.JsonUtil;
@@ -44,24 +44,28 @@ public class RequestLogDao {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
 
-    public String queryAll() {
+    public MongoQueryResult queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToJson(it);
+        return JsonUtil.parseFindIterableToQueryResult(it);
     }
     /*
     *query datetime format:
     *   dd-MM-yyyy hh:mm:ss
     *example:
     *   24-11-2017 23:11:40
+    *another format:
+    *   24-11-2017
+    *equals:
+    *   24-11-2017 00:00:00
      */
 
-    public String queryByParam(String serviceName,
-                               String host,
-                               String fromTimestamp,
-                               String toTimestamp,
-                               String method,
-                               String status,
-                               String limit) {
+    public MongoQueryResult queryByParam(String serviceName,
+                                         String host,
+                                         String fromTimestamp,
+                                         String toTimestamp,
+                                         String method,
+                                         String status,
+                                         String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -85,7 +89,7 @@ public class RequestLogDao {
         if (limit != null) {
             it.limit(Integer.valueOf(limit));
         }
-        return JsonUtil.parseFindIterableToJson(it);
+        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
 

@@ -1,17 +1,11 @@
 /**
  * Created by WYJ on 2017/11/7.
  */
-
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
 import orm.RequestLog;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.StringWriter;
 
 
 public class DBExample {
@@ -62,12 +56,11 @@ public class DBExample {
                 null,
                 null,
                 null
-        ));
+        ).toString());
 //        System.out.println(MongoService.getRequestLogCollection().queryAll());
     }
     private static void deleteAccessLog(){
         //删除
-//        MongoService.getAccessLogCollection().delete("5a0187ffda72a61efc254fa2");
         MongoService.getRequestLogCollection().delete("5a07bed8ae678f0c9bd91339");
     }
     private static void addStandardLog(){
@@ -85,13 +78,13 @@ public class DBExample {
     private static void queryStandardLog(){
         System.out.println(MongoService.getLoggingLogCollection().queryByParam(
                 null,
-                "3",
                 null,
                 null,
+                "28-11-2017",
                 null,
                 "0",
-                "3"
-        ));
+                null
+        ).toString());
     }
     private static void deleteStandardLog(){
 
