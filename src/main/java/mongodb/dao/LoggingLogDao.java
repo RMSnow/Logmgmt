@@ -15,6 +15,7 @@ import orm.LoggingLog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Created by WYJ on 2017/11/8.
@@ -57,12 +58,12 @@ public class LoggingLogDao {
     *   24-11-2017 00:00:00
      */
     public MongoQueryResult queryByParam(String serviceName,
-                               String level,
-                               String host,
-                               String fromDatetime,
-                               String toDatetime,
-                               String queryDetails,
-                               String limit) {
+                                         String level,
+                                         String host,
+                                         String fromDatetime,
+                                         String toDatetime,
+                                         String queryDetails,
+                                         String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -80,9 +81,9 @@ public class LoggingLogDao {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
-        if (queryDetails.equals("0")){
-            it=it.projection(
-                    new BasicDBObject(KEY_ERR_DETAILS,0)
+        if (queryDetails.equals("0")) {
+            it = it.projection(
+                    new BasicDBObject(KEY_ERR_DETAILS, 0)
             );
         }
         if (limit != null) {
@@ -95,7 +96,7 @@ public class LoggingLogDao {
     public void add(LoggingLog loggingLog) {
         Document d = new Document();
         if (loggingLog.getFacility() != null) {
-            d.append(KEY_FACILITY,loggingLog.getFacility());
+            d.append(KEY_FACILITY, loggingLog.getFacility());
         }
         if (loggingLog.getLevel() != null) {
             d.append(KEY_LEVEL, loggingLog.getLevel());
@@ -104,10 +105,10 @@ public class LoggingLogDao {
             d.append(KEY_TIMESTAMP, DateUtil.getDateNow());
         }
         if (loggingLog.getHost() != null) {
-            d.append(KEY_HOST,loggingLog.getHost());
+            d.append(KEY_HOST, loggingLog.getHost());
         }
         if (loggingLog.getServiceName() != null) {
-            d.append(KEY_SERVICE_NAME,loggingLog.getServiceName());
+            d.append(KEY_SERVICE_NAME, loggingLog.getServiceName());
         }
         if (loggingLog.getMessage() != null) {
             d.append(KEY_MESSAGE, loggingLog.getMessage());
@@ -116,13 +117,34 @@ public class LoggingLogDao {
             d.append(KEY_CLASS_NAME, loggingLog.getClassName());
         }
         if (loggingLog.getErrDetails() != null) {
-            d.append(KEY_ERR_DETAILS,loggingLog.getErrDetails());
+            d.append(KEY_ERR_DETAILS, loggingLog.getErrDetails());
         }
         collection.insertOne(d);
     }
 
-    public void delete(String id) {
+    public void deleteByID(String id) {
         collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+    }
+
+    public void deleteByParam(String serviceName,
+                              String level,
+                              String fromDateTime,
+                              String toDateTime) {
+
+        List<Bson> conditions = new ArrayList<Bson>();
+        if (serviceName != null) {
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
+        }
+        if (level != null) {
+            conditions.add(Filters.eq(KEY_LEVEL, level));
+        }
+        if (fromDateTime != null) {
+            conditions.add(Filters.gte(KEY_TIMESTAMP, fromDateTime));
+        }
+        if (toDateTime != null) {
+            conditions.add(Filters.lte(KEY_TIMESTAMP, toDateTime));
+        }
+        collection.deleteMany(Filters.and(conditions));
     }
 
 }

@@ -15,6 +15,7 @@ import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
 
 /**
  * Created by WYJ on 2017/11/7.
@@ -129,7 +130,38 @@ public class RequestLogDao {
     }
 
 
-    public void delete(String id) {
+    public void deleteByID(String id) {
         collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+    }
+    public void deleteByParam(String serviceName,
+                       String host,
+                       String fromDateTime,
+                       String toDateTime,
+                       String method,
+                       String status,
+                       String facility){
+        List<Bson> conditions = new ArrayList<Bson>();
+        if (serviceName != null) {
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
+        }
+        if (host != null) {
+            conditions.add(Filters.eq(KEY_HOST, host));
+        }
+        if (fromDateTime != null) {
+            conditions.add(Filters.gte(KEY_DATETIME, fromDateTime));
+        }
+        if (toDateTime != null) {
+            conditions.add(Filters.lte(KEY_DATETIME, toDateTime));
+        }
+        if (method != null) {
+            conditions.add(Filters.eq(KEY_METHOD, method));
+        }
+        if (status != null) {
+            conditions.add(Filters.eq(KEY_STATUS, status));
+        }
+        if (facility != null) {
+            conditions.add(Filters.eq(KEY_FACILITY,facility));
+        }
+        collection.deleteMany(Filters.and(conditions));
     }
 }

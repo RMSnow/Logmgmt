@@ -15,8 +15,8 @@ public class DBExample {
 //        deleteAccessLog();
 //
 //        addStandardLog();
-        queryStandardLog();
-//        deleteStandardLog();
+//        queryStandardLog();
+        deleteStandardLog();
 //        String s="17/十一月/2017:06:28:39";
 //        System.out.println(DateUtil.parseReqLogDateTime(s));
 
@@ -61,7 +61,7 @@ public class DBExample {
     }
     private static void deleteAccessLog(){
         //删除
-        MongoService.getRequestLogCollection().delete("5a07bed8ae678f0c9bd91339");
+        MongoService.getRequestLogCollection().deleteByID("5a07bed8ae678f0c9bd91339");
     }
     private static void addStandardLog(){
         String className="io.dropwizard.server.SimpleServerFactory";
@@ -88,6 +88,11 @@ public class DBExample {
     }
     private static void deleteStandardLog(){
 
-        MongoService.getLoggingLogCollection().delete("5a0722d2a9eba32a28da1d70");
+        MongoService.getLoggingLogCollection().deleteByParam(
+                null,
+                null,
+                "26-11-2017 19:22:00",
+                null
+        );
     }
 }
