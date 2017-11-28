@@ -13,9 +13,9 @@ public class LogMgmtConf extends Configuration{
     @NotEmpty
     private String ip;
     @NotEmpty
-    private String port1;
+    private String logmgmtPort;
     @NotEmpty
-    private String port2;
+    private String syslogPort;
     @NotEmpty
     private String url;
 
@@ -40,23 +40,23 @@ public class LogMgmtConf extends Configuration{
     }
 
     @JsonProperty
-    public String getPort1() {
-        return port1;
+    public String getLogmgmtPort() {
+        return logmgmtPort;
     }
 
     @JsonProperty
-    public void setPort1(String port1) {
-        this.port1 = port1;
+    public void setLogmgmtPort(String logmgmtPort) {
+        this.logmgmtPort = logmgmtPort;
     }
 
     @JsonProperty
-    public String getPort2() {
-        return port2;
+    public String getSyslogPort() {
+        return syslogPort;
     }
 
     @JsonProperty
-    public void setPort2(String port2) {
-        this.port2 = port2;
+    public void setSyslogPort(String syslogPort) {
+        this.syslogPort = syslogPort;
     }
 
     @JsonProperty

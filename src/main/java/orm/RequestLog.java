@@ -1,12 +1,15 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import mongodb.dao.RequestLogDao;
+import org.bson.Document;
 
 /**
  * Created by WYJ on 2017/11/7.
  */
 public class RequestLog {
 
+    private String id;
     private String host;
     private String serviceName;
     private String className;
@@ -18,6 +21,31 @@ public class RequestLog {
     private Integer status;
     private String client;
 
+    public RequestLog(){}
+
+    public RequestLog(Document d){
+        setId(d.getObjectId(RequestLogDao.KEY_ID).toString());
+        setHost(d.getString(RequestLogDao.KEY_HOST));
+        setServiceName(d.getString(RequestLogDao.KEY_SERVICE_NAME));
+        setClassName(d.getString(RequestLogDao.KEY_CLASS_NAME));
+        setFacility(d.getInteger(RequestLogDao.KEY_FACILITY));
+        setClientIP(d.getString(RequestLogDao.KEY_CLIENT_IP));
+        setDatetime(d.getString(RequestLogDao.KEY_DATETIME));
+        setMethod(d.getString(RequestLogDao.KEY_METHOD));
+        setUrl(d.getString(RequestLogDao.KEY_URL));
+        setStatus(d.getInteger(RequestLogDao.KEY_STATUS));
+        setClient(d.getString(RequestLogDao.KEY_CLIENT));
+    }
+
+    @JsonProperty
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @JsonProperty
     public String getMethod() {

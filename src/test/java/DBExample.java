@@ -15,8 +15,8 @@ public class DBExample {
 //        deleteAccessLog();
 //
 //        addStandardLog();
-//        queryStandardLog();
-        deleteStandardLog();
+        queryStandardLog();
+//        deleteStandardLog();
 //        String s="17/十一月/2017:06:28:39";
 //        System.out.println(DateUtil.parseReqLogDateTime(s));
 
@@ -80,7 +80,7 @@ public class DBExample {
                 null,
                 null,
                 null,
-                "28-11-2017",
+                "25-11-2017",
                 null,
                 "0",
                 null

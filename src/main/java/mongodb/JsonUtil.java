@@ -1,19 +1,9 @@
 package mongodb;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-import entity.MongoQueryResult;
-import entity.Result;
+import entity.MongoResult;
 import org.bson.Document;
-import org.bson.json.JsonMode;
-import org.bson.json.JsonWriterSettings;
 
-import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,11 +13,10 @@ import java.util.List;
 public class JsonUtil {
 
 
-    public static MongoQueryResult parseFindIterableToQueryResult(FindIterable<Document> it) {
+    public static MongoResult parseFindIterableToQueryResult(FindIterable<Document> it) {
 
         int index=0;
         String result="{";
-        System.out.println(it.toString());
         for (Document d : it) {
             if(index>0){
                 result += ",";
@@ -37,8 +26,9 @@ public class JsonUtil {
             index++;
         }
         result +="}";
-        System.out.println(it.toString());
-        return new MongoQueryResult(index,result);
+//        return new MongoResult();
+        return null;
+
 //        String json = null;
 //        StringWriter writer=new StringWriter();
 //        JsonFactory factory=new JsonFactory();
@@ -60,5 +50,12 @@ public class JsonUtil {
 //        }
 //        return json;
 
+    }
+    public ArrayList parseFindIterableToArrayList(FindIterable<Document> it){
+        ArrayList list=new ArrayList<>();
+        for (Document d:it){
+            list.add(d.toJson());
+        }
+        return list;
     }
 }

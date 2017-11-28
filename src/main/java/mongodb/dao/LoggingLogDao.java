@@ -4,10 +4,10 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import entity.MongoQueryResult;
+import com.mongodb.client.result.DeleteResult;
+import entity.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
-import mongodb.JsonUtil;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -15,7 +15,6 @@ import orm.LoggingLog;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 
 /**
  * Created by WYJ on 2017/11/8.
@@ -26,15 +25,15 @@ public class LoggingLogDao {
     private static final String COLLECTION_NAME = "logging";
 
 
-    private static final String KEY_ID = "_id";
-    private static final String KEY_FACILITY = "facility";
-    private static final String KEY_LEVEL = "level";
-    private static final String KEY_TIMESTAMP = "timestamp";
-    private static final String KEY_HOST = "host";
-    private static final String KEY_SERVICE_NAME = "service_name";
-    private static final String KEY_CLASS_NAME = "class_name";
-    private static final String KEY_MESSAGE = "message";
-    private static final String KEY_ERR_DETAILS = "err_details";
+    public static final String KEY_ID = "_id";
+    public static final String KEY_FACILITY = "facility";
+    public static final String KEY_LEVEL = "level";
+    public static final String KEY_TIMESTAMP = "timestamp";
+    public static final String KEY_HOST = "host";
+    public static final String KEY_SERVICE_NAME = "service_name";
+    public static final String KEY_CLASS_NAME = "class_name";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_ERR_DETAILS = "err_details";
 
     MongoCollection<Document> collection;
 
@@ -42,9 +41,14 @@ public class LoggingLogDao {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
 
-    public MongoQueryResult queryAll() {
+    public MongoResult queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToQueryResult(it);
+        ArrayList<LoggingLog> logs=new ArrayList<>();
+        for (Document d:it){
+            logs.add(new LoggingLog(d));
+        }
+        return new MongoResult(logs);
+//        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
     /*
@@ -57,13 +61,13 @@ public class LoggingLogDao {
     *equals:
     *   24-11-2017 00:00:00
      */
-    public MongoQueryResult queryByParam(String serviceName,
-                                         String level,
-                                         String host,
-                                         String fromDatetime,
-                                         String toDatetime,
-                                         String queryDetails,
-                                         String limit) {
+    public MongoResult queryByParam(String serviceName,
+                                    String level,
+                                    String host,
+                                    String fromDatetime,
+                                    String toDatetime,
+                                    String queryDetails,
+                                    String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -81,7 +85,7 @@ public class LoggingLogDao {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
         FindIterable<Document> it = collection.find(Filters.and(conditions));
-        if (queryDetails.equals("0")) {
+        if (queryDetails!=null&&queryDetails.equals("0")) {
             it = it.projection(
                     new BasicDBObject(KEY_ERR_DETAILS, 0)
             );
@@ -89,9 +93,14 @@ public class LoggingLogDao {
         if (limit != null) {
             it.limit(Integer.valueOf(limit));
         }
-
-        return JsonUtil.parseFindIterableToQueryResult(it);
+        ArrayList<LoggingLog> logs=new ArrayList<>();
+        for (Document d:it){
+            logs.add(new LoggingLog(d));
+        }
+        return new MongoResult(logs);
+//        return JsonUtil.parseFindIterableToQueryResult(it);
     }
+
 
     public void add(LoggingLog loggingLog) {
         Document d = new Document();
@@ -120,13 +129,15 @@ public class LoggingLogDao {
             d.append(KEY_ERR_DETAILS, loggingLog.getErrDetails());
         }
         collection.insertOne(d);
+
     }
 
-    public void deleteByID(String id) {
-        collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+    public MongoResult deleteByID(String id) {
+        DeleteResult result=collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
     }
 
-    public void deleteByParam(String serviceName,
+    public MongoResult deleteByParam(String serviceName,
                               String level,
                               String host,
                               String fromDateTime,
@@ -148,7 +159,9 @@ public class LoggingLogDao {
         if (toDateTime != null) {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDateTime));
         }
-        collection.deleteMany(Filters.and(conditions));
+
+        DeleteResult result=collection.deleteMany(Filters.and(conditions));
+        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
     }
 
 }

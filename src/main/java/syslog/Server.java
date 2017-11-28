@@ -33,7 +33,7 @@ import java.net.UnknownHostException;
  */
 public class Server {
 
-    public static final int SYSLOG_PORT = Integer.parseInt(ConfInfo.port2);
+    public static final int SYSLOG_PORT = Integer.parseInt(ConfInfo.syslogPort);
 
     //test
     public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {

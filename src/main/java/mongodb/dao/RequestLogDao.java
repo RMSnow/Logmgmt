@@ -4,7 +4,8 @@ package mongodb.dao;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
-import entity.MongoQueryResult;
+import com.mongodb.client.result.DeleteResult;
+import entity.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import mongodb.JsonUtil;
@@ -15,7 +16,6 @@ import org.bson.conversions.Bson;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
 
 /**
  * Created by WYJ on 2017/11/7.
@@ -27,17 +27,17 @@ public class RequestLogDao {
 
     private static final String COLLECTION_NAME = "request";
 
-    private static final String KEY_ID = "_id";
-    private static final String KEY_FACILITY = "facility";
-    private static final String KEY_HOST = "host";
-    private static final String KEY_SERVICE_NAME = "service_name";
-    private static final String KEY_CLASS_NAME = "class_name";
-    private static final String KEY_CLIENT_IP = "client_ip";
-    private static final String KEY_DATETIME = "datetime";
-    private static final String KEY_METHOD = "method";
-    private static final String KEY_URL = "url";
-    private static final String KEY_STATUS = "status";
-    private static final String KEY_CLIENT = "client";
+    public static final String KEY_ID = "_id";
+    public static final String KEY_FACILITY = "facility";
+    public static final String KEY_HOST = "host";
+    public static final String KEY_SERVICE_NAME = "service_name";
+    public static final String KEY_CLASS_NAME = "class_name";
+    public static final String KEY_CLIENT_IP = "client_ip";
+    public static final String KEY_DATETIME = "datetime";
+    public static final String KEY_METHOD = "method";
+    public static final String KEY_URL = "url";
+    public static final String KEY_STATUS = "status";
+    public static final String KEY_CLIENT = "client";
 
     private MongoCollection<Document> collection;
 
@@ -45,9 +45,13 @@ public class RequestLogDao {
         collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
     }
 
-    public MongoQueryResult queryAll() {
+    public MongoResult queryAll() {
         FindIterable<Document> it = collection.find();
-        return JsonUtil.parseFindIterableToQueryResult(it);
+        ArrayList<RequestLog> logs=new ArrayList<>();
+        for (Document d:it){
+            logs.add(new RequestLog(d));
+        }
+        return new MongoResult(logs);
     }
     /*
     *query datetime format:
@@ -60,13 +64,13 @@ public class RequestLogDao {
     *   24-11-2017 00:00:00
      */
 
-    public MongoQueryResult queryByParam(String serviceName,
-                                         String host,
-                                         String fromTimestamp,
-                                         String toTimestamp,
-                                         String method,
-                                         String status,
-                                         String limit) {
+    public MongoResult queryByParam(String serviceName,
+                                    String host,
+                                    String fromTimestamp,
+                                    String toTimestamp,
+                                    String method,
+                                    String status,
+                                    String limit) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -86,11 +90,18 @@ public class RequestLogDao {
         if (status != null) {
             conditions.add(Filters.eq(KEY_STATUS, status));
         }
-        FindIterable<Document> it = collection.find(Filters.and(conditions));
+        FindIterable<Document> it = null;
         if (limit != null) {
-            it.limit(Integer.valueOf(limit));
+            it=collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+        }else {
+            it = collection.find(Filters.and(conditions));
         }
-        return JsonUtil.parseFindIterableToQueryResult(it);
+        ArrayList<RequestLog> logs=new ArrayList<>();
+        for (Document d:it){
+            logs.add(new RequestLog(d));
+        }
+        return new MongoResult(logs);
+//        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
 
@@ -130,10 +141,11 @@ public class RequestLogDao {
     }
 
 
-    public void deleteByID(String id) {
-        collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+    public MongoResult deleteByID(String id) {
+        DeleteResult result=collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
     }
-    public void deleteByParam(String serviceName,
+    public MongoResult deleteByParam(String serviceName,
                        String host,
                        String fromDateTime,
                        String toDateTime,
@@ -162,6 +174,7 @@ public class RequestLogDao {
         if (facility != null) {
             conditions.add(Filters.eq(KEY_FACILITY,facility));
         }
-        collection.deleteMany(Filters.and(conditions));
+        DeleteResult result=collection.deleteMany(Filters.and(conditions));
+        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
     }
 }

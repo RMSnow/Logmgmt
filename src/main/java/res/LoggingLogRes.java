@@ -1,7 +1,7 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
-import entity.MongoQueryResult;
+import entity.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoService;
@@ -35,14 +35,14 @@ public class LoggingLogRes {
 
         //queryOrNot
 
-        MongoQueryResult result = MongoService.getLoggingLogCollection().queryByParam(serviceName,
+        MongoResult result = MongoService.getLoggingLogCollection().queryByParam(serviceName,
                 level, host, fromTimeStamp, toTimeStamp, queryOrNot, limit);
 
         if (result.getResultNum() == 0) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
 
-        return new Result(result.getResultNum() + " results.", Status.OK, result.getJsonResult());
+        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
     }
 
     @DELETE

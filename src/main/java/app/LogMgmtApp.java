@@ -36,8 +36,8 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         environment.jersey().register(loggingLogRes);
 
         ConfInfo.serviceName = configuration.getName();
-        ConfInfo.port1 = configuration.getPort1();
-        ConfInfo.port2 = configuration.getPort2();
+        ConfInfo.logmgmtPort = configuration.getLogmgmtPort();
+        ConfInfo.syslogPort = configuration.getSyslogPort();
     }
 
 }

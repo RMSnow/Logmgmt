@@ -1,12 +1,15 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import mongodb.dao.LoggingLogDao;
+import org.bson.Document;
 
 /**
  * Created by WYJ on 2017/11/8.
  */
 public class LoggingLog {
 
+    private String id;
     private String facility;
     private String timestamp;
     private Integer level;
@@ -15,6 +18,30 @@ public class LoggingLog {
     private String className;
     private String message;
     private String errDetails;
+
+    public LoggingLog(){}
+
+    public LoggingLog(Document d){
+        setId(d.getObjectId(LoggingLogDao.KEY_ID).toString());
+        setFacility(d.getString(LoggingLogDao.KEY_FACILITY));
+        setLevel(d.getInteger(LoggingLogDao.KEY_LEVEL));
+        setHost(d.getString(LoggingLogDao.KEY_HOST));
+        setServiceName(d.getString(LoggingLogDao.KEY_SERVICE_NAME));
+        setTimestamp(d.getString(LoggingLogDao.KEY_TIMESTAMP));
+        setClassName(d.getString(LoggingLogDao.KEY_CLASS_NAME));
+        setMessage(d.getString(LoggingLogDao.KEY_MESSAGE));
+        setErrDetails(d.getString(LoggingLogDao.KEY_ERR_DETAILS));
+    }
+
+    @JsonProperty
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty
+    public void setId(String id) {
+        this.id = id;
+    }
 
     @JsonProperty
     public Integer getLevel() {

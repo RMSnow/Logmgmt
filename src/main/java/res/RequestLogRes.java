@@ -1,7 +1,7 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
-import entity.MongoQueryResult;
+import entity.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoService;
@@ -28,7 +28,7 @@ public class RequestLogRes {
 
 //        String data = MongoService.getRequestLogCollection().queryByParam(serviceName,
 //                host,fromDateTime,toDateTime,method,status,null);
-//        MongoQueryResult data = MongoService.getRequestLogCollection().queryByParam(serviceName,
+//        MongoResult data = MongoService.getRequestLogCollection().queryByParam(serviceName,
 //        host,fromDateTime,toDateTime,method,status,null);
 //        if (data == null) {
 //            return new Result("NOT FOUND", Status.NOT_FOUND, "");
@@ -41,14 +41,14 @@ public class RequestLogRes {
 //
 //        return new Result("[SUM] outcome", Status.OK, data);
 
-        MongoQueryResult result = MongoService.getRequestLogCollection().queryByParam(serviceName,
+        MongoResult result = MongoService.getRequestLogCollection().queryByParam(serviceName,
                 host, fromDateTime, toDateTime, method, status, limit);
 
         if (result.getResultNum() == 0) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
 
-        return new Result(result.getResultNum() + " results.", Status.OK, result.getJsonResult());
+        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
     }
 
     @DELETE
