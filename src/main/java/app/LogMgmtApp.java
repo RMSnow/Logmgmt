@@ -1,11 +1,11 @@
 package app;
 
 import conf.LogMgmtConf;
+import entity.ConfInfo;
 import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import orm.LoggingLog;
 import res.LoggingLogRes;
 import res.RequestLogRes;
 
@@ -15,8 +15,7 @@ import res.RequestLogRes;
 public class LogMgmtApp extends Application<LogMgmtConf> {
     @Override
     public String getName() {
-        //to modify
-        return "logmgmt";
+        return ConfInfo.serviceName;
     }
 
     @Override
@@ -35,6 +34,12 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
 
         environment.jersey().register(requestLogRes);
         environment.jersey().register(loggingLogRes);
+
+        ConfInfo.serviceName = configuration.getName();
+        ConfInfo.port1 = configuration.getPort1();
+        ConfInfo.port2 = configuration.getPort2();
     }
 
 }
+
+//java -jar target/cloudclass_logmgmt-1.0-SNAPSHOT.jar server logmgmt.yml

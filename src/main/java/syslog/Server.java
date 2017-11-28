@@ -21,6 +21,7 @@
  */
 package syslog;
 
+import entity.ConfInfo;
 import org.productivity.java.syslog4j.SyslogRuntimeException;
 import org.productivity.java.syslog4j.server.SyslogServer;
 import org.productivity.java.syslog4j.server.SyslogServerConfigIF;
@@ -32,7 +33,7 @@ import java.net.UnknownHostException;
  */
 public class Server {
 
-    public static final int SYSLOG_PORT = 9898;
+    public static final int SYSLOG_PORT = Integer.parseInt(ConfInfo.port2);
 
     //test
     public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {

@@ -13,7 +13,9 @@ public class LogMgmtConf extends Configuration{
     @NotEmpty
     private String ip;
     @NotEmpty
-    private String port;
+    private String port1;
+    @NotEmpty
+    private String port2;
     @NotEmpty
     private String url;
 
@@ -38,13 +40,23 @@ public class LogMgmtConf extends Configuration{
     }
 
     @JsonProperty
-    public String getPort() {
-        return port;
+    public String getPort1() {
+        return port1;
     }
 
     @JsonProperty
-    public void setPort(String port) {
-        this.port = port;
+    public void setPort1(String port1) {
+        this.port1 = port1;
+    }
+
+    @JsonProperty
+    public String getPort2() {
+        return port2;
+    }
+
+    @JsonProperty
+    public void setPort2(String port2) {
+        this.port2 = port2;
     }
 
     @JsonProperty

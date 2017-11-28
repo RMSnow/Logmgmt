@@ -1,6 +1,7 @@
 name: logmgmt
 ip: 119.29.132.15
-port: 9999
+port1: 9999
+port2: 9898
 url: http://123.207.73.150
 
 server:

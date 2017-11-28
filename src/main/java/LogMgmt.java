@@ -1,4 +1,5 @@
 import app.LogMgmtApp;
+import entity.ConfInfo;
 import syslog.Server;
 
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class LogMgmt {
         //App入口
         Arrays.asList(new LogMgmtApp()).forEach(
                 (l) -> {
-                    try{
+                    try {
                         l.run(args);
                     } catch (Exception e) {
                         e.printStackTrace();
