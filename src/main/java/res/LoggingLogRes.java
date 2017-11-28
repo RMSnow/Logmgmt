@@ -1,7 +1,10 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
+import entity.MongoQueryResult;
 import entity.Result;
+import entity.Status;
+import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.ws.rs.*;
@@ -17,11 +20,12 @@ public class LoggingLogRes {
     @GET
     @Timed
     public Result queryLoggings(@NotEmpty @QueryParam("serviceName") String serviceName,
-                            @QueryParam("level") String level,
-                            @QueryParam("host") String host,
-                            @QueryParam("fromTimeStamp") String fromTimeStamp,
-                            @QueryParam("toTimeStamp") String toTimeStamp,
-                            @QueryParam("errDetails") String queryOrNot){
+                                @QueryParam("level") String level,
+                                @QueryParam("host") String host,
+                                @QueryParam("fromTimeStamp") String fromTimeStamp,
+                                @QueryParam("toTimeStamp") String toTimeStamp,
+                                @QueryParam("errDetails") String queryOrNot,
+                                @QueryParam("limit") String limit) {
         /*
             注：(1)参数queryOrNot的值为0或1，当值为0时，则不显示errDetails的信息；
                当值为1时，显示errDetails的信息。其默认值为0。
@@ -29,7 +33,16 @@ public class LoggingLogRes {
                (3)可添加一个查询到的日志数量sum
          */
 
-        return null;
+        //queryOrNot
+
+        MongoQueryResult result = MongoService.getLoggingLogCollection().queryByParam(serviceName,
+                level, host, fromTimeStamp, toTimeStamp, queryOrNot, limit);
+
+        if (result.getResultNum() == 0) {
+            return new Result("NOT FOUND", Status.NOT_FOUND, "");
+        }
+
+        return new Result(result.getResultNum() + " results.", Status.OK, result.getJsonResult());
     }
 
     @DELETE
@@ -38,11 +51,13 @@ public class LoggingLogRes {
                                  @QueryParam("level") String level,
                                  @QueryParam("host") String host,
                                  @QueryParam("fromTimeStamp") String fromTimeStamp,
-                                 @QueryParam("toTimeStamp") String toTimeStamp){
-        /*
-            注：缺少获得ID的方法
-         */
+                                 @QueryParam("toTimeStamp") String toTimeStamp) {
 
-        return null;
+        //把delete的返回值也改为MongoQueryResult
+
+        MongoService.getLoggingLogCollection().deleteByParam(serviceName,
+                level, host, fromTimeStamp, toTimeStamp);
+
+        return new Result("", Status.OK, "");
     }
 }

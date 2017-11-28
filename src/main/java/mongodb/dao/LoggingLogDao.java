@@ -128,6 +128,7 @@ public class LoggingLogDao {
 
     public void deleteByParam(String serviceName,
                               String level,
+                              String host,
                               String fromDateTime,
                               String toDateTime) {
 
@@ -137,6 +138,9 @@ public class LoggingLogDao {
         }
         if (level != null) {
             conditions.add(Filters.eq(KEY_LEVEL, level));
+        }
+        if (host != null) {
+            conditions.add(Filters.eq(KEY_HOST, host));
         }
         if (fromDateTime != null) {
             conditions.add(Filters.gte(KEY_TIMESTAMP, fromDateTime));

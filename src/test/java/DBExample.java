@@ -91,6 +91,7 @@ public class DBExample {
         MongoService.getLoggingLogCollection().deleteByParam(
                 null,
                 null,
+                null,
                 "26-11-2017 19:22:00",
                 null
         );

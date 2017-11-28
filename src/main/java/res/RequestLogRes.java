@@ -19,27 +19,36 @@ public class RequestLogRes {
     @GET
     @Timed
     public Result queryRequests(@NotEmpty @QueryParam("serviceName") String serviceName,
-                            @QueryParam("host") String host,
-                            @QueryParam("fromDateTime") String fromDateTime,
-                            @QueryParam("toDateTime") String toDateTime,
-                            @QueryParam("method") String method,
-                            @QueryParam("status") String status) {
+                                @QueryParam("host") String host,
+                                @QueryParam("fromDateTime") String fromDateTime,
+                                @QueryParam("toDateTime") String toDateTime,
+                                @QueryParam("method") String method,
+                                @QueryParam("status") String status,
+                                @QueryParam("limit") String limit) {
 
 //        String data = MongoService.getRequestLogCollection().queryByParam(serviceName,
 //                host,fromDateTime,toDateTime,method,status,null);
-        MongoQueryResult data = MongoService.getRequestLogCollection().queryByParam(serviceName,
-        host,fromDateTime,toDateTime,method,status,null);
-        if (data == null) {
+//        MongoQueryResult data = MongoService.getRequestLogCollection().queryByParam(serviceName,
+//        host,fromDateTime,toDateTime,method,status,null);
+//        if (data == null) {
+//            return new Result("NOT FOUND", Status.NOT_FOUND, "");
+//        }
+//
+//        /*
+//            注：(1)可添加一个查询到的日志数量sum
+//                (2)标注一下参数fromTimeStamp和toTimeStamp的格式，之后我把写到api文档上
+//         */
+//
+//        return new Result("[SUM] outcome", Status.OK, data);
+
+        MongoQueryResult result = MongoService.getRequestLogCollection().queryByParam(serviceName,
+                host, fromDateTime, toDateTime, method, status, limit);
+
+        if (result.getResultNum() == 0) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
 
-        /*
-            注：(1)可添加一个查询到的日志数量sum
-                (2)标注一下参数fromTimeStamp和toTimeStamp的格式，之后我把写到api文档上
-         */
-
-        return new Result("[SUM] outcome", Status.OK, data);
-
+        return new Result(result.getResultNum() + " results.", Status.OK, result.getJsonResult());
     }
 
     @DELETE
@@ -51,10 +60,10 @@ public class RequestLogRes {
                                  @QueryParam("method") String method,
                                  @QueryParam("status") String status) {
 
-        /*
-            缺少获得ID的方法
-         */
+        //把delete的返回值也改为MongoQueryResult
 
+        MongoService.getRequestLogCollection().deleteByParam(serviceName,
+                host, fromDateTime, toDateTime, method, status, null);
         return new Result("", Status.OK, "");
     }
 }

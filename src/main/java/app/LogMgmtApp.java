@@ -5,6 +5,8 @@ import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import orm.LoggingLog;
+import res.LoggingLogRes;
 import res.RequestLogRes;
 
 /**
@@ -28,8 +30,11 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         final LogMgmtHealthCheck healCheck = new LogMgmtHealthCheck(configuration.getName());
         environment.healthChecks().register("LogMgmt", healCheck);
 
-        final RequestLogRes accessLogsRes = new RequestLogRes();
-        environment.jersey().register(accessLogsRes);
+        final RequestLogRes requestLogRes = new RequestLogRes();
+        final LoggingLogRes loggingLogRes = new LoggingLogRes();
+
+        environment.jersey().register(requestLogRes);
+        environment.jersey().register(loggingLogRes);
     }
 
 }
