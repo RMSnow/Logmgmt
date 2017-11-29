@@ -29,3 +29,5 @@ public class LogMgmt {
     }
 
 }
+
+//java -jar target/cloudclass_logmgmt-1.0-SNAPSHOT.jar server logmgmt.yml

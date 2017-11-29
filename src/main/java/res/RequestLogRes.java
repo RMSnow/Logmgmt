@@ -26,21 +26,6 @@ public class RequestLogRes {
                                 @QueryParam("status") String status,
                                 @QueryParam("limit") String limit) {
 
-//        String data = MongoService.getRequestLogCollection().queryByParam(serviceName,
-//                host,fromDateTime,toDateTime,method,status,null);
-//        MongoResult data = MongoService.getRequestLogCollection().queryByParam(serviceName,
-//        host,fromDateTime,toDateTime,method,status,null);
-//        if (data == null) {
-//            return new Result("NOT FOUND", Status.NOT_FOUND, "");
-//        }
-//
-//        /*
-//            注：(1)可添加一个查询到的日志数量sum
-//                (2)标注一下参数fromTimeStamp和toTimeStamp的格式，之后我把写到api文档上
-//         */
-//
-//        return new Result("[SUM] outcome", Status.OK, data);
-
         MongoResult result = MongoService.getRequestLogCollection().queryByParam(serviceName,
                 host, fromDateTime, toDateTime, method, status, limit);
 
@@ -60,11 +45,14 @@ public class RequestLogRes {
                                  @QueryParam("method") String method,
                                  @QueryParam("status") String status) {
 
-        //把delete的返回值也改为MongoQueryResult
-
-        MongoService.getRequestLogCollection().deleteByParam(serviceName,
+        MongoResult result = MongoService.getRequestLogCollection().deleteByParam(serviceName,
                 host, fromDateTime, toDateTime, method, status, null);
-        return new Result("", Status.OK, "");
+
+        if (result.getResultNum() == 0) {
+            return new Result("NOT FOUND", Status.NOT_FOUND, "");
+        }
+
+        return new Result(result.getResultNum() + " results has been deleted.", Status.OK, "");
     }
 }
 

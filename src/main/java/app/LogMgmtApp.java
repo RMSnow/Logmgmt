@@ -41,5 +41,3 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
     }
 
 }
-
-//java -jar target/cloudclass_logmgmt-1.0-SNAPSHOT.jar server logmgmt.yml
