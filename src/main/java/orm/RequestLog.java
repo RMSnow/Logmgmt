@@ -89,12 +89,12 @@ public class RequestLog {
     }
 
     @JsonProperty
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
     @JsonProperty
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
@@ -148,8 +148,4 @@ public class RequestLog {
         this.clientIP = clientIP;
     }
 
-    @JsonProperty
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 }

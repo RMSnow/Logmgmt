@@ -79,6 +79,7 @@ public class SyslogService {
         RequestLog log = new RequestLog();
         log.setFacility(syslog.getFacility());
         log.setClient(syslog.getClient());
+        log.setClientIP(syslog.getClientIP());
         log.setDatetime(syslog.getDatetime());
         log.setStatus(syslog.getStatus());
         log.setHost(syslog.getHost());

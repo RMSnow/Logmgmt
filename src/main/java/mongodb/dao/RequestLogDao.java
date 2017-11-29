@@ -88,7 +88,7 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_METHOD, method));
         }
         if (status != null) {
-            conditions.add(Filters.eq(KEY_STATUS, status));
+            conditions.add(Filters.eq(KEY_STATUS,Integer.valueOf(status)));
         }
         FindIterable<Document> it = null;
         if (limit != null) {
@@ -131,7 +131,7 @@ public class RequestLogDao {
         if (requestLog.getUrl() != null) {
             d.append(KEY_URL, requestLog.getUrl());
         }
-        if (requestLog.getStatus() != 0) {
+        if (requestLog.getStatus() != null) {
             d.append(KEY_STATUS, requestLog.getStatus());
         }
         if (requestLog.getClient() != null) {
@@ -169,7 +169,7 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_METHOD, method));
         }
         if (status != null) {
-            conditions.add(Filters.eq(KEY_STATUS, status));
+            conditions.add(Filters.eq(KEY_STATUS,Integer.valueOf(status)));
         }
         if (facility != null) {
             conditions.add(Filters.eq(KEY_FACILITY,facility));

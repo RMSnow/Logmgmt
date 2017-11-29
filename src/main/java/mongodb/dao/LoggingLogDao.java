@@ -84,14 +84,22 @@ public class LoggingLogDao {
         if (toDatetime != null) {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDatetime));
         }
-        FindIterable<Document> it = collection.find(Filters.and(conditions));
-        if (queryDetails!=null&&queryDetails.equals("0")) {
+        FindIterable<Document> it = null;
+        if (limit != null) {
+            it=collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+        }else {
+            it = collection.find(Filters.and(conditions));
+        }
+        if (queryDetails!=null) {
+            if (queryDetails.equals("0")){
+                it = it.projection(
+                        new BasicDBObject(KEY_ERR_DETAILS, 0)
+                );
+            }
+        }else{
             it = it.projection(
                     new BasicDBObject(KEY_ERR_DETAILS, 0)
             );
-        }
-        if (limit != null) {
-            it.limit(Integer.valueOf(limit));
         }
         ArrayList<LoggingLog> logs=new ArrayList<>();
         for (Document d:it){
@@ -148,7 +156,7 @@ public class LoggingLogDao {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
         if (level != null) {
-            conditions.add(Filters.eq(KEY_LEVEL, level));
+            conditions.add(Filters.eq(KEY_LEVEL,Integer.valueOf(level)));
         }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));

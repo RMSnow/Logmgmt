@@ -31,10 +31,14 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
 
+        startPos=endPos+1;
+        startPos=searchChar(raw,startPos,'[')+1;
+        endPos = searchChar(raw, startPos, ']');
+        className=getString(raw,startPos,endPos);
+
         //clientIP
         startPos = endPos + 1;
         tempPos = searchChar(raw, startPos, ' ');
-        tempPos = searchChar(raw, tempPos + 1, ' ');
         tempPos = searchChar(raw, tempPos + 1, ' ');
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
@@ -45,20 +49,17 @@ public class RequestSyslog extends SyslogEvent {
         startPos = searchChar(raw, startPos, '[') + 1;
         endPos = searchChar(raw, startPos, ' ');
         datetime = getString(raw, startPos, endPos);
-        //System.out.println(datetime);
 
         //method
         startPos = endPos + 1;
         startPos = searchChar(raw, startPos, '\"') + 1;
         endPos = searchChar(raw, startPos, ' ');
         method = getString(raw, startPos, endPos);
-        //System.out.println(method);
 
         //url
         startPos = endPos + 1;
         endPos = searchChar(raw, startPos, '\"');
         url = getString(raw, startPos, endPos);
-        //System.out.println(url);
 
         //status
         startPos = endPos + 1;
@@ -66,7 +67,6 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
         status = Integer.valueOf(getString(raw, startPos, endPos));
-        //System.out.println(status);
 
         //client
         startPos = endPos + 1;
@@ -76,7 +76,6 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, '\"');
         client = getString(raw, startPos, endPos);
-        //System.out.println(client);
 
         SyslogService.addRequestLog(this);
     }

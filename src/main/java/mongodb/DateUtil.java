@@ -41,7 +41,7 @@ public class DateUtil {
 
 
     public static String parseReqLogDateTime(String dateStr){
-        SimpleDateFormat originFormat = new SimpleDateFormat(PATTERN_REQLOG_DATETIME, Locale.CHINA);
+        SimpleDateFormat originFormat = new SimpleDateFormat(PATTERN_REQLOG_DATETIME);
         SimpleDateFormat newFormat = new SimpleDateFormat(PATTERN_ISODATE);
         originFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         newFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
