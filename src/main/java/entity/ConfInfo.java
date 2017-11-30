@@ -13,4 +13,8 @@ public class ConfInfo {
     public static String mongodbPort;
 
     public static String mongodbHost;
+
+    public static String mongodbUserName;
+
+    public static String mongodbPassword;
 }

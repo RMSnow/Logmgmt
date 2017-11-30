@@ -4,6 +4,8 @@ logmgmtPort: 9999
 syslogPort: 9898
 mongodbPort: 27017
 mongodbHost: localhost
+mongodbUserName: wyj
+mongodbPassword: 123456
 url: http://123.207.73.150
 
 server:

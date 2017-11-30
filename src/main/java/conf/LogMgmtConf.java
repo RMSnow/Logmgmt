@@ -21,6 +21,10 @@ public class LogMgmtConf extends Configuration {
     @NotEmpty
     private String mongodbHost;
     @NotEmpty
+    private String mongodbUserName;
+    @NotEmpty
+    private String mongodbPassword;
+    @NotEmpty
     private String url;
 
     @JsonProperty
@@ -81,6 +85,26 @@ public class LogMgmtConf extends Configuration {
     @JsonProperty
     public void setMongodbHost(String mongodbHost) {
         this.mongodbHost = mongodbHost;
+    }
+
+    @JsonProperty
+    public String getMongodbUserName() {
+        return mongodbUserName;
+    }
+
+    @JsonProperty
+    public void setMongodbUserName(String mongodbUserName) {
+        this.mongodbUserName = mongodbUserName;
+    }
+
+    @JsonProperty
+    public String getMongodbPassword() {
+        return mongodbPassword;
+    }
+
+    @JsonProperty
+    public void setMongodbPassword(String mongodbPassword) {
+        this.mongodbPassword = mongodbPassword;
     }
 
     @JsonProperty

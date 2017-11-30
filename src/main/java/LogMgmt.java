@@ -25,8 +25,11 @@ public class LogMgmt {
         System.out.println("------------------------------------------");
         System.out.println();
 
-        MongoConnector.HOST=ConfInfo.mongodbHost;
-        MongoConnector.PORT=Integer.valueOf(ConfInfo.mongodbPort);
+        MongoConnector.host =ConfInfo.mongodbHost;
+        MongoConnector.port =Integer.valueOf(ConfInfo.mongodbPort);
+        MongoConnector.userName =ConfInfo.mongodbUserName;
+        MongoConnector.password =ConfInfo.mongodbPassword;
+        MongoConnector.init();
 
         //Syslog入口
         Server syslogServer = new Server();

@@ -29,12 +29,11 @@ public class LoggingLogDao {
     public static final String KEY_CLASS_NAME = "class_name";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_ERR_DETAILS = "err_details";
-    private static final String DB_NAME = "logs";
     private static final String COLLECTION_NAME = "logging";
     MongoCollection<Document> collection;
 
     public LoggingLogDao() {
-        collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
+        collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
     }
 
     public MongoResult queryAll() {

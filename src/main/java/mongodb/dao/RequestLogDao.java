@@ -33,12 +33,11 @@ public class RequestLogDao {
     public static final String KEY_URL = "url";
     public static final String KEY_STATUS = "status";
     public static final String KEY_CLIENT = "client";
-    private static final String DB_NAME = "logs";
     private static final String COLLECTION_NAME = "request";
     private MongoCollection<Document> collection;
 
     public RequestLogDao() {
-        collection = MongoConnector.getCollection(DB_NAME, COLLECTION_NAME);
+        collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
     }
 
     public MongoResult queryAll() {
