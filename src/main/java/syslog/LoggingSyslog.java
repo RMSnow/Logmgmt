@@ -28,7 +28,7 @@ public class LoggingSyslog extends SyslogEvent {
 
         if (tag == NORMAL_LOG) {
             logging();
-            System.out.println(toString());
+            //System.out.println(toString());
             SyslogService.addLoggingNormal(this, null);
         } else {
             errorLogging();

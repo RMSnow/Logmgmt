@@ -5,7 +5,7 @@ import com.codahale.metrics.health.HealthCheck;
 /**
  * 检查异常
  */
-public class LogMgmtHealthCheck extends HealthCheck{
+public class LogMgmtHealthCheck extends HealthCheck {
     private final String name;
 
     public LogMgmtHealthCheck(String name) {
@@ -13,9 +13,9 @@ public class LogMgmtHealthCheck extends HealthCheck{
     }
 
     @Override
-    protected Result check() throws Exception{
+    protected Result check() throws Exception {
         final String t = "logmgmt";
-        if(!name.contains(t)){
+        if (!name.contains(t)) {
             return Result.unhealthy("Errors in HealthCheck");
         }
         return Result.healthy();

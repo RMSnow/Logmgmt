@@ -21,9 +21,10 @@ public class RequestLog {
     private Integer status;
     private String client;
 
-    public RequestLog(){}
+    public RequestLog() {
+    }
 
-    public RequestLog(Document d){
+    public RequestLog(Document d) {
         setId(d.getObjectId(RequestLogDao.KEY_ID).toString());
         setHost(d.getString(RequestLogDao.KEY_HOST));
         setServiceName(d.getString(RequestLogDao.KEY_SERVICE_NAME));

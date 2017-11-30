@@ -31,10 +31,10 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
 
-        startPos=endPos+1;
-        startPos=searchChar(raw,startPos,'[')+1;
+        startPos = endPos + 1;
+        startPos = searchChar(raw, startPos, '[') + 1;
         endPos = searchChar(raw, startPos, ']');
-        className=getString(raw,startPos,endPos);
+        className = getString(raw, startPos, endPos);
 
         //clientIP
         startPos = endPos + 1;

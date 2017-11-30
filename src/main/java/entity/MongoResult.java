@@ -1,7 +1,6 @@
 package entity;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by WYJ on 2017/11/27.
@@ -14,11 +13,12 @@ public class MongoResult {
     public MongoResult(ArrayList results) {
         this.resultNum = results.size();
         this.results = results;
-        this.acknowledged=true;
+        this.acknowledged = true;
     }
-    public MongoResult(long resultNum, boolean acknowledged){
-        this.resultNum=resultNum;
-        this.acknowledged=acknowledged;
+
+    public MongoResult(long resultNum, boolean acknowledged) {
+        this.resultNum = resultNum;
+        this.acknowledged = acknowledged;
     }
 
     public long getResultNum() {

@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 /**
  * 配置信息
  */
-public class LogMgmtConf extends Configuration{
+public class LogMgmtConf extends Configuration {
     @NotEmpty
     private String name;
     @NotEmpty

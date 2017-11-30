@@ -5,7 +5,6 @@ import entity.MongoResult;
 import org.bson.Document;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by WYJ on 2017/11/12.
@@ -15,17 +14,17 @@ public class JsonUtil {
 
     public static MongoResult parseFindIterableToQueryResult(FindIterable<Document> it) {
 
-        int index=0;
-        String result="{";
+        int index = 0;
+        String result = "{";
         for (Document d : it) {
-            if(index>0){
+            if (index > 0) {
                 result += ",";
             }
             result += String.format(" \"%d\" : ", index);
             result += d.toJson();
             index++;
         }
-        result +="}";
+        result += "}";
 //        return new MongoResult();
         return null;
 
@@ -51,9 +50,10 @@ public class JsonUtil {
 //        return json;
 
     }
-    public ArrayList parseFindIterableToArrayList(FindIterable<Document> it){
-        ArrayList list=new ArrayList<>();
-        for (Document d:it){
+
+    public ArrayList parseFindIterableToArrayList(FindIterable<Document> it) {
+        ArrayList list = new ArrayList<>();
+        for (Document d : it) {
             list.add(d.toJson());
         }
         return list;

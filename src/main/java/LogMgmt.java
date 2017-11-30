@@ -1,5 +1,4 @@
 import app.LogMgmtApp;
-import entity.ConfInfo;
 import syslog.Server;
 
 import java.util.Arrays;
@@ -26,6 +25,10 @@ public class LogMgmt {
 
         //Syslog入口
         Server syslogServer = new Server();
+
+        System.out.println();
+        System.out.println("------------------------------------------");
+        System.out.println();
     }
 
 }

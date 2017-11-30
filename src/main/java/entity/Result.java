@@ -14,16 +14,18 @@ public class Result {
     }
 
     @JsonProperty
-    public Object getMsg(){return msg;}
-
-    @JsonProperty
-    public int getStatus() {
-        return status;
+    public Object getMsg() {
+        return msg;
     }
 
     @JsonProperty
     public void setMsg(Object msg) {
         this.msg = msg;
+    }
+
+    @JsonProperty
+    public int getStatus() {
+        return status;
     }
 
     @JsonProperty

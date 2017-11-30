@@ -35,12 +35,7 @@ public class Server {
 
     public static final int SYSLOG_PORT = Integer.parseInt(ConfInfo.syslogPort);
 
-    //test
-    public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {
-        new Server();
-    }
-
-    public Server(){
+    public Server() {
         // Details for the properties -
         // http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/JSSERefGuide.html
         System.setProperty("jsse.enableSNIExtension", "false");
@@ -86,6 +81,11 @@ public class Server {
 
         // start syslog server
         SyslogServer.createThreadedInstance(syslogProtocol, config);
+    }
+
+    //test
+    public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {
+        new Server();
     }
 
     private static SyslogServerConfigIF getSyslogConfig(String syslogProtocol) {

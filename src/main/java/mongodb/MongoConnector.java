@@ -20,22 +20,23 @@ public class MongoConnector {
 
     private static final String HOST = "localhost";
     private static final int PORT = 27017;
-    private final static int POOLSIZE=100;
-    private final static int BLOCKSIZE=100;
+    private final static int POOLSIZE = 100;
+    private final static int BLOCKSIZE = 100;
     private static MongoClient client;
 
     static {
         init();
     }
-    private static void init(){
+
+    private static void init() {
         try {
-            MongoClientOptions.Builder builder=new MongoClientOptions.Builder();
+            MongoClientOptions.Builder builder = new MongoClientOptions.Builder();
             builder.connectionsPerHost(POOLSIZE);
             builder.threadsAllowedToBlockForConnectionMultiplier(BLOCKSIZE);
 
-            MongoClientOptions myOpt=builder.build();
+            MongoClientOptions myOpt = builder.build();
 
-            client=new MongoClient(HOST,myOpt);
+            client = new MongoClient(HOST, myOpt);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,6 +56,7 @@ public class MongoConnector {
         }
         return db;
     }
+
     public static MongoCollection<Document> getCollection(String dbName, String collecitonName) {
         MongoDatabase db = getDatabaseConnection(dbName);
         return db.getCollection(collecitonName);

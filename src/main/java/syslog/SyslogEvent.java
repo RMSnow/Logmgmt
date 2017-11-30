@@ -12,6 +12,8 @@ import java.util.regex.Pattern;
  * SyslogEvent 基类
  */
 public class SyslogEvent implements SyslogServerEventIF {
+    protected static final String CHARSET = "UTF-8";
+    private static int savedSyslogLevel;        //保存上一条日志的类型
     protected byte[] raw;
     protected int priVal;
     protected int facility;
@@ -19,17 +21,11 @@ public class SyslogEvent implements SyslogServerEventIF {
     protected String timestamp;
     protected String host;
     protected String message;
-
-    protected static final String CHARSET = "UTF-8";
-
     protected String serviceName;       //服务名
     protected String className;     //类名
-
     protected int startPos;
     protected int endPos;
     protected int tempPos;
-
-    private static int savedSyslogLevel;        //保存上一条日志的类型
 
     public SyslogEvent() {
 
@@ -40,13 +36,13 @@ public class SyslogEvent implements SyslogServerEventIF {
         System.arraycopy(data, offset, raw, 0, length);
 
         //raw
-        System.out.println("---------------");
-        try {
-            System.out.println(new String(raw, CHARSET));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        System.out.println("---------------");
+//        System.out.println("---------------");
+//        try {
+//            System.out.println(new String(raw, CHARSET));
+//        } catch (UnsupportedEncodingException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println("---------------");
 
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');
@@ -74,7 +70,7 @@ public class SyslogEvent implements SyslogServerEventIF {
         /* distinguish normal logs between RequestSyslog and LoggingSyslog */
 
         if (level == 6) {
-            if (savedSyslogLevel == 3){     //当访问日志前面一条日志为错误日志
+            if (savedSyslogLevel == 3) {     //当访问日志前面一条日志为错误日志
                 SyslogService.addLoggingError();
             }
 
@@ -96,7 +92,7 @@ public class SyslogEvent implements SyslogServerEventIF {
                 new LoggingSyslog(this, LoggingSyslog.NORMAL_LOG);
                 return;
             }
-        }else {
+        } else {
             // warning: level = 4
             savedSyslogLevel = level;
             new LoggingSyslog(this, LoggingSyslog.NORMAL_LOG);
