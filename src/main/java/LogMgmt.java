@@ -1,5 +1,6 @@
 import app.LogMgmtApp;
 import entity.ConfInfo;
+import mongodb.MongoConnector;
 import syslog.Server;
 
 import java.util.Arrays;
@@ -24,8 +25,12 @@ public class LogMgmt {
         System.out.println("------------------------------------------");
         System.out.println();
 
+        MongoConnector.HOST=ConfInfo.mongodbHost;
+        MongoConnector.PORT=Integer.valueOf(ConfInfo.mongodbPort);
+
         //Syslog入口
         Server syslogServer = new Server();
+
     }
 
 }

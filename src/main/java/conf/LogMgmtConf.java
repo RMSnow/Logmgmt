@@ -17,6 +17,10 @@ public class LogMgmtConf extends Configuration{
     @NotEmpty
     private String syslogPort;
     @NotEmpty
+    private String mongodbPort;
+    @NotEmpty
+    private String mongodbHost;
+    @NotEmpty
     private String url;
 
     @JsonProperty
@@ -57,6 +61,26 @@ public class LogMgmtConf extends Configuration{
     @JsonProperty
     public void setSyslogPort(String syslogPort) {
         this.syslogPort = syslogPort;
+    }
+
+    @JsonProperty
+    public String getMongodbPort() {
+        return mongodbPort;
+    }
+
+    @JsonProperty
+    public void setMongodbPort(String mongodbPort) {
+        this.mongodbPort = mongodbPort;
+    }
+
+    @JsonProperty
+    public String getMongodbHost() {
+        return mongodbHost;
+    }
+
+    @JsonProperty
+    public void setMongodbHost(String mongodbHost) {
+        this.mongodbHost = mongodbHost;
     }
 
     @JsonProperty

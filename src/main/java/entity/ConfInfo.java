@@ -10,4 +10,7 @@ public class ConfInfo {
 
     public static String syslogPort;
 
+    public static String mongodbPort;
+
+    public static String mongodbHost;
 }

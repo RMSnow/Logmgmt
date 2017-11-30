@@ -18,8 +18,9 @@ public class MongoConnector {
     * Need more tests.
      */
 
-    private static final String HOST = "localhost";
-    private static final int PORT = 27017;
+    public static String HOST ;
+    public static int PORT ;
+
     private final static int POOLSIZE=100;
     private final static int BLOCKSIZE=100;
     private static MongoClient client;
