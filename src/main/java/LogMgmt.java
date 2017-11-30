@@ -31,6 +31,9 @@ public class LogMgmt {
         //Syslog入口
         Server syslogServer = new Server();
 
+        System.out.println();
+        System.out.println("------------------------------------------");
+        System.out.println();
     }
 
 }

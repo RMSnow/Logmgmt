@@ -8,11 +8,10 @@ import com.mongodb.client.result.DeleteResult;
 import entity.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
-import mongodb.JsonUtil;
-import org.bson.types.ObjectId;
-import orm.RequestLog;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
+import orm.RequestLog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +21,6 @@ import java.util.List;
  */
 public class RequestLogDao {
 //<134>Nov 17 14:28:39 DESKTOP-9EODV8A couseservice[12624]: [dw-17] http.request 0:0:0:0:0:0:0:1 - - [17/十一月/2017:06:28:39 +0000] "GET /application/kk HTTP/1.1" 404 43 "-" "PostmanRuntime/6.4.1" 231
-
-    private static final String DB_NAME = "logs";
-
-    private static final String COLLECTION_NAME = "request";
 
     public static final String KEY_ID = "_id";
     public static final String KEY_FACILITY = "facility";
@@ -38,7 +33,8 @@ public class RequestLogDao {
     public static final String KEY_URL = "url";
     public static final String KEY_STATUS = "status";
     public static final String KEY_CLIENT = "client";
-
+    private static final String DB_NAME = "logs";
+    private static final String COLLECTION_NAME = "request";
     private MongoCollection<Document> collection;
 
     public RequestLogDao() {
@@ -47,8 +43,8 @@ public class RequestLogDao {
 
     public MongoResult queryAll() {
         FindIterable<Document> it = collection.find();
-        ArrayList<RequestLog> logs=new ArrayList<>();
-        for (Document d:it){
+        ArrayList<RequestLog> logs = new ArrayList<>();
+        for (Document d : it) {
             logs.add(new RequestLog(d));
         }
         return new MongoResult(logs);
@@ -88,16 +84,16 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_METHOD, method));
         }
         if (status != null) {
-            conditions.add(Filters.eq(KEY_STATUS,Integer.valueOf(status)));
+            conditions.add(Filters.eq(KEY_STATUS, Integer.valueOf(status)));
         }
         FindIterable<Document> it = null;
         if (limit != null) {
-            it=collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
-        }else {
+            it = collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+        } else {
             it = collection.find(Filters.and(conditions));
         }
-        ArrayList<RequestLog> logs=new ArrayList<>();
-        for (Document d:it){
+        ArrayList<RequestLog> logs = new ArrayList<>();
+        for (Document d : it) {
             logs.add(new RequestLog(d));
         }
         return new MongoResult(logs);
@@ -123,7 +119,7 @@ public class RequestLogDao {
             d.append(KEY_SERVICE_NAME, requestLog.getServiceName());
         }
         if (requestLog.getDatetime() != null) {
-            d.append(KEY_DATETIME,DateUtil.parseReqLogDateTime(requestLog.getDatetime()));
+            d.append(KEY_DATETIME, DateUtil.parseReqLogDateTime(requestLog.getDatetime()));
         }
         if (requestLog.getMethod() != null) {
             d.append(KEY_METHOD, requestLog.getMethod());
@@ -142,16 +138,17 @@ public class RequestLogDao {
 
 
     public MongoResult deleteByID(String id) {
-        DeleteResult result=collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
-        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
+        DeleteResult result = collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+        return new MongoResult(result.getDeletedCount(), result.wasAcknowledged());
     }
+
     public MongoResult deleteByParam(String serviceName,
-                       String host,
-                       String fromDateTime,
-                       String toDateTime,
-                       String method,
-                       String status,
-                       String facility){
+                                     String host,
+                                     String fromDateTime,
+                                     String toDateTime,
+                                     String method,
+                                     String status,
+                                     String facility) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
@@ -169,12 +166,12 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_METHOD, method));
         }
         if (status != null) {
-            conditions.add(Filters.eq(KEY_STATUS,Integer.valueOf(status)));
+            conditions.add(Filters.eq(KEY_STATUS, Integer.valueOf(status)));
         }
         if (facility != null) {
-            conditions.add(Filters.eq(KEY_FACILITY,facility));
+            conditions.add(Filters.eq(KEY_FACILITY, facility));
         }
-        DeleteResult result=collection.deleteMany(Filters.and(conditions));
-        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
+        DeleteResult result = collection.deleteMany(Filters.and(conditions));
+        return new MongoResult(result.getDeletedCount(), result.wasAcknowledged());
     }
 }

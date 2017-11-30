@@ -20,11 +20,6 @@ import java.util.List;
  * Created by WYJ on 2017/11/8.
  */
 public class LoggingLogDao {
-    private static final String DB_NAME = "logs";
-
-    private static final String COLLECTION_NAME = "logging";
-
-
     public static final String KEY_ID = "_id";
     public static final String KEY_FACILITY = "facility";
     public static final String KEY_LEVEL = "level";
@@ -34,7 +29,8 @@ public class LoggingLogDao {
     public static final String KEY_CLASS_NAME = "class_name";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_ERR_DETAILS = "err_details";
-
+    private static final String DB_NAME = "logs";
+    private static final String COLLECTION_NAME = "logging";
     MongoCollection<Document> collection;
 
     public LoggingLogDao() {
@@ -43,8 +39,8 @@ public class LoggingLogDao {
 
     public MongoResult queryAll() {
         FindIterable<Document> it = collection.find();
-        ArrayList<LoggingLog> logs=new ArrayList<>();
-        for (Document d:it){
+        ArrayList<LoggingLog> logs = new ArrayList<>();
+        for (Document d : it) {
             logs.add(new LoggingLog(d));
         }
         return new MongoResult(logs);
@@ -86,23 +82,23 @@ public class LoggingLogDao {
         }
         FindIterable<Document> it = null;
         if (limit != null) {
-            it=collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
-        }else {
+            it = collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+        } else {
             it = collection.find(Filters.and(conditions));
         }
-        if (queryDetails!=null) {
-            if (queryDetails.equals("0")){
+        if (queryDetails != null) {
+            if (queryDetails.equals("0")) {
                 it = it.projection(
                         new BasicDBObject(KEY_ERR_DETAILS, 0)
                 );
             }
-        }else{
+        } else {
             it = it.projection(
                     new BasicDBObject(KEY_ERR_DETAILS, 0)
             );
         }
-        ArrayList<LoggingLog> logs=new ArrayList<>();
-        for (Document d:it){
+        ArrayList<LoggingLog> logs = new ArrayList<>();
+        for (Document d : it) {
             logs.add(new LoggingLog(d));
         }
         return new MongoResult(logs);
@@ -141,22 +137,22 @@ public class LoggingLogDao {
     }
 
     public MongoResult deleteByID(String id) {
-        DeleteResult result=collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
-        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
+        DeleteResult result = collection.deleteOne(Filters.eq(KEY_ID, new ObjectId(id)));
+        return new MongoResult(result.getDeletedCount(), result.wasAcknowledged());
     }
 
     public MongoResult deleteByParam(String serviceName,
-                              String level,
-                              String host,
-                              String fromDateTime,
-                              String toDateTime) {
+                                     String level,
+                                     String host,
+                                     String fromDateTime,
+                                     String toDateTime) {
 
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
         if (level != null) {
-            conditions.add(Filters.eq(KEY_LEVEL,Integer.valueOf(level)));
+            conditions.add(Filters.eq(KEY_LEVEL, Integer.valueOf(level)));
         }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));
@@ -168,8 +164,8 @@ public class LoggingLogDao {
             conditions.add(Filters.lte(KEY_TIMESTAMP, toDateTime));
         }
 
-        DeleteResult result=collection.deleteMany(Filters.and(conditions));
-        return new MongoResult(result.getDeletedCount(),result.wasAcknowledged());
+        DeleteResult result = collection.deleteMany(Filters.and(conditions));
+        return new MongoResult(result.getDeletedCount(), result.wasAcknowledged());
     }
 
 }

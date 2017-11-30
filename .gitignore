@@ -1,7 +1,6 @@
 # Intellij Project
 .idea
 *.iml
-target
 classes
 
 # Personal Test

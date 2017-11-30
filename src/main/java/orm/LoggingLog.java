@@ -19,9 +19,10 @@ public class LoggingLog {
     private String message;
     private String errDetails;
 
-    public LoggingLog(){}
+    public LoggingLog() {
+    }
 
-    public LoggingLog(Document d){
+    public LoggingLog(Document d) {
         setId(d.getObjectId(LoggingLogDao.KEY_ID).toString());
         setFacility(d.getString(LoggingLogDao.KEY_FACILITY));
         setLevel(d.getInteger(LoggingLogDao.KEY_LEVEL));

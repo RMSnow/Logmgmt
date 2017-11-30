@@ -35,7 +35,7 @@ public class SyslogService {
      * Logging - Error
      */
     public static void addLoggingError() {
-        System.out.println(errHeader.toString());
+        //System.out.println(errHeader.toString());
         addLoggingNormal(errHeader, errHeader.getErrDetails());
     }
 
@@ -91,37 +91,3 @@ public class SyslogService {
         MongoService.getRequestLogCollection().add(log);
     }
 }
-
-/*
-
- 数据库设计
-
-【LoggingSyslog】
-
-    facility
-    level
-    timestamp
-    host
-    serviceName
-    className
-    message
-
-    [errDetails]
-
-【RequestSyslog】
-
-    private String clientIP;
-    private String datetime;
-    private String method;
-    private String url;
-    private int status;
-    private String client;
-
-    facility
-    //level
-    //timestamp (服务器的时间)
-    host
-    serviceName
-    className
-
-*/
