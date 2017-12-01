@@ -77,6 +77,7 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, '\"');
         client = getString(raw, startPos, endPos);
 
+        System.out.println(this);
         SyslogService.addRequestLog(this);
     }
 

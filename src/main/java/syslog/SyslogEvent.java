@@ -36,13 +36,13 @@ public class SyslogEvent implements SyslogServerEventIF {
         System.arraycopy(data, offset, raw, 0, length);
 
         //raw
-//        System.out.println("---------------");
-//        try {
-//            System.out.println(new String(raw, CHARSET));
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        System.out.println("---------------");
+        System.out.println("---------------");
+        try {
+            System.out.println(new String(raw, CHARSET));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println("---------------");
 
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');

@@ -38,10 +38,10 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         ConfInfo.serviceName = configuration.getName();
         ConfInfo.logmgmtPort = configuration.getLogmgmtPort();
         ConfInfo.syslogPort = configuration.getSyslogPort();
-        ConfInfo.mongodbPort=configuration.getMongodbPort();
-        ConfInfo.mongodbHost=configuration.getMongodbHost();
-        ConfInfo.mongodbUserName=configuration.getMongodbUserName();
-        ConfInfo.mongodbPassword=configuration.getMongodbPassword();
+        ConfInfo.mongodbPort = configuration.getMongodbPort();
+        ConfInfo.mongodbHost = configuration.getMongodbHost();
+        ConfInfo.mongodbUserName = configuration.getMongodbUserName();
+        ConfInfo.mongodbPassword = configuration.getMongodbPassword();
 
     }
 

@@ -22,4 +22,6 @@ mongodb/JsonUtil.class
 entity/ConfInfo.class
 orm/LoggingLog.class
 syslog/Server.class
+util/HTTPTool.class
+util/HeartbeatTest.class
 mongodb/dao/RequestLogDao.class

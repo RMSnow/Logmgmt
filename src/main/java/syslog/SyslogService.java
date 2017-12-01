@@ -35,7 +35,7 @@ public class SyslogService {
      * Logging - Error
      */
     public static void addLoggingError() {
-        //System.out.println(errHeader.toString());
+        System.out.println(errHeader.toString());
         addLoggingNormal(errHeader, errHeader.getErrDetails());
     }
 

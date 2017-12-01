@@ -55,7 +55,3 @@ public class RequestLogRes {
         return new Result(result.getResultNum() + " results has been deleted.", Status.OK, "");
     }
 }
-
-
-//mongodb
-//mongod --config /usr/local/etc/mongod.conf
