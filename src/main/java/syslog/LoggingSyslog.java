@@ -16,16 +16,6 @@ public class LoggingSyslog extends SyslogEvent {
     public LoggingSyslog(SyslogEvent event, boolean tag) {
         init(event);
 
-        startPos = endPos + 1;
-        tempPos = searchChar(raw, startPos, ' ');
-        tempPos = searchChar(raw, tempPos + 1, ' ');
-        endPos = searchChar(raw, tempPos + 1, ' ');
-        timestamp = getString(raw, startPos, endPos);
-
-        startPos = endPos + 1;
-        endPos = searchChar(raw, startPos, ' ');
-        host = getString(raw, startPos, endPos);
-
         if (tag == NORMAL_LOG) {
             logging();
             System.out.println(toString());

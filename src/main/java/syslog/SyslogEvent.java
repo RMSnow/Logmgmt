@@ -44,11 +44,26 @@ public class SyslogEvent implements SyslogServerEventIF {
         }
         System.out.println("---------------");
 
+        //level & facility
         startPos = searchChar(raw, startPos, '<') + 1;
         endPos = searchChar(raw, startPos, '>');
         priVal = Integer.parseInt(getString(raw, startPos, endPos));
         level = priVal & 7;
         facility = (priVal - level) >> 3;
+
+        //<134>Dec  1 09:38:25 7f753a3880d5 keyverify[1]
+
+        //timestamp
+        startPos = endPos + 1;
+        tempPos = searchChar(raw, startPos, ':');
+        tempPos = searchChar(raw, tempPos + 1, ':');
+        endPos = searchChar(raw, tempPos + 1, ' ');
+        timestamp = getString(raw, startPos, endPos);
+
+        //host
+        startPos = endPos + 1;
+        endPos = searchChar(raw, startPos, ' ');
+        host = getString(raw, startPos, endPos);
 
         /*
               0       Emergency: system is unusable

@@ -15,16 +15,16 @@ public class RequestSyslog extends SyslogEvent {
         init(event);
 
         //time
-        startPos = endPos + 1;
-        tempPos = searchChar(raw, startPos, ' ');
-        tempPos = searchChar(raw, tempPos + 1, ' ');
-        endPos = searchChar(raw, tempPos + 1, ' ');
-        timestamp = getString(raw, startPos, endPos);
-
-        //hostname
-        startPos = endPos + 1;
-        endPos = searchChar(raw, startPos, ' ');
-        host = getString(raw, startPos, endPos);
+//        startPos = endPos + 1;
+//        tempPos = searchChar(raw, startPos, ' ');
+//        tempPos = searchChar(raw, tempPos + 1, ' ');
+//        endPos = searchChar(raw, tempPos + 1, ' ');
+//        timestamp = getString(raw, startPos, endPos);
+//
+//        //hostname
+//        startPos = endPos + 1;
+//        endPos = searchChar(raw, startPos, ' ');
+//        host = getString(raw, startPos, endPos);
 
         //name
         startPos = endPos + 1;
@@ -89,6 +89,8 @@ public class RequestSyslog extends SyslogEvent {
     private void init(SyslogEvent event) {
         this.facility = event.facility;
         this.level = event.level;
+        this.timestamp = event.timestamp;
+        this.host = event.host;
 
         this.startPos = event.startPos;
         this.endPos = event.endPos;
