@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by snow on 02/12/2017.
  */
-@Path("/api/v1/heart")
+@Path("/api/v2/heart")
 @Produces(MediaType.APPLICATION_JSON)
 public class HeartRes {
     public static volatile boolean OK = false;
