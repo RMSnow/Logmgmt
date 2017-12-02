@@ -6,8 +6,11 @@ import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import res.ControlRes;
+import res.HeartRes;
 import res.LoggingLogRes;
 import res.RequestLogRes;
+import util.HeartbeatTest;
 
 /**
  * 日志管理APP
@@ -32,10 +35,19 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         final RequestLogRes requestLogRes = new RequestLogRes();
         final LoggingLogRes loggingLogRes = new LoggingLogRes();
 
+        final ControlRes controlRes = new ControlRes();
+        final HeartRes heartRes = new HeartRes();
+
         environment.jersey().register(requestLogRes);
         environment.jersey().register(loggingLogRes);
 
+        environment.jersey().register(controlRes);
+        environment.jersey().register(heartRes);
+
+        //传入配置参数
         ConfInfo.serviceName = configuration.getName();
+        ConfInfo.ip = configuration.getIp();
+        ConfInfo.url = configuration.getUrl();
         ConfInfo.logmgmtPort = configuration.getLogmgmtPort();
         ConfInfo.syslogPort = configuration.getSyslogPort();
         ConfInfo.mongodbPort = configuration.getMongodbPort();
@@ -43,6 +55,7 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         ConfInfo.mongodbUserName = configuration.getMongodbUserName();
         ConfInfo.mongodbPassword = configuration.getMongodbPassword();
 
+        new Thread(new HeartbeatTest()).start();
     }
 
 }

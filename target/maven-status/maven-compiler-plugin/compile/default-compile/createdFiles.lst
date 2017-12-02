@@ -17,6 +17,8 @@ mongodb/dao/LoggingLogDao.class
 LogMgmt.class
 mongodb/MongoConnector.class
 entity/Result.class
+res/HeartRes.class
+res/ControlRes.class
 health/LogMgmtHealthCheck.class
 mongodb/JsonUtil.class
 entity/ConfInfo.class

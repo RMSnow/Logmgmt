@@ -6,6 +6,10 @@ package entity;
 public class ConfInfo {
     public static String serviceName;
 
+    public static String ip;
+
+    public static String url;
+
     public static String logmgmtPort;
 
     public static String syslogPort;

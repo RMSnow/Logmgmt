@@ -1,12 +1,12 @@
 name: logmgmt
 ip: 119.29.228.21
+url: http://123.207.73.150
 logmgmtPort: 9999
 syslogPort: 9898
 mongodbPort: 27017
 mongodbHost: 119.29.228.21
 mongodbUserName: logmgt
 mongodbPassword: logmgt
-url: http://123.207.73.150
 
 server:
   type: simple
