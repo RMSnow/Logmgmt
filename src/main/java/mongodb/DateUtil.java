@@ -18,12 +18,12 @@ public class DateUtil {
     public static final String PATTERN_REQLOG_DATETIME = "dd/MMM/yyyy:HH:mm:ss";
     public static final String PATTERN_LOG_TIMESTAMP = "MMM dd HH:mm:ss";
 
-    private static final String PATTERN_ISODATE = "dd-MM-yyyy HH:mm:ss";
+    public static final String PATTERN_TARGET = "yyyy-MM-dd HH:mm:ss";
 
 
     private static String parseDate(String dateStr, String pattern, Locale locale) {
         SimpleDateFormat originFormat = new SimpleDateFormat(pattern, locale);
-        SimpleDateFormat newFormat = new SimpleDateFormat(PATTERN_ISODATE);
+        SimpleDateFormat newFormat = new SimpleDateFormat(PATTERN_TARGET);
 
         Date d = null;
         String newDateStr = null;
@@ -39,7 +39,7 @@ public class DateUtil {
 
     public static String parseReqLogDateTime(String dateStr) {
         SimpleDateFormat originFormat = new SimpleDateFormat(PATTERN_REQLOG_DATETIME);
-        SimpleDateFormat newFormat = new SimpleDateFormat(PATTERN_ISODATE);
+        SimpleDateFormat newFormat = new SimpleDateFormat(PATTERN_TARGET);
         originFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"));
         newFormat.setTimeZone(TimeZone.getTimeZone("GMT+8"));
 
@@ -65,7 +65,7 @@ public class DateUtil {
     }
 
     public static String getDateNow() {
-        SimpleDateFormat format = new SimpleDateFormat(PATTERN_ISODATE);
+        SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
         return format.format(new Date(System.currentTimeMillis()));
     }
 }

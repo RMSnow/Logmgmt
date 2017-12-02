@@ -50,13 +50,13 @@ public class RequestLogDao {
     }
     /*
     *query datetime format:
-    *   dd-MM-yyyy hh:mm:ss
+    *   yyyy-MM-dd hh:mm:ss
     *example:
-    *   24-11-2017 23:11:40
+    *   2017-11-24 23:11:40
     *another format:
-    *   24-11-2017
+    *   2017-11-24
     *equals:
-    *   24-11-2017 00:00:00
+    *   2017-11-24 00:00:00
      */
 
     public MongoResult queryByParam(String serviceName,
@@ -74,10 +74,10 @@ public class RequestLogDao {
             conditions.add(Filters.eq(KEY_HOST, host));
         }
         if (fromTimestamp != null) {
-            conditions.add(Filters.gte(KEY_DATETIME, fromTimestamp));
+            conditions.add(Filters.gte(KEY_DATETIME,fromTimestamp));
         }
         if (toTimestamp != null) {
-            conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
+            conditions.add(Filters.lte(KEY_DATETIME,toTimestamp));
         }
         if (method != null) {
             conditions.add(Filters.eq(KEY_METHOD, method));
