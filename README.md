@@ -1,7 +1,7 @@
 # 日志管理
 
 ## 备注
-[详细文档入口](https://www.zybuluo.com/RuuuuuunNER/note/972563)
+由于`markdown`的解析不适配问题，原文档可参见：[详细文档入口](https://www.zybuluo.com/RuuuuuunNER/note/972563).
 
 ----------
 ## 概述
