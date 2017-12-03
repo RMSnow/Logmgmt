@@ -71,7 +71,9 @@ public class LoggingLogDao {
         if (fromId != null){
             Document doc = queryById(fromId);
             if (doc != null){
-                fromDatetime = doc.getString(KEY_TIMESTAMP);
+                conditions.add(Filters.gt(KEY_TIMESTAMP, doc.getString(KEY_TIMESTAMP)));
+                fromDatetime = null;
+                //fromDatetime = doc.getString(KEY_TIMESTAMP);
             }
         }
         if (level != null) {
