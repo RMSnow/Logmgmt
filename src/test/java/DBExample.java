@@ -48,15 +48,15 @@ public class DBExample {
     }
     private static void queryAccessLog(){
         //        查询
-        System.out.println(MongoService.getRequestLogCollection().queryByParam(
-                null,
-                null,
-                "24-11-2017 23:11:40",
-                null,
-                null,
-                null,
-                null
-        ).toString());
+//        System.out.println(MongoService.getRequestLogCollection().queryByParam(
+//                null,
+//                null,
+//                "24-11-2017 23:11:40",
+//                null,
+//                null,
+//                null,
+//                null
+//        ).toString());
 //        System.out.println(MongoService.getRequestLogCollection().queryAll());
     }
     private static void deleteAccessLog(){
@@ -76,15 +76,15 @@ public class DBExample {
         MongoService.getLoggingLogCollection().add(loggingLog);
     }
     private static void queryStandardLog(){
-        System.out.println(MongoService.getLoggingLogCollection().queryByParam(
-                null,
-                null,
-                null,
-                "25-11-2017",
-                null,
-                "0",
-                null
-        ).toString());
+//        System.out.println(MongoService.getLoggingLogCollection().queryByParam(
+//                null,
+//                null,
+//                null,
+//                "25-11-2017",
+//                null,
+//                "0",
+//                null
+//        ).toString());
     }
     private static void deleteStandardLog(){
 

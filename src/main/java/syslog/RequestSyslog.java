@@ -56,9 +56,11 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, ' ');
         method = getString(raw, startPos, endPos);
 
+        //"GET /application/api/v2/heart?code=8c9742 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+
         //url
         startPos = endPos + 1;
-        endPos = searchChar(raw, startPos, '\"');
+        endPos = searchChar(raw, startPos, ' ');
         url = getString(raw, startPos, endPos);
 
         //status

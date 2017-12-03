@@ -57,6 +57,7 @@ public class LoggingLogDao {
     *   2017-11-24 00:00:00
      */
     public MongoResult queryByParam(String serviceName,
+                                    String fromId,
                                     String level,
                                     String host,
                                     String fromDatetime,
@@ -66,6 +67,12 @@ public class LoggingLogDao {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
+        }
+        if (fromId != null){
+            Document doc = queryById(fromId);
+            if (doc != null){
+                fromDatetime = doc.getString(KEY_TIMESTAMP);
+            }
         }
         if (level != null) {
             conditions.add(Filters.eq(KEY_LEVEL, Integer.valueOf(level)));
@@ -104,6 +111,19 @@ public class LoggingLogDao {
 //        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
+    public Document queryById(String id) {
+        if (id != null) {
+            List<Bson> conditions = new ArrayList<Bson>();
+            conditions.add(Filters.eq(KEY_ID, new ObjectId(id)));
+
+            FindIterable<Document> it = collection.find(Filters.and(conditions));
+
+            for (Document d : it) {
+                return d;
+            }
+        }
+        return null;
+    }
 
     public void add(LoggingLog loggingLog) {
         Document d = new Document();

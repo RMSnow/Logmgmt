@@ -19,6 +19,7 @@ public class RequestLogRes {
     @GET
     @Timed
     public Result queryRequests(@NotEmpty @QueryParam("serviceName") String serviceName,
+                                @QueryParam("fromId") String fromId,
                                 @QueryParam("host") String host,
                                 @QueryParam("fromDateTime") String fromDateTime,
                                 @QueryParam("toDateTime") String toDateTime,
@@ -27,7 +28,7 @@ public class RequestLogRes {
                                 @QueryParam("limit") String limit) {
 
         MongoResult result = MongoService.getRequestLogCollection().queryByParam(serviceName,
-                host, fromDateTime, toDateTime, method, status, limit);
+                fromId, host, fromDateTime, toDateTime, method, status, limit);
 
         if (result.getResultNum() == 0) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");

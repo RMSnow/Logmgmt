@@ -60,6 +60,7 @@ public class RequestLogDao {
      */
 
     public MongoResult queryByParam(String serviceName,
+                                    String fromId,
                                     String host,
                                     String fromTimestamp,
                                     String toTimestamp,
@@ -70,14 +71,20 @@ public class RequestLogDao {
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
+        if (fromId != null) {
+            Document doc = queryById(fromId);
+            if (doc != null){
+                fromTimestamp = doc.getString(KEY_DATETIME);
+            }
+        }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));
         }
         if (fromTimestamp != null) {
-            conditions.add(Filters.gte(KEY_DATETIME,fromTimestamp));
+            conditions.add(Filters.gte(KEY_DATETIME, fromTimestamp));
         }
         if (toTimestamp != null) {
-            conditions.add(Filters.lte(KEY_DATETIME,toTimestamp));
+            conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
         }
         if (method != null) {
             conditions.add(Filters.eq(KEY_METHOD, method));
@@ -99,6 +106,19 @@ public class RequestLogDao {
 //        return JsonUtil.parseFindIterableToQueryResult(it);
     }
 
+    public Document queryById(String id) {
+        if (id != null) {
+            List<Bson> conditions = new ArrayList<Bson>();
+            conditions.add(Filters.eq(KEY_ID, new ObjectId(id)));
+
+            FindIterable<Document> it = collection.find(Filters.and(conditions));
+
+            for (Document d : it) {
+                return d;
+            }
+        }
+        return null;
+    }
 
     public void add(RequestLog requestLog) {
         Document d = new Document();

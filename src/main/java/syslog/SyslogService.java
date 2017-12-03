@@ -59,7 +59,7 @@ public class SyslogService {
                         + syslog.message;
                 errHeader.errDetails = "";
             } else {
-                errHeader.errDetails = errHeader.errDetails + "\n" + syslog.message;
+                errHeader.errDetails = errHeader.errDetails + " \n " + syslog.message;
             }
             errBodySum++;
         }

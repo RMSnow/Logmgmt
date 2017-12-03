@@ -20,6 +20,7 @@ public class LoggingLogRes {
     @GET
     @Timed
     public Result queryLoggings(@NotEmpty @QueryParam("serviceName") String serviceName,
+                                @QueryParam("fromId") String fromId,
                                 @QueryParam("level") String level,
                                 @QueryParam("host") String host,
                                 @QueryParam("fromTimeStamp") String fromTimeStamp,
@@ -28,7 +29,7 @@ public class LoggingLogRes {
                                 @QueryParam("limit") String limit) {
 
         MongoResult result = MongoService.getLoggingLogCollection().queryByParam(serviceName,
-                level, host, fromTimeStamp, toTimeStamp, queryOrNot, limit);
+                fromId, level, host, fromTimeStamp, toTimeStamp, queryOrNot, limit);
 
         if (result.getResultNum() == 0) {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
