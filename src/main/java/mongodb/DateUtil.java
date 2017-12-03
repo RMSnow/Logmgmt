@@ -66,6 +66,7 @@ public class DateUtil {
 
     public static String getDateNow() {
         SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
-        return format.format(new Date(System.currentTimeMillis()));
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return format.format(new Date());
     }
 }
