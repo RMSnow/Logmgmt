@@ -74,7 +74,9 @@ public class RequestLogDao {
         if (fromId != null) {
             Document doc = queryById(fromId);
             if (doc != null){
-                fromTimestamp = doc.getString(KEY_DATETIME);
+                fromTimestamp = null;
+                conditions.add(Filters.gt(KEY_DATETIME, doc.getString(KEY_DATETIME)));
+                //fromTimestamp = doc.getString(KEY_DATETIME);
             }
         }
         if (host != null) {
