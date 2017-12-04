@@ -13,7 +13,7 @@ public class LoggingSyslog extends SyslogEvent {
 
     }
 
-    public LoggingSyslog(SyslogEvent event, boolean tag) {
+    public LoggingSyslog(SyslogEvent event, boolean tag) throws Exception{
         init(event);
 
         if (tag == NORMAL_LOG) {
@@ -51,7 +51,7 @@ public class LoggingSyslog extends SyslogEvent {
     /**
      * 正常日志（INFO/WARNING等）
      */
-    public void logging() {
+    public void logging() throws Exception {
         startPos = endPos + 1;
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
@@ -72,7 +72,7 @@ public class LoggingSyslog extends SyslogEvent {
      * type1：header，即包含报错的信息头
      * type2：body，即堆栈信息（只有第一条是错误类型说明，其他均为行号的报错）
      */
-    public void errorLogging() {
+    public void errorLogging() throws Exception {
         //当event为type2时，host后面是一个空格 + 一个tab键
         startPos = endPos + 1;
         String flagChar = getString(raw, startPos, startPos + 1);

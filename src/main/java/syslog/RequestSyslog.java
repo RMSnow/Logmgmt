@@ -11,20 +11,8 @@ public class RequestSyslog extends SyslogEvent {
     private int status;
     private String client;
 
-    public RequestSyslog(SyslogEvent event) {
+    public RequestSyslog(SyslogEvent event) throws Exception{
         init(event);
-
-        //time
-//        startPos = endPos + 1;
-//        tempPos = searchChar(raw, startPos, ' ');
-//        tempPos = searchChar(raw, tempPos + 1, ' ');
-//        endPos = searchChar(raw, tempPos + 1, ' ');
-//        timestamp = getString(raw, startPos, endPos);
-//
-//        //hostname
-//        startPos = endPos + 1;
-//        endPos = searchChar(raw, startPos, ' ');
-//        host = getString(raw, startPos, endPos);
 
         //name
         startPos = endPos + 1;
@@ -63,6 +51,13 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, ' ');
         url = getString(raw, startPos, endPos);
 
+        //<134>Dec  4 15:14:51 localhost registry[7613]:
+        // [dw-14] http.request 221.232.92.29 - -
+        // [04/Dec/2017:07:14:51 +0000] "GET /favicon.ico HTTP/1.1" 200
+        // - "http://123.207.73.150:8000/application/api/v1/apis/list"
+        // "Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko)
+        // Chrome/58.0.3029.110 Safari/537.36" 0
+
         //过滤心跳包
 //        int start, end, temp;
 //        start = startPos + 1;
@@ -76,10 +71,17 @@ public class RequestSyslog extends SyslogEvent {
 //                return;
 //            }
 //        }
-//        String uri = getString(raw,start,endPos);       //无参数列表
-//        if (uri.equals("heart")){
+//        String uri = getString(raw, start, endPos);       //无参数列表
+//        if (uri.equals("heart")) {
 //            return;
 //        }
+
+        String heartCheck = "/application/api/v2/heart?";
+        if (url.length() >= heartCheck.length()) {
+            if (url.substring(0, heartCheck.length()).equals(heartCheck)) {
+                return;
+            }
+        }
 
         //status
         startPos = endPos + 1;

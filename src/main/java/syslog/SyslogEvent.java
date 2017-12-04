@@ -31,7 +31,7 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     }
 
-    public SyslogEvent(byte[] data, int offset, int length) {
+    public SyslogEvent(byte[] data, int offset, int length) throws Exception {
         raw = new byte[length - offset];
         System.arraycopy(data, offset, raw, 0, length);
 
@@ -122,7 +122,7 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     }
 
-    protected String getString(byte[] data, int startPos, int endPos) {
+    protected String getString(byte[] data, int startPos, int endPos) throws Exception{
         try {
             return new String(data, startPos, endPos - startPos, CHARSET);
         } catch (UnsupportedEncodingException e) {
@@ -139,7 +139,7 @@ public class SyslogEvent implements SyslogServerEventIF {
      * @param c
      * @return position of the character or -1 if not found
      */
-    protected int searchChar(byte[] data, int startPos, char c) {
+    protected int searchChar(byte[] data, int startPos, char c) throws Exception{
         for (int i = startPos; i < data.length; i++) {
             if (data[i] == c) {
                 return i;

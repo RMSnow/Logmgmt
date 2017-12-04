@@ -62,6 +62,8 @@ public class UDPSyslogServer extends UDPNetSyslogServer {
                 se.printStackTrace();
             } catch (IOException ioe) {
                 ioe.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
