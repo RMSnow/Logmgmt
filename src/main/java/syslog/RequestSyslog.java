@@ -64,22 +64,22 @@ public class RequestSyslog extends SyslogEvent {
         url = getString(raw, startPos, endPos);
 
         //过滤心跳包
-        int start, end, temp;
-        start = startPos + 1;
-        temp = searchChar(raw, start, '/');
-        temp = searchChar(raw, temp + 1, '/');
-        start = searchChar(raw, temp + 1, '/') + 1;
-        end = searchChar(raw, start, '?');
-        if (end < endPos && end != -1) {
-            String uri = getString(raw, start, end);
-            if (uri.equals("heart")) {
-                return;
-            }
-        }
-        String uri = getString(raw,start,endPos);       //无参数列表
-        if (uri.equals("heart")){
-            return;
-        }
+//        int start, end, temp;
+//        start = startPos + 1;
+//        temp = searchChar(raw, start, '/');
+//        temp = searchChar(raw, temp + 1, '/');
+//        start = searchChar(raw, temp + 1, '/') + 1;
+//        end = searchChar(raw, start, '?');
+//        if (end < endPos && end != -1) {
+//            String uri = getString(raw, start, end);
+//            if (uri.equals("heart")) {
+//                return;
+//            }
+//        }
+//        String uri = getString(raw,start,endPos);       //无参数列表
+//        if (uri.equals("heart")){
+//            return;
+//        }
 
         //status
         startPos = endPos + 1;
