@@ -59,29 +59,14 @@ public class RequestSyslog extends SyslogEvent {
         // Chrome/58.0.3029.110 Safari/537.36" 0
 
         //过滤心跳包
-//        int start, end, temp;
-//        start = startPos + 1;
-//        temp = searchChar(raw, start, '/');
-//        temp = searchChar(raw, temp + 1, '/');
-//        start = searchChar(raw, temp + 1, '/') + 1;
-//        end = searchChar(raw, start, '?');
-//        if (end < endPos && end != -1) {
-//            String uri = getString(raw, start, end);
-//            if (uri.equals("heart")) {
-//                return;
-//            }
-//        }
-//        String uri = getString(raw, start, endPos);       //无参数列表
-//        if (uri.equals("heart")) {
-//            return;
-//        }
-
         String heartCheck = "/application/api/v2/heart?";
         if (url.length() >= heartCheck.length()) {
             if (url.substring(0, heartCheck.length()).equals(heartCheck)) {
                 return;
             }
         }
+
+        //TODO: URI
 
         //status
         startPos = endPos + 1;

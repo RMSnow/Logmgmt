@@ -2,7 +2,9 @@
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/mongodb/DateUtil.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/LogMgmt.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/util/HTTPTool.java
+/Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/mongodb/dao/RecordDao.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/syslog/UDPSyslogServerConfig.java
+/Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/orm/Record.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/entity/Result.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/syslog/SyslogService.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/util/HeartbeatTest.java
@@ -13,6 +15,7 @@
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/syslog/RequestSyslog.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/syslog/UDPSyslogServer.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/res/HeartRes.java
+/Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/res/RecordRes.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/mongodb/MongoService.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/entity/Status.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/app/LogMgmtApp.java
