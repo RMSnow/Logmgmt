@@ -1,12 +1,14 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import mongodb.dao.RecordDao;
+import org.bson.Document;
 
 /**
  * Created by snow on 05/12/2017.
  */
 public class Record {
-//    新建一个集合，存储以下，按天
+//    新建一个集合，存储以下，按小时
 //    # 该服务最常被调用的api以及数量
 //    # 服务错误数——Logging
 //    # 不正常返回（非200）数——RequestLog
@@ -15,13 +17,51 @@ public class Record {
 //    # 最近5分钟每秒请求数
 
     //TODO: orm
+    private String id;
+    private String serviceName;
 
     private String mostURI;
-    private int requests;
-    private int loggingErrors;
-    private int requestExceptions;
-    private int dailyRequests;
-    private double hourRequestsRate;
+    private Integer mostRequests;
+
+    private Integer loggingErrors;
+    private Integer requestExceptions;
+    private Integer hourRequests;
+    private Double secondRequestsRate;
+
+    public Record(){
+
+    }
+
+    public Record(Document d) {
+        setId(d.getObjectId(RecordDao.KEY_ID).toString());
+        setServiceName(d.getString(RecordDao.KEY_SERVICE_NAME));
+        setMostURI(d.getString(RecordDao.KEY_MOST_URI));
+        setMostRequests(d.getInteger(RecordDao.KEY_MOST_REQUESTS));
+        setLoggingErrors(d.getInteger(RecordDao.KEY_LOGGING_ERRORS));
+        setRequestExceptions(d.getInteger(RecordDao.KEY_REQUEST_EXCEPTIONS));
+        setHourRequests(d.getInteger(RecordDao.KEY_HOUR_REQUESTS));
+        setSecondRequestsRate(d.getDouble(RecordDao.KEY_SECOND_REQUESTS_RATE));
+    }
+
+    @JsonProperty
+    public String getId() {
+        return id;
+    }
+
+    @JsonProperty
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @JsonProperty
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    @JsonProperty
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
 
     @JsonProperty
     public String getMostURI() {
@@ -34,52 +74,52 @@ public class Record {
     }
 
     @JsonProperty
-    public int getRequests() {
-        return requests;
+    public Integer getMostRequests() {
+        return mostRequests;
     }
 
     @JsonProperty
-    public void setRequests(int requests) {
-        this.requests = requests;
+    public void setMostRequests(Integer mostRequests) {
+        this.mostRequests = mostRequests;
     }
 
     @JsonProperty
-    public int getLoggingErrors() {
+    public Integer getLoggingErrors() {
         return loggingErrors;
     }
 
     @JsonProperty
-    public void setLoggingErrors(int loggingErrors) {
+    public void setLoggingErrors(Integer loggingErrors) {
         this.loggingErrors = loggingErrors;
     }
 
     @JsonProperty
-    public int getRequestExceptions() {
+    public Integer getRequestExceptions() {
         return requestExceptions;
     }
 
     @JsonProperty
-    public void setRequestExceptions(int requestExceptions) {
+    public void setRequestExceptions(Integer requestExceptions) {
         this.requestExceptions = requestExceptions;
     }
 
     @JsonProperty
-    public int getDailyRequests() {
-        return dailyRequests;
+    public Integer getHourRequests() {
+        return hourRequests;
     }
 
     @JsonProperty
-    public void setDailyRequests(int dailyRequests) {
-        this.dailyRequests = dailyRequests;
+    public void setHourRequests(Integer hourRequests) {
+        this.hourRequests = hourRequests;
     }
 
     @JsonProperty
-    public double getHourRequestsRate() {
-        return hourRequestsRate;
+    public Double getSecondRequestsRate() {
+        return secondRequestsRate;
     }
 
     @JsonProperty
-    public void setHourRequestsRate(double hourRequestsRate) {
-        this.hourRequestsRate = hourRequestsRate;
+    public void setSecondRequestsRate(Double secondRequestsRate) {
+        this.secondRequestsRate = secondRequestsRate;
     }
 }

@@ -128,7 +128,7 @@ logging:
 |类别|名称|说明|URI|
 |:-:|:-:|:-:|:-:|
 |logging|运行日志|服务运行时所产生的日志，主要包括INFO信息与**报错信息**等|`loggings`|
-|request|访问日志|服务的api受外界访问时所产生的日志|`requests`|
+|request|访问日志|服务的api受外界访问时所产生的日志|`mostRequests`|
 
 
 ----------
@@ -137,7 +137,7 @@ logging:
 |类别|HTTP动词|Path|
 |:-:|:-:|:-:|
 |运行日志|GET|`/api/v1/loggings`|
-|访问日志|GET|`/api/v1/requests`|
+|访问日志|GET|`/api/v1/mostRequests`|
 
 访问api的总路径为：`[API前缀] Path [参数列表]`.  
   
@@ -220,7 +220,7 @@ logging:
 #### 示例
 在本地数据库中，查找服务名为`test`的日志：  
   
-`localhost:9999/application/api/v1/requests?serviceName=test`  
+`localhost:9999/application/api/v1/mostRequests?serviceName=test`  
   
 成功时返回结果：
 ```
@@ -277,7 +277,7 @@ logging:
 |类别|HTTP动词|Path|
 |:-:|:-:|:-:|
 |运行日志|DELETE|`/api/v1/loggings`|
-|访问日志|DELETE|`/api/v1/requests`|
+|访问日志|DELETE|`/api/v1/mostRequests`|
 
 访问api的总路径为：`[API前缀] Path [参数列表]`.  
   
@@ -297,7 +297,7 @@ logging:
 #### 示例
 在本地数据库中，删除服务名为`courseservice`的日志：  
   
-`localhost:9999/application/api/v1/requests?serviceName=courseservice`  
+`localhost:9999/application/api/v1/mostRequests?serviceName=courseservice`  
   
 删除失败时，返回结果为：  
 ```

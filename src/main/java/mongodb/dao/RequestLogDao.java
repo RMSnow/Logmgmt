@@ -20,8 +20,6 @@ import java.util.List;
  * Created by WYJ on 2017/11/7.
  */
 public class RequestLogDao {
-//<134>Nov 17 14:28:39 DESKTOP-9EODV8A couseservice[12624]: [dw-17] http.request 0:0:0:0:0:0:0:1 - - [17/十一月/2017:06:28:39 +0000] "GET /application/kk HTTP/1.1" 404 43 "-" "PostmanRuntime/6.4.1" 231
-
     public static final String KEY_ID = "_id";
     public static final String KEY_FACILITY = "facility";
     public static final String KEY_HOST = "host";
@@ -33,6 +31,7 @@ public class RequestLogDao {
     public static final String KEY_URL = "url";
     public static final String KEY_STATUS = "status";
     public static final String KEY_CLIENT = "client";
+
     private static final String COLLECTION_NAME = "request";
     private MongoCollection<Document> collection;
 
@@ -73,7 +72,7 @@ public class RequestLogDao {
         }
         if (fromId != null) {
             Document doc = queryById(fromId);
-            if (doc != null){
+            if (doc != null) {
                 fromTimestamp = null;
                 conditions.add(Filters.gt(KEY_DATETIME, doc.getString(KEY_DATETIME)));
                 //fromTimestamp = doc.getString(KEY_DATETIME);

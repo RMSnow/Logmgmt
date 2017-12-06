@@ -1,3 +1,9 @@
-StringTest.class
+dock/RestResultGetter.class
+dock/Methods.class
 DBExample.class
+dock/Apis.class
+dock/MessageBuilder.class
 DBTest.class
+dock/Test.class
+dock/MessageDetail.class
+dock/Services.class
