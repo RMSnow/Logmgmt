@@ -1,0 +1,89 @@
+/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/bin/java -Dfile.encoding=UTF-8 -classpath /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/deploy.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/cldrdata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/dnsns.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/jaccess.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/jfxrt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/localedata.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/nashorn.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/sunec.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/sunjce_provider.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/sunpkcs11.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/ext/zipfs.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/javaws.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/jfxswt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/management-agent.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/plugin.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/ant-javafx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/dt.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/javafx-mx.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/jconsole.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/packager.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/sa-jdi.jar:/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home/lib/tools.jar:/Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/target/classes:/Users/snow/.m2/repository/org/mongodb/mongo-java-driver/3.5.0/mongo-java-driver-3.5.0.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-core/0.9.2/dropwizard-core-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-util/0.9.2/dropwizard-util-0.9.2.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.6.0/jackson-annotations-2.6.0.jar:/Users/snow/.m2/repository/com/google/guava/guava/18.0/guava-18.0.jar:/Users/snow/.m2/repository/com/google/code/findbugs/jsr305/3.0.1/jsr305-3.0.1.jar:/Users/snow/.m2/repository/joda-time/joda-time/2.9/joda-time-2.9.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-jackson/0.9.2/dropwizard-jackson-0.9.2.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.6.3/jackson-core-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.6.3/jackson-databind-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-jdk7/2.6.3/jackson-datatype-jdk7-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-guava/2.6.3/jackson-datatype-guava-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/module/jackson-module-afterburner/2.6.3/jackson-module-afterburner-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/datatype/jackson-datatype-joda/2.6.3/jackson-datatype-joda-2.6.3.jar:/Users/snow/.m2/repository/org/slf4j/slf4j-api/1.7.12/slf4j-api-1.7.12.jar:/Users/snow/.m2/repository/ch/qos/logback/logback-classic/1.1.3/logback-classic-1.1.3.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-validation/0.9.2/dropwizard-validation-0.9.2.jar:/Users/snow/.m2/repository/org/hibernate/hibernate-validator/5.2.2.Final/hibernate-validator-5.2.2.Final.jar:/Users/snow/.m2/repository/javax/validation/validation-api/1.1.0.Final/validation-api-1.1.0.Final.jar:/Users/snow/.m2/repository/org/jboss/logging/jboss-logging/3.2.1.Final/jboss-logging-3.2.1.Final.jar:/Users/snow/.m2/repository/com/fasterxml/classmate/1.1.0/classmate-1.1.0.jar:/Users/snow/.m2/repository/org/glassfish/javax.el/3.0.0/javax.el-3.0.0.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-configuration/0.9.2/dropwizard-configuration-0.9.2.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/dataformat/jackson-dataformat-yaml/2.6.3/jackson-dataformat-yaml-2.6.3.jar:/Users/snow/.m2/repository/org/yaml/snakeyaml/1.15/snakeyaml-1.15.jar:/Users/snow/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-logging/0.9.2/dropwizard-logging-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-logback/3.1.2/metrics-logback-3.1.2.jar:/Users/snow/.m2/repository/org/slf4j/jul-to-slf4j/1.7.12/jul-to-slf4j-1.7.12.jar:/Users/snow/.m2/repository/ch/qos/logback/logback-core/1.1.3/logback-core-1.1.3.jar:/Users/snow/.m2/repository/org/slf4j/log4j-over-slf4j/1.7.12/log4j-over-slf4j-1.7.12.jar:/Users/snow/.m2/repository/org/slf4j/jcl-over-slf4j/1.7.12/jcl-over-slf4j-1.7.12.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-util/9.2.13.v20150730/jetty-util-9.2.13.v20150730.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-metrics/0.9.2/dropwizard-metrics-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-jersey/0.9.2/dropwizard-jersey-0.9.2.jar:/Users/snow/.m2/repository/org/glassfish/jersey/core/jersey-server/2.22.1/jersey-server-2.22.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/core/jersey-common/2.22.1/jersey-common-2.22.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/bundles/repackaged/jersey-guava/2.22.1/jersey-guava-2.22.1.jar:/Users/snow/.m2/repository/org/glassfish/hk2/osgi-resource-locator/1.0.1/osgi-resource-locator-1.0.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/core/jersey-client/2.22.1/jersey-client-2.22.1.jar:/Users/snow/.m2/repository/javax/ws/rs/javax.ws.rs-api/2.0.1/javax.ws.rs-api-2.0.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/media/jersey-media-jaxb/2.22.1/jersey-media-jaxb-2.22.1.jar:/Users/snow/.m2/repository/javax/annotation/javax.annotation-api/1.2/javax.annotation-api-1.2.jar:/Users/snow/.m2/repository/org/glassfish/hk2/hk2-api/2.4.0-b31/hk2-api-2.4.0-b31.jar:/Users/snow/.m2/repository/org/glassfish/hk2/hk2-utils/2.4.0-b31/hk2-utils-2.4.0-b31.jar:/Users/snow/.m2/repository/org/glassfish/hk2/external/aopalliance-repackaged/2.4.0-b31/aopalliance-repackaged-2.4.0-b31.jar:/Users/snow/.m2/repository/org/glassfish/hk2/external/javax.inject/2.4.0-b31/javax.inject-2.4.0-b31.jar:/Users/snow/.m2/repository/org/glassfish/hk2/hk2-locator/2.4.0-b31/hk2-locator-2.4.0-b31.jar:/Users/snow/.m2/repository/org/javassist/javassist/3.18.1-GA/javassist-3.18.1-GA.jar:/Users/snow/.m2/repository/org/glassfish/jersey/ext/jersey-metainf-services/2.22.1/jersey-metainf-services-2.22.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/ext/jersey-bean-validation/2.22.1/jersey-bean-validation-2.22.1.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-jersey2/3.1.2/metrics-jersey2-3.1.2.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/jaxrs/jackson-jaxrs-json-provider/2.6.3/jackson-jaxrs-json-provider-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/jaxrs/jackson-jaxrs-base/2.6.3/jackson-jaxrs-base-2.6.3.jar:/Users/snow/.m2/repository/com/fasterxml/jackson/module/jackson-module-jaxb-annotations/2.6.3/jackson-module-jaxb-annotations-2.6.3.jar:/Users/snow/.m2/repository/org/glassfish/jersey/containers/jersey-container-servlet/2.22.1/jersey-container-servlet-2.22.1.jar:/Users/snow/.m2/repository/org/glassfish/jersey/containers/jersey-container-servlet-core/2.22.1/jersey-container-servlet-core-2.22.1.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-server/9.2.13.v20150730/jetty-server-9.2.13.v20150730.jar:/Users/snow/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-io/9.2.13.v20150730/jetty-io-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-webapp/9.2.13.v20150730/jetty-webapp-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-xml/9.2.13.v20150730/jetty-xml-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-continuation/9.2.13.v20150730/jetty-continuation-9.2.13.v20150730.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-servlets/0.9.2/dropwizard-servlets-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-annotation/3.1.2/metrics-annotation-3.1.2.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-jetty/0.9.2/dropwizard-jetty-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-jetty9/3.1.2/metrics-jetty9-3.1.2.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-servlet/9.2.13.v20150730/jetty-servlet-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-security/9.2.13.v20150730/jetty-security-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-servlets/9.2.13.v20150730/jetty-servlets-9.2.13.v20150730.jar:/Users/snow/.m2/repository/org/eclipse/jetty/jetty-http/9.2.13.v20150730/jetty-http-9.2.13.v20150730.jar:/Users/snow/.m2/repository/io/dropwizard/dropwizard-lifecycle/0.9.2/dropwizard-lifecycle-0.9.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-core/3.1.2/metrics-core-3.1.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-jvm/3.1.2/metrics-jvm-3.1.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-servlets/3.1.2/metrics-servlets-3.1.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-json/3.1.2/metrics-json-3.1.2.jar:/Users/snow/.m2/repository/io/dropwizard/metrics/metrics-healthchecks/3.1.2/metrics-healthchecks-3.1.2.jar:/Users/snow/.m2/repository/net/sourceforge/argparse4j/argparse4j/0.6.0/argparse4j-0.6.0.jar:/Users/snow/.m2/repository/org/eclipse/jetty/toolchain/setuid/jetty-setuid-java/1.0.3/jetty-setuid-java-1.0.3.jar:/Users/snow/.m2/repository/org/syslog4j/syslog4j/0.9.30/syslog4j-0.9.30.jar:/Users/snow/.m2/repository/commons-io/commons-io/2.4/commons-io-2.4.jar syslog.toDelete.Server udp
+Simple syslog server (RFC-5424)
+Usage:
+  java -jar syslog-server.jar [protocol]
+
+Possible protocols: udp, tcp, tls
+
+Starting Simple Syslog Server
+Protocol:     udp
+Bind address: 0.0.0.0
+Port:         9898
+---------------
+<134>Nov 19 12:24:00 snow.local couseservice[1472]: [main] org.eclipse.jetty.util.log Logging initialized @16864ms
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:00 snow.local couseservice[1472]: [main] io.dropwizard.server.ServerFactory Starting couseservice
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:00 snow.local couseservice[1472]: [main] io.dropwizard.server.SimpleServerFactory Registering jersey handler with root path prefix: /application
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:00 snow.local couseservice[1472]: [main] io.dropwizard.server.SimpleServerFactory Registering admin handler with root path prefix: /admin
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:10 snow.local couseservice[1472]: [main] org.eclipse.jetty.setuid.SetUIDListener Opened couseservice@4089713{HTTP/1.1}{0.0.0.0:7000}
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:10 snow.local couseservice[1472]: [main] org.eclipse.jetty.server.Server jetty-9.2.z-SNAPSHOT
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] io.dropwizard.jersey.DropwizardResourceConfig The following paths were found for the configured resources:
+
+    DELETE  /api/v2/choice (res.ChoiceRes)
+    GET     /api/v2/choice (res.ChoiceRes)
+    POST    /api/v2/choice (res.ChoiceRes)
+    GET     /api/v2/class (res.ClassRes)
+    POST    /api/v2/class (res.ClassRes)
+    DELETE  /api/v2/class/{id} (res.ClassRes)
+    GET     /api/v2/class/{id} (res.ClassRes)
+    PUT     /api/v2/class/{id} (res.ClassRes)
+    DELETE  /api/v2/control (res.ControlRes)
+    POST    /api/v2/control (res.ControlRes)
+    GET     /api/v2/course (res.CourseRes)
+    POST    /api/v2/course (res.CourseRes)
+    GET     /api/v2/course/{courseId} (res.CourseRes)
+    PATCH   /api/v2/course/{courseId} (res.CourseRes)
+    PUT     /api/v2/course/{courseId} (res.CourseRes)
+    GET     /api/v2/courseware (res.CoursewareRes)
+    POST    /api/v2/courseware (res.CoursewareRes)
+    GET     /api/v2/courseware/{id} (res.CoursewareRes)
+    PUT     
+---------------
+>>> Syslog message came: doing...
+---------------
+<132>Nov 19 12:24:11 snow.local couseservice[1472]: [main] org.glassfish.jersey.internal.Errors The following warnings have been detected: WARNING: A resource, Resource{"api/v1/answer", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "api/v1/answer" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
+WARNING: A resource, Resource{"api/v1/homework", 0 child resources, 0 resource methods, 0 sub-resource locator, 0 method handler classes, 0 method handler instances}, with path "api/v1/homework" is empty. It has no resource (or sub resource) methods neither sub resource locators defined.
+
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] org.eclipse.jetty.server.handler.ContextHandler Started i.d.j.MutableServletContextHandler@51351f28{/application,null,AVAILABLE}
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] io.dropwizard.setup.AdminEnvironment tasks = 
+
+    POST    /tasks/log-level (io.dropwizard.servlets.tasks.LogConfigurationTask)
+    POST    /tasks/gc (io.dropwizard.servlets.tasks.GarbageCollectionTask)
+
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] org.eclipse.jetty.server.handler.ContextHandler Started i.d.j.MutableServletContextHandler@5c9ac4cc{/admin,null,AVAILABLE}
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] org.eclipse.jetty.server.ServerConnector Started couseservice@4089713{HTTP/1.1}{0.0.0.0:7000}
+---------------
+>>> Syslog message came: doing...
+---------------
+<134>Nov 19 12:24:11 snow.local couseservice[1472]: [main] org.eclipse.jetty.server.Server Started @27610ms
+---------------
+>>> Syslog message came: doing...

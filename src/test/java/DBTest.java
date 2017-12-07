@@ -1,50 +1,65 @@
+import entity.ConfInfo;
 import entity.MongoResult;
+import entity.RequestsRate;
 import mongodb.MongoConnector;
 import mongodb.MongoService;
 import orm.Record;
+
+import java.util.Date;
 
 /**
  * Created by snow on 11/11/2017.
  */
 public class DBTest {
     public static void main(String[] args) {
-//        String name = "courseservice";
-//        String url = "GET /application/api/v2/class? HTTP/1.1";
-//        String dateTime = "04/Nov/2017:11:43:54";
-//        int status = 200;
-//        String ip = "123.207.73.150";
-//        String client = "Apache-HttpClient/4.5.2 (Java/1.8.0_151)";
-//        RequestLog requestLog = new RequestLog();
-//        requestLog.setHost(ip);
-//        requestLog.setServiceName(name);
-//        requestLog.setUrl(url);
-//        requestLog.setStatus(status);
-//        requestLog.setClient(client);
-//        requestLog.setDatetime(dateTime);
-
+//        @JsonProperty
 //        private String id;
+//        @JsonProperty
 //        private String serviceName;
-//
-//        private String mostURI;
-//        private Integer mostRequests;
-//
+//        @JsonProperty
+//        private String timestamp;
+//        @JsonProperty
+//        private Hashtable<String, Integer> apiRequestTable = new Hashtable<>();
+//        @JsonProperty
 //        private Integer loggingErrors;
+//        @JsonProperty
 //        private Integer requestExceptions;
+//        @JsonProperty
 //        private Integer hourRequests;
-//        private Double hourRequestsRate;
+//        @JsonProperty
+//        private RequestsRate[] secondRequestsRate = new RequestsRate[12];
 
+//        mongodbPort: 27017
+//        mongodbHost: localhost
+//        mongodbUserName: wyj
+//        mongodbPassword: 123456
+
+        MongoConnector.host = "localhost";
+        MongoConnector.port = 27017;
+        MongoConnector.userName = "wyj";
+        MongoConnector.password = "123456";
         MongoConnector.init();
 
         for (int i = 0; i < 5; i++) {
             Record record = new Record();
             record.setServiceName("recordTest");
-            record.setMostURI("GET /application/api/v2/class");
-            record.setMostRequests(i * 100);
+            record.setTimestamp(new Date().toString());
+
+            record.putApiRequestTable("test_" + i + "_1", i);
+            record.putApiRequestTable("test_" + i + "_2", i);
+            record.putApiRequestTable("test_" + i + "_3", i);
+
             record.setLoggingErrors(i * 5);
             record.setRequestExceptions(i * 10);
             record.setHourRequests(i * 1000);
-            record.setSecondRequestsRate((double) (record.getHourRequests() / 12));
+
+            for (int j = 0; j < 12; j++) {
+                record.setSecondRequestsRate(j, new RequestsRate(new Date().toString(),
+                        record.getHourRequests() / 12));
+            }
+
             MongoService.getRecordCollection().add(record);
+
             System.out.println("successfully insert Record " + i);
         }
 

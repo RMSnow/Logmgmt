@@ -1,125 +1,127 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import entity.RequestsRate;
 import mongodb.dao.RecordDao;
 import org.bson.Document;
+
+import java.util.Hashtable;
 
 /**
  * Created by snow on 05/12/2017.
  */
 public class Record {
-//    新建一个集合，存储以下，按小时
-//    # 该服务最常被调用的api以及数量
-//    # 服务错误数——Logging
-//    # 不正常返回（非200）数——RequestLog
-//    # 最近30天每天服务访问量
+//    _id                 [自动生成]
+//    serviceName         [String]
+//    timestamp           [是否可以自动生成？根据计划任务]
 //
-//    # 最近5分钟每秒请求数
+//    apiRequestTable     [HashTable<String, Integer>]
+//    loggingErrors       [Integer]
+//    requestExceptions   [Integer]
+//    hourRequests        [Integer]
+//    secondRequestsRate  [ObjectArray]
 
-    //TODO: orm
+    @JsonProperty
     private String id;
+    @JsonProperty
     private String serviceName;
-
-    private String mostURI;
-    private Integer mostRequests;
-
+    @JsonProperty
+    private String timestamp;
+    @JsonProperty
+    private Hashtable<String, Integer> apiRequestTable = new Hashtable<>();
+    @JsonProperty
     private Integer loggingErrors;
+    @JsonProperty
     private Integer requestExceptions;
+    @JsonProperty
     private Integer hourRequests;
-    private Double secondRequestsRate;
+    @JsonProperty
+    private RequestsRate[] secondRequestsRate = new RequestsRate[12];
 
-    public Record(){
+    public Record() {
 
     }
 
     public Record(Document d) {
         setId(d.getObjectId(RecordDao.KEY_ID).toString());
         setServiceName(d.getString(RecordDao.KEY_SERVICE_NAME));
-        setMostURI(d.getString(RecordDao.KEY_MOST_URI));
-        setMostRequests(d.getInteger(RecordDao.KEY_MOST_REQUESTS));
+        setTimestamp(d.getString(RecordDao.KEY_TIMESTAMP));
+        setApiRequestTable((Hashtable<String, Integer>) d.get(RecordDao.KEY_API_REQUEST_TABLE));
         setLoggingErrors(d.getInteger(RecordDao.KEY_LOGGING_ERRORS));
         setRequestExceptions(d.getInteger(RecordDao.KEY_REQUEST_EXCEPTIONS));
         setHourRequests(d.getInteger(RecordDao.KEY_HOUR_REQUESTS));
-        setSecondRequestsRate(d.getDouble(RecordDao.KEY_SECOND_REQUESTS_RATE));
+        setSecondRequestsRate((RequestsRate[]) d.get(RecordDao.KEY_SECOND_REQUESTS_RATE));
     }
 
-    @JsonProperty
     public String getId() {
         return id;
     }
 
-    @JsonProperty
     public void setId(String id) {
         this.id = id;
     }
 
-    @JsonProperty
     public String getServiceName() {
         return serviceName;
     }
 
-    @JsonProperty
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
 
-    @JsonProperty
-    public String getMostURI() {
-        return mostURI;
+    public String getTimestamp() {
+        return timestamp;
     }
 
-    @JsonProperty
-    public void setMostURI(String mostURI) {
-        this.mostURI = mostURI;
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
-    @JsonProperty
-    public Integer getMostRequests() {
-        return mostRequests;
+    public Hashtable<String, Integer> getApiRequestTable() {
+        return apiRequestTable;
     }
 
-    @JsonProperty
-    public void setMostRequests(Integer mostRequests) {
-        this.mostRequests = mostRequests;
+    public void setApiRequestTable(Hashtable<String, Integer> apiRequestTable) {
+        this.apiRequestTable = apiRequestTable;
     }
 
-    @JsonProperty
     public Integer getLoggingErrors() {
         return loggingErrors;
     }
 
-    @JsonProperty
     public void setLoggingErrors(Integer loggingErrors) {
         this.loggingErrors = loggingErrors;
     }
 
-    @JsonProperty
     public Integer getRequestExceptions() {
         return requestExceptions;
     }
 
-    @JsonProperty
     public void setRequestExceptions(Integer requestExceptions) {
         this.requestExceptions = requestExceptions;
     }
 
-    @JsonProperty
     public Integer getHourRequests() {
         return hourRequests;
     }
 
-    @JsonProperty
     public void setHourRequests(Integer hourRequests) {
         this.hourRequests = hourRequests;
     }
 
-    @JsonProperty
-    public Double getSecondRequestsRate() {
+    public RequestsRate[] getSecondRequestsRate() {
         return secondRequestsRate;
     }
 
-    @JsonProperty
-    public void setSecondRequestsRate(Double secondRequestsRate) {
+    public void setSecondRequestsRate(RequestsRate[] secondRequestsRate) {
         this.secondRequestsRate = secondRequestsRate;
+    }
+
+    public void putApiRequestTable(String key, Integer value) {
+        apiRequestTable.put(key, value);
+    }
+
+    public void setSecondRequestsRate(int index, RequestsRate requestsRate){
+        secondRequestsRate[index] = requestsRate;
     }
 }

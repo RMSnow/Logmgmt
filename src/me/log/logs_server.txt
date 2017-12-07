@@ -1,0 +1,578 @@
+INFO  [2017-12-01 09:35:07,787] org.eclipse.jetty.util.log: Logging initialized @1457ms
+INFO  [2017-12-01 09:35:07,977] io.dropwizard.server.ServerFactory: Starting null
+INFO  [2017-12-01 09:35:07,998] io.dropwizard.server.SimpleServerFactory: Registering jersey handler with root path prefix: /application
+INFO  [2017-12-01 09:35:08,017] io.dropwizard.server.SimpleServerFactory: Registering admin handler with root path prefix: /admin
+INFO  [2017-12-01 09:35:08,056] org.eclipse.jetty.setuid.SetUIDListener: Opened ServerConnector@793138bd{HTTP/1.1}{0.0.0.0:9999}
+INFO  [2017-12-01 09:35:08,059] org.eclipse.jetty.server.Server: jetty-9.2.z-SNAPSHOT
+INFO  [2017-12-01 09:35:09,008] io.dropwizard.jersey.DropwizardResourceConfig: The following paths were found for the configured resources:
+
+    DELETE  /api/v1/loggings (res.LoggingLogRes)
+    GET     /api/v1/loggings (res.LoggingLogRes)
+    DELETE  /api/v1/mostRequests (res.RequestLogRes)
+    GET     /api/v1/mostRequests (res.RequestLogRes)
+
+INFO  [2017-12-01 09:35:09,009] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@3e48e859{/application,null,AVAILABLE}
+INFO  [2017-12-01 09:35:09,013] io.dropwizard.setup.AdminEnvironment: tasks = 
+
+    POST    /tasks/log-level (io.dropwizard.servlets.tasks.LogConfigurationTask)
+    POST    /tasks/gc (io.dropwizard.servlets.tasks.GarbageCollectionTask)
+
+INFO  [2017-12-01 09:35:09,018] org.eclipse.jetty.server.handler.ContextHandler: Started i.d.j.MutableServletContextHandler@4cdd2c73{/admin,null,AVAILABLE}
+INFO  [2017-12-01 09:35:09,024] org.eclipse.jetty.server.ServerConnector: Started ServerConnector@793138bd{HTTP/1.1}{0.0.0.0:9999}
+
+------------------------------------------
+
+INFO  [2017-12-01 09:35:09,024] org.eclipse.jetty.server.Server: Started @2694ms
+INFO  [2017-12-01 09:35:09,343] org.mongodb.driver.cluster: Cluster created with settings {hosts=[119.29.228.21:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=10000}
+INFO  [2017-12-01 09:35:09,767] org.mongodb.driver.connection: Opened connection [connectionId{localValue:1, serverValue:24}] to 119.29.228.21:27017
+INFO  [2017-12-01 09:35:09,769] org.mongodb.driver.cluster: Monitor thread successfully connected to server with description ServerDescription{address=119.29.228.21:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 4, 10]}, minWireVersion=0, maxWireVersion=5, maxDocumentSize=16777216, roundTripTimeNanos=853054}
+Simple syslog server (RFC-5424)
+
+Starting Simple Syslog Server
+Protocol:     udp
+Bind address: 0.0.0.0
+Port:         9898
+
+------------------------------------------
+
+---------------
+<134>Dec  1 09:35:55 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:35:55 +0000] "GET /application/api/v2/heart?code=580e96 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:35:55
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:35:55
+[method]	GET
+[url]	/application/api/v2/heart?code=580e96 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+INFO  [2017-12-01 09:35:55,102] org.mongodb.driver.connection: Opened connection [connectionId{localValue:2, serverValue:25}] to 119.29.228.21:27017
+---------------
+<134>Dec  1 09:36:45 7f753a3880d5 keyverify[1]: [dw-47] http.request 123.207.73.150 - - [01/Dec/2017:09:36:45 +0000] "GET /application/api/v2/heart?code=c2b111 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:36:45
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:36:45
+[method]	GET
+[url]	/application/api/v2/heart?code=c2b111 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:37:35 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:37:35 +0000] "GET /application/api/v2/heart?code=45ded5 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:37:35
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:37:35
+[method]	GET
+[url]	/application/api/v2/heart?code=45ded5 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:38:25 7f753a3880d5 keyverify[1]: [dw-47] http.request 123.207.73.150 - - [01/Dec/2017:09:38:25 +0000] "GET /application/api/v2/heart?code=a862ab HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:38:25
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:38:25
+[method]	GET
+[url]	/application/api/v2/heart?code=a862ab HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:39:15 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:39:15 +0000] "GET /application/api/v2/heart?code=8c9742 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:39:15
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:39:15
+[method]	GET
+[url]	/application/api/v2/heart?code=8c9742 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:40:05 7f753a3880d5 keyverify[1]: [dw-47] http.request 123.207.73.150 - - [01/Dec/2017:09:40:05 +0000] "GET /application/api/v2/heart?code=bb7b14 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 7
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:40:05
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:40:05
+[method]	GET
+[url]	/application/api/v2/heart?code=bb7b14 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:40:55 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:40:55 +0000] "GET /application/api/v2/heart?code=9febac HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:40:55
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:40:55
+[method]	GET
+[url]	/application/api/v2/heart?code=9febac HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:41:45 7f753a3880d5 keyverify[1]: [dw-47] http.request 123.207.73.150 - - [01/Dec/2017:09:41:45 +0000] "GET /application/api/v2/heart?code=8c49f0 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:41:45
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:41:45
+[method]	GET
+[url]	/application/api/v2/heart?code=8c49f0 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:42:35 7f753a3880d5 keyverify[1]: [dw-47] http.request 123.207.73.150 - - [01/Dec/2017:09:42:35 +0000] "GET /application/api/v2/heart?code=e5d527 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:42:35
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:42:35
+[method]	GET
+[url]	/application/api/v2/heart?code=e5d527 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:43:25 7f753a3880d5 keyverify[1]: [dw-49] http.request 123.207.73.150 - - [01/Dec/2017:09:43:25 +0000] "GET /application/api/v2/heart?code=759266 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:43:25
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:43:25
+[method]	GET
+[url]	/application/api/v2/heart?code=759266 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:44:15 7f753a3880d5 keyverify[1]: [dw-49] http.request 123.207.73.150 - - [01/Dec/2017:09:44:15 +0000] "GET /application/api/v2/heart?code=4e01c6 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:44:15
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:44:15
+[method]	GET
+[url]	/application/api/v2/heart?code=4e01c6 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:45:05 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:45:05 +0000] "GET /application/api/v2/heart?code=f34910 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:45:05
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:45:05
+[method]	GET
+[url]	/application/api/v2/heart?code=f34910 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:45:55 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:45:55 +0000] "GET /application/api/v2/heart?code=8da503 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:45:55
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:45:55
+[method]	GET
+[url]	/application/api/v2/heart?code=8da503 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:46:45 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:46:45 +0000] "GET /application/api/v2/heart?code=04325d HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:46:45
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:46:45
+[method]	GET
+[url]	/application/api/v2/heart?code=04325d HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:47:35 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:47:35 +0000] "GET /application/api/v2/heart?code=792051 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:47:35
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:47:35
+[method]	GET
+[url]	/application/api/v2/heart?code=792051 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:48:25 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:48:25 +0000] "GET /application/api/v2/heart?code=523b19 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:48:25
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:48:25
+[method]	GET
+[url]	/application/api/v2/heart?code=523b19 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:49:15 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:49:15 +0000] "GET /application/api/v2/heart?code=4ba243 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:49:15
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:49:15
+[method]	GET
+[url]	/application/api/v2/heart?code=4ba243 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:50:05 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:50:05 +0000] "GET /application/api/v2/heart?code=91066c HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:50:05
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:50:05
+[method]	GET
+[url]	/application/api/v2/heart?code=91066c HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:50:55 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:50:55 +0000] "GET /application/api/v2/heart?code=1cce7d HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:50:55
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:50:55
+[method]	GET
+[url]	/application/api/v2/heart?code=1cce7d HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:51:45 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:51:45 +0000] "GET /application/api/v2/heart?code=726711 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:51:45
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:51:45
+[method]	GET
+[url]	/application/api/v2/heart?code=726711 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:52:36 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:52:35 +0000] "GET /application/api/v2/heart?code=2a0396 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:52:36
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:52:35
+[method]	GET
+[url]	/application/api/v2/heart?code=2a0396 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:53:26 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:53:26 +0000] "GET /application/api/v2/heart?code=5a9a11 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:53:26
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:53:26
+[method]	GET
+[url]	/application/api/v2/heart?code=5a9a11 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:54:16 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:54:16 +0000] "GET /application/api/v2/heart?code=00b62a HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:54:16
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:54:16
+[method]	GET
+[url]	/application/api/v2/heart?code=00b62a HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:54:52 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:54:52 +0000] "GET /application/api/v2/teachers?phoneNumber=11111& HTTP/1.1" 200 40 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 62
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:54:52
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:54:52
+[method]	GET
+[url]	/application/api/v2/teachers?phoneNumber=11111& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:54:56 7f753a3880d5 keyverify[1]: [dw-46] http.request 123.207.73.150 - - [01/Dec/2017:09:54:56 +0000] "GET /application/api/v2/teachers?phoneNumber=111& HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 10
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:54:56
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:54:56
+[method]	GET
+[url]	/application/api/v2/teachers?phoneNumber=111& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:03 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:55:03 +0000] "GET /application/api/v2/teachers?phoneNumber=11111& HTTP/1.1" 200 40 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 5
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:03
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:03
+[method]	GET
+[url]	/application/api/v2/teachers?phoneNumber=11111& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:06 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:55:06 +0000] "GET /application/api/v2/heart?code=194b3e HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:06
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:06
+[method]	GET
+[url]	/application/api/v2/heart?code=194b3e HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:06 7f753a3880d5 keyverify[1]: [dw-52] http.request 123.207.73.150 - - [01/Dec/2017:09:55:06 +0000] "GET /application/api/v2/teachers?phoneNumber=111& HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 7
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:06
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:06
+[method]	GET
+[url]	/application/api/v2/teachers?phoneNumber=111& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:35 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:55:35 +0000] "GET /application/api/v2/teachers?phoneNumber=111& HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 5
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:35
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:35
+[method]	GET
+[url]	/application/api/v2/teachers?phoneNumber=111& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:49 7f753a3880d5 keyverify[1]: [dw-52] http.request 123.207.73.150 - - [01/Dec/2017:09:55:49 +0000] "GET /application/api/v2/tokens?password=fin&phoneNumber=18664388610& HTTP/1.1" 200 201 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 5
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:49
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:49
+[method]	GET
+[url]	/application/api/v2/tokens?password=fin&phoneNumber=18664388610& HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:49 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:55:49 +0000] "GET /application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 5
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:49
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:49
+[method]	GET
+[url]	/application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:55:56 7f753a3880d5 keyverify[1]: [dw-52] http.request 123.207.73.150 - - [01/Dec/2017:09:55:56 +0000] "GET /application/api/v2/heart?code=fa9b48 HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:55:56
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:55:56
+[method]	GET
+[url]	/application/api/v2/heart?code=fa9b48 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:56:01 7f753a3880d5 keyverify[1]: [dw-52] http.request 123.207.73.150 - - [01/Dec/2017:09:56:01 +0000] "GET /application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 4
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:56:01
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:56:01
+[method]	GET
+[url]	/application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:56:13 7f753a3880d5 keyverify[1]: [dw-52] http.request 123.207.73.150 - - [01/Dec/2017:09:56:13 +0000] "GET /application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1" 200 - "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 5
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:56:13
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:56:13
+[method]	GET
+[url]	/application/api/v2/users/46?auth=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJrZXl2ZXJpZnkiLCJpZCI6IjQ2IiwiZXhwIjoiMjAxNy0xMi0wMSAwNzoyNToyNSJ9.9554189A4FB6A4219049A107A08BD1137B05822E1D4ABCE275DE0B5179384167 HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:56:46 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:56:46 +0000] "GET /application/api/v2/heart?code=aea40c HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 2
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:56:46
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:56:46
+[method]	GET
+[url]	/application/api/v2/heart?code=aea40c HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+
+---------------
+<134>Dec  1 09:57:36 7f753a3880d5 keyverify[1]: [dw-51] http.request 123.207.73.150 - - [01/Dec/2017:09:57:36 +0000] "GET /application/api/v2/heart?code=f9a8ad HTTP/1.1" 200 29 "-" "Apache-HttpClient/4.5.2 (Java/1.8.0_151)" 1
+---------------
+[facility]	16
+[level]	6
+[timestamp]	Dec  1
+[host]	09:57:36
+[serviceName]	7f753a3880d5 keyverify
+[clientIP]	123.207.73.150
+[datetime]	01/Dec/2017:09:57:36
+[method]	GET
+[url]	/application/api/v2/heart?code=f9a8ad HTTP/1.1
+[status]	200
+[client]	Apache-HttpClient/4.5.2 (Java/1.8.0_151)
+

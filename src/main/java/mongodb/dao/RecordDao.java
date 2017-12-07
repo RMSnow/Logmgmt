@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import entity.MongoResult;
+import entity.RequestsRate;
 import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -16,12 +17,20 @@ import java.util.List;
  * Created by snow on 05/12/2017.
  */
 public class RecordDao {
-    //TODO: Dao
+//    _id                 [自动生成]
+//    serviceName         [String]
+//    timestamp           [是否可以自动生成？根据计划任务]
+//
+//    apiRequestTable     [HashTable<String, Integer>]
+//    loggingErrors       [Integer]
+//    requestExceptions   [Integer]
+//    hourRequests        [Integer]
+//    secondRequestsRate  [ObjectArray]
 
     public static final String KEY_ID = "_id";
     public static final String KEY_SERVICE_NAME = "service_name";
-    public static final String KEY_MOST_URI = "most_api";
-    public static final String KEY_MOST_REQUESTS = "most_api_sum";
+    public static final String KEY_TIMESTAMP = "timestamp";
+    public static final String KEY_API_REQUEST_TABLE = "api_request_table";
     public static final String KEY_LOGGING_ERRORS = "logging_errors";
     public static final String KEY_REQUEST_EXCEPTIONS = "request_exception";
     public static final String KEY_HOUR_REQUESTS = "hour_requests";
@@ -40,12 +49,13 @@ public class RecordDao {
         if (record.getServiceName() != null) {
             d.append(KEY_SERVICE_NAME, record.getServiceName());
         }
-        if (record.getMostURI() != null) {
-            d.append(KEY_MOST_URI, record.getMostURI());
+        if (record.getTimestamp() != null) {
+            d.append(KEY_TIMESTAMP, record.getTimestamp());
         }
-        if (record.getMostRequests() != null) {
-            d.append(KEY_MOST_REQUESTS, record.getMostRequests());
-        }
+//        if (record.getApiRequestTable() != null) {
+//            Hashtable<String, Integer> table = record.getApiRequestTable();
+//            d.append(KEY_API_REQUEST_TABLE, );
+//        }
         if (record.getLoggingErrors() != null) {
             d.append(KEY_LOGGING_ERRORS, record.getLoggingErrors());
         }
@@ -56,7 +66,23 @@ public class RecordDao {
             d.append(KEY_HOUR_REQUESTS, record.getHourRequests());
         }
         if (record.getSecondRequestsRate() != null) {
-            d.append(KEY_SECOND_REQUESTS_RATE, record.getSecondRequestsRate());
+            //d.append(KEY_SECOND_REQUESTS_RATE, record.getSecondRequestsRate());
+
+            RequestsRate[] rates = record.getSecondRequestsRate();
+//            d.append(KEY_SECOND_REQUESTS_RATE, Arrays.asList(rates[0],
+//                    rates[1],rates[2],rates[3],rates[4],rates[5],rates[6],
+//                    rates[7],rates[8],rates[9],rates[10],rates[11]));
+
+            Document arrayDoc = new Document();
+            for (int i = 0; i < 12; i++) {
+                arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
+            }
+
+            d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
+
+
+//            RequestsRate[] rates = record.getSecondRequestsRate();
+//            d.append(KEY_SECOND_REQUESTS_RATE, new Document())
         }
 
         collection.insertOne(d);

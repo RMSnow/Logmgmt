@@ -1,0 +1,9 @@
+# logging
+<134>Nov 19 12:24:11 snow.local couseservice[1472]:
+ [main] org.eclipse.jetty.server.ServerConnector
+  Started couseservice@4089713{HTTP/1.1}{0.0.0.0:7000}
+
+# requestLog
+<134>Nov 19 12:02:34 snow.local couseservice[1327]:
+ [dw-21] http.request 0:0:0:0:0:0:0:1 - - [19/Nov/2017:04:02:34 +0000]
+  "GET /application/api/v2/course HTTP/1.1" 500 110 "-" "PostmanRuntime/6.4.1" 137
