@@ -1,8 +1,8 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
+import dock.DockService;
 import entity.Result;
-import util.HTTPTool;
 
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -20,7 +20,7 @@ public class ControlRes {
     @Timed
     public Result register(){
         //注册API
-        Result result = new HTTPTool().registerApi();
+        Result result = DockService.registerApi();
         return result;
     }
 

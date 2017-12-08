@@ -43,4 +43,8 @@ public class RequestsRate {
     public void setRate(double rate) {
         this.rate = rate;
     }
+
+    public String toString() {
+        return "timescale = " + timescale + ", rate = " + rate;
+    }
 }

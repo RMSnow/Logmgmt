@@ -1,9 +1,12 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import entity.RequestsRate;
 import orm.Record;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 
 /**
  * Created by snow on 07/12/2017.
@@ -31,6 +34,18 @@ public class Jackson {
 //        ObjectMapper mapper = new ObjectMapper();
 //        String json = mapper.writeValueAsString(record);
 //        System.out.println(json);
+
+        RequestsRate[] rates = new RequestsRate[12];
+        for (int j = 0; j < 12; j++) {
+            RequestsRate rate = new RequestsRate(new Date().toString() + "_" + j,
+                    100);
+            rates[j] = rate;
+            System.out.println(rate);
+        }
+        LinkedHashMap<String, RequestsRate[]> testMap = new LinkedHashMap<>();
+        testMap.put("test",rates);
+
+        System.out.println("ok");
     }
 }
 

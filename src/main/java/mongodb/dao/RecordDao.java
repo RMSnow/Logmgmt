@@ -11,6 +11,7 @@ import org.bson.conversions.Bson;
 import orm.Record;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -69,10 +70,6 @@ public class RecordDao {
             //d.append(KEY_SECOND_REQUESTS_RATE, record.getSecondRequestsRate());
 
             RequestsRate[] rates = record.getSecondRequestsRate();
-//            d.append(KEY_SECOND_REQUESTS_RATE, Arrays.asList(rates[0],
-//                    rates[1],rates[2],rates[3],rates[4],rates[5],rates[6],
-//                    rates[7],rates[8],rates[9],rates[10],rates[11]));
-
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
                 arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
@@ -80,9 +77,6 @@ public class RecordDao {
 
             d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
 
-
-//            RequestsRate[] rates = record.getSecondRequestsRate();
-//            d.append(KEY_SECOND_REQUESTS_RATE, new Document())
         }
 
         collection.insertOne(d);

@@ -1,4 +1,3 @@
-import entity.ConfInfo;
 import entity.MongoResult;
 import entity.RequestsRate;
 import mongodb.MongoConnector;
@@ -54,8 +53,10 @@ public class DBTest {
             record.setHourRequests(i * 1000);
 
             for (int j = 0; j < 12; j++) {
-                record.setSecondRequestsRate(j, new RequestsRate(new Date().toString(),
-                        record.getHourRequests() / 12));
+                RequestsRate rate = new RequestsRate(new Date().toString() + "_" + j,
+                        record.getHourRequests() / 12);
+                System.out.println(rate);
+                record.setSecondRequestsRate(j, rate);
             }
 
             MongoService.getRecordCollection().add(record);
@@ -67,8 +68,8 @@ public class DBTest {
         System.out.println("All Record...");
         MongoService.getRecordCollection().queryAll();
         System.out.println("----------");
-        System.out.println("Query By Param \"Test\"...");
-        MongoService.getRecordCollection().queryByParam("Test");
+        System.out.println("Query By Param \"DockTest\"...");
+        MongoService.getRecordCollection().queryByParam("DockTest");
         System.out.println("----------");
         System.out.println("Query By Param \"recordTest\"...");
         MongoResult result = MongoService.getRecordCollection().queryByParam("recordTest");

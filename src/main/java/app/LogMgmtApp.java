@@ -10,7 +10,7 @@ import res.ControlRes;
 import res.HeartRes;
 import res.LoggingLogRes;
 import res.RequestLogRes;
-import util.HeartbeatTest;
+import health.HeartbeatTest;
 
 /**
  * 日志管理APP

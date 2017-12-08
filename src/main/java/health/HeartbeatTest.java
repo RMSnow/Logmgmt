@@ -1,6 +1,7 @@
-package util;
+package health;
 
 import com.alibaba.fastjson.JSON;
+import dock.DockService;
 import entity.Result;
 import res.HeartRes;
 
@@ -17,7 +18,7 @@ public class HeartbeatTest implements Runnable {
                 if(HeartRes.OK){
                     HeartRes.OK = false;
                 }else{
-                    Result result = new HTTPTool().registerApi();
+                    Result result = DockService.registerApi();
                     System.out.println(JSON.toJSONString(result));
                 }
                 TimeUnit.MILLISECONDS.sleep(180000);//每隔三分钟检测一次heart
