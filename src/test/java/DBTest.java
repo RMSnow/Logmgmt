@@ -40,8 +40,7 @@ public class DBTest {
         MongoConnector.init();
 
         for (int i = 0; i < 5; i++) {
-            Record record = new Record();
-            record.setServiceName("recordTest");
+            Record record = new Record("recordTest");
             record.setTimestamp(new Date().toString());
 
             record.putApiRequestTable("test_" + i + "_1", i);
@@ -53,9 +52,9 @@ public class DBTest {
             record.setHourRequests(i * 1000);
 
             for (int j = 0; j < 12; j++) {
-                RequestsRate rate = new RequestsRate(new Date().toString() + "_" + j,
+                RequestsRate rate = new RequestsRate(new Date().toString() + "_" + i + "_" + j,
                         record.getHourRequests() / 12);
-                System.out.println(rate);
+                //System.out.println(rate);
                 record.setSecondRequestsRate(j, rate);
             }
 

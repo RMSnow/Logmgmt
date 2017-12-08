@@ -1,9 +1,12 @@
 package syslog;
 
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
+import orm.Record;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Hashtable;
 import java.util.regex.Pattern;
 
 /**
@@ -26,6 +29,12 @@ public class SyslogEvent implements SyslogServerEventIF {
     protected int startPos;
     protected int endPos;
     protected int tempPos;
+
+    protected static Hashtable<String, Integer> serviceTable = new Hashtable<>();     //所有的服务名
+    protected static int serviceTableIndex = 0;
+    protected static ArrayList<Record> serviceRecords = new ArrayList<>();
+
+    //TODO: hourRequests & secondRequestsRate
 
     public SyslogEvent() {
 
@@ -122,7 +131,7 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     }
 
-    protected String getString(byte[] data, int startPos, int endPos) throws Exception{
+    protected String getString(byte[] data, int startPos, int endPos) throws Exception {
         try {
             return new String(data, startPos, endPos - startPos, CHARSET);
         } catch (UnsupportedEncodingException e) {
@@ -139,8 +148,18 @@ public class SyslogEvent implements SyslogServerEventIF {
      * @param c
      * @return position of the character or -1 if not found
      */
-    protected int searchChar(byte[] data, int startPos, char c) throws Exception{
+    protected int searchChar(byte[] data, int startPos, char c) throws Exception {
         for (int i = startPos; i < data.length; i++) {
+            if (data[i] == c) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //倒序查找字符
+    protected int searchChar(byte[] data, int endPos, char c, boolean order) throws Exception {
+        for (int i = endPos; i > 0; i--) {
             if (data[i] == c) {
                 return i;
             }
@@ -223,5 +242,15 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     public String getClassName() {
         return className;
+    }
+
+    //为某个服务新增一条分析记录
+    protected void generateNewRecord(String serviceName) {
+        if (serviceTable.contains(serviceName)) {
+            return;
+        } else {
+            serviceTable.put(serviceName, serviceTableIndex++);
+            serviceRecords.add(new Record(serviceName));
+        }
     }
 }

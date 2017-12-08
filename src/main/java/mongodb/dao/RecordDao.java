@@ -11,7 +11,8 @@ import org.bson.conversions.Bson;
 import orm.Record;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -41,7 +42,6 @@ public class RecordDao {
     private MongoCollection<Document> collection;
 
     public RecordDao() {
-        //?????????????如果没有怎么办?????????????
         collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
     }
 
@@ -53,10 +53,17 @@ public class RecordDao {
         if (record.getTimestamp() != null) {
             d.append(KEY_TIMESTAMP, record.getTimestamp());
         }
-//        if (record.getApiRequestTable() != null) {
-//            Hashtable<String, Integer> table = record.getApiRequestTable();
-//            d.append(KEY_API_REQUEST_TABLE, );
-//        }
+        if (record.getApiRequestTable() != null) {
+            Hashtable<String, Integer> table = record.getApiRequestTable();
+            Document hashDoc = new Document();
+            Iterator it = table.keySet().iterator();
+            while (it.hasNext()) {
+                String key = (String) it.next();
+                hashDoc.append(key, table.get(key));
+            }
+
+            d.append(KEY_API_REQUEST_TABLE, hashDoc);
+        }
         if (record.getLoggingErrors() != null) {
             d.append(KEY_LOGGING_ERRORS, record.getLoggingErrors());
         }
@@ -67,8 +74,6 @@ public class RecordDao {
             d.append(KEY_HOUR_REQUESTS, record.getHourRequests());
         }
         if (record.getSecondRequestsRate() != null) {
-            //d.append(KEY_SECOND_REQUESTS_RATE, record.getSecondRequestsRate());
-
             RequestsRate[] rates = record.getSecondRequestsRate();
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
@@ -76,7 +81,6 @@ public class RecordDao {
             }
 
             d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
-
         }
 
         collection.insertOne(d);

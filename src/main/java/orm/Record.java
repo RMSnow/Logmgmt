@@ -6,6 +6,7 @@ import mongodb.dao.RecordDao;
 import org.bson.Document;
 
 import java.util.Hashtable;
+import java.util.Iterator;
 
 /**
  * Created by snow on 05/12/2017.
@@ -38,19 +39,39 @@ public class Record {
     @JsonProperty
     private RequestsRate[] secondRequestsRate = new RequestsRate[12];
 
-    public Record() {
-
+    public Record(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public Record(Document d) {
         setId(d.getObjectId(RecordDao.KEY_ID).toString());
         setServiceName(d.getString(RecordDao.KEY_SERVICE_NAME));
         setTimestamp(d.getString(RecordDao.KEY_TIMESTAMP));
-        setApiRequestTable((Hashtable<String, Integer>) d.get(RecordDao.KEY_API_REQUEST_TABLE));
+
+        //apiRequestTable
+        Document hashDoc = (Document) d.get(RecordDao.KEY_API_REQUEST_TABLE);
+        Iterator hashIt = hashDoc.keySet().iterator();
+        while (hashIt.hasNext()) {
+            String key = (String) hashIt.next();
+            putApiRequestTable(key, hashDoc.getInteger(key));
+            //System.out.println("key = " + key + ", value = " + hashDoc.getInteger(key));
+        }
+
         setLoggingErrors(d.getInteger(RecordDao.KEY_LOGGING_ERRORS));
         setRequestExceptions(d.getInteger(RecordDao.KEY_REQUEST_EXCEPTIONS));
         setHourRequests(d.getInteger(RecordDao.KEY_HOUR_REQUESTS));
-        setSecondRequestsRate((RequestsRate[]) d.get(RecordDao.KEY_SECOND_REQUESTS_RATE));
+
+        //secondRequestsRate
+        Document arrayDoc = (Document) d.get(RecordDao.KEY_SECOND_REQUESTS_RATE);
+        Iterator arrayIt = arrayDoc.keySet().iterator();
+        int index = 0;
+        while (arrayIt.hasNext()) {
+            String key = (String) arrayIt.next();
+            RequestsRate rate = new RequestsRate(key, arrayDoc.getDouble(key));
+            //System.out.println(rate);
+            setSecondRequestsRate(index++, rate);
+        }
+
     }
 
     public String getId() {
@@ -121,7 +142,7 @@ public class Record {
         apiRequestTable.put(key, value);
     }
 
-    public void setSecondRequestsRate(int index, RequestsRate requestsRate){
+    public void setSecondRequestsRate(int index, RequestsRate requestsRate) {
         secondRequestsRate[index] = requestsRate;
     }
 }

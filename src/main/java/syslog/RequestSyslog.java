@@ -1,5 +1,7 @@
 package syslog;
 
+import orm.Record;
+
 /**
  * 处理访问API的日志
  */
@@ -11,13 +13,15 @@ public class RequestSyslog extends SyslogEvent {
     private int status;
     private String client;
 
-    public RequestSyslog(SyslogEvent event) throws Exception{
+    public RequestSyslog(SyslogEvent event) throws Exception {
         init(event);
 
         //name
         startPos = endPos + 1;
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
+
+        generateNewRecord(serviceName);
 
         startPos = endPos + 1;
         startPos = searchChar(raw, startPos, '[') + 1;
@@ -66,7 +70,25 @@ public class RequestSyslog extends SyslogEvent {
             }
         }
 
-        //TODO: URI
+        //TODO: URI <==> apiRequestTable [TO TEST...]
+        int paramPos = searchChar(raw, startPos, '?');
+        int uriPos;
+        String uri;
+        if (paramPos < endPos && paramPos != -1) {       //url中存在参数列表
+            uriPos = searchChar(raw, paramPos, '/', false) + 1;
+            uri = getString(raw, uriPos, paramPos);
+        } else {      //无参数列表
+            uriPos = searchChar(raw, endPos, '/', false) + 1;
+            uri = getString(raw, uriPos, endPos);
+        }
+        int index = serviceTable.get(serviceName);
+        Record record = serviceRecords.get(index);
+        if (record.getApiRequestTable().contains(uri)) {
+            int requests = record.getApiRequestTable().get(uri);
+            record.putApiRequestTable(uri, requests + 1);
+        } else {
+            record.putApiRequestTable(uri, 0);
+        }
 
         //status
         startPos = endPos + 1;
@@ -74,6 +96,8 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
         status = Integer.valueOf(getString(raw, startPos, endPos));
+
+        //TODO: requestsExceptions
 
         //client
         startPos = endPos + 1;

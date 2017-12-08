@@ -56,6 +56,8 @@ public class LoggingSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
 
+        generateNewRecord(serviceName);     //增加服务分析记录
+
         startPos = endPos + 1;
         tempPos = searchChar(raw, startPos, ']');
         startPos = searchChar(raw, tempPos + 1, ']') + 2;
@@ -84,6 +86,10 @@ public class LoggingSyslog extends SyslogEvent {
         } else {     //type1
             endPos = searchChar(raw, startPos, '[');
             serviceName = getString(raw, startPos, endPos);
+
+            generateNewRecord(serviceName);
+
+            //TODO: loggingErrors
 
             tempPos = endPos + 1;
             endPos = searchChar(raw, tempPos, '[');
