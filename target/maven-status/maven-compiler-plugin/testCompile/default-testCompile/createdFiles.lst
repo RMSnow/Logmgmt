@@ -1,9 +1,5 @@
-dock/RestResultGetter.class
-dock/Methods.class
-DBExample.class
-dock/Apis.class
-dock/MessageBuilder.class
+RestResultGetter.class
+Jackson.class
+DockTest.class
 DBTest.class
-dock/Test.class
-dock/MessageDetail.class
-dock/Services.class
+SetTest.class

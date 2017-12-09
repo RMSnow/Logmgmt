@@ -22,11 +22,14 @@
 package syslog;
 
 import entity.ConfInfo;
+import mongodb.MongoConnector;
 import org.productivity.java.syslog4j.SyslogRuntimeException;
 import org.productivity.java.syslog4j.server.SyslogServer;
 import org.productivity.java.syslog4j.server.SyslogServerConfigIF;
 
 import java.net.UnknownHostException;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Syslog server.
@@ -34,6 +37,9 @@ import java.net.UnknownHostException;
 public class Server {
 
     public static final int SYSLOG_PORT = Integer.parseInt(ConfInfo.syslogPort);
+
+    //TODO: Record Test
+//    public static final int SYSLOG_PORT = 9898;
 
     public Server() {
         // Details for the properties -
@@ -83,9 +89,17 @@ public class Server {
         SyslogServer.createThreadedInstance(syslogProtocol, config);
     }
 
-    //test
+    //TODO: Record Test
     public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {
+        MongoConnector.host = "localhost";
+        MongoConnector.port = 27017;
+        MongoConnector.userName = "wyj";
+        MongoConnector.password = "123456";
+        MongoConnector.init();
+
         new Server();
+
+        new Thread(new SyslogEvent.RecordTest()).start();
     }
 
     private static SyslogServerConfigIF getSyslogConfig(String syslogProtocol) {
@@ -95,5 +109,4 @@ public class Server {
         }
         return config;
     }
-
 }

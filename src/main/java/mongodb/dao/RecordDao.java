@@ -62,7 +62,9 @@ public class RecordDao {
                 hashDoc.append(key, table.get(key));
             }
 
-            d.append(KEY_API_REQUEST_TABLE, hashDoc);
+            if (hashDoc.size() != 0){
+                d.append(KEY_API_REQUEST_TABLE, hashDoc);
+            }
         }
         if (record.getLoggingErrors() != null) {
             d.append(KEY_LOGGING_ERRORS, record.getLoggingErrors());
@@ -77,10 +79,14 @@ public class RecordDao {
             RequestsRate[] rates = record.getSecondRequestsRate();
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
-                arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
+                if (rates[i] != null){
+                    arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
+                }
             }
 
-            d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
+            if (arrayDoc.size() != 0){
+                d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
+            }
         }
 
         collection.insertOne(d);

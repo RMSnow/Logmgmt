@@ -1,5 +1,7 @@
 package syslog;
 
+import orm.Record;
+
 /**
  * 处理运行API的日志
  */
@@ -13,7 +15,7 @@ public class LoggingSyslog extends SyslogEvent {
 
     }
 
-    public LoggingSyslog(SyslogEvent event, boolean tag) throws Exception{
+    public LoggingSyslog(SyslogEvent event, boolean tag) throws Exception {
         init(event);
 
         if (tag == NORMAL_LOG) {
@@ -87,9 +89,10 @@ public class LoggingSyslog extends SyslogEvent {
             endPos = searchChar(raw, startPos, '[');
             serviceName = getString(raw, startPos, endPos);
 
-            generateNewRecord(serviceName);
-
             //TODO: loggingErrors
+            Record record = generateNewRecord(serviceName);
+            int errors = record.getLoggingErrors();
+            record.setLoggingErrors(errors + 1);
 
             tempPos = endPos + 1;
             endPos = searchChar(raw, tempPos, '[');
@@ -122,4 +125,5 @@ public class LoggingSyslog extends SyslogEvent {
     public String getErrDetails() {
         return errDetails;
     }
+
 }

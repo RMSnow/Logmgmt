@@ -21,7 +21,7 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, '[');
         serviceName = getString(raw, startPos, endPos);
 
-        generateNewRecord(serviceName);
+        Record record = generateNewRecord(serviceName);
 
         startPos = endPos + 1;
         startPos = searchChar(raw, startPos, '[') + 1;
@@ -70,7 +70,7 @@ public class RequestSyslog extends SyslogEvent {
             }
         }
 
-        //TODO: URI <==> apiRequestTable [TO TEST...]
+        //URI
         int paramPos = searchChar(raw, startPos, '?');
         int uriPos;
         String uri;
@@ -81,14 +81,6 @@ public class RequestSyslog extends SyslogEvent {
             uriPos = searchChar(raw, endPos, '/', false) + 1;
             uri = getString(raw, uriPos, endPos);
         }
-        int index = serviceTable.get(serviceName);
-        Record record = serviceRecords.get(index);
-        if (record.getApiRequestTable().contains(uri)) {
-            int requests = record.getApiRequestTable().get(uri);
-            record.putApiRequestTable(uri, requests + 1);
-        } else {
-            record.putApiRequestTable(uri, 0);
-        }
 
         //status
         startPos = endPos + 1;
@@ -96,8 +88,6 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
         status = Integer.valueOf(getString(raw, startPos, endPos));
-
-        //TODO: requestsExceptions
 
         //client
         startPos = endPos + 1;
@@ -110,6 +100,9 @@ public class RequestSyslog extends SyslogEvent {
 
         System.out.println(this);
         SyslogService.addRequestLog(this);
+
+        //日志分析
+        analyzeRecord(record, uri, status);
     }
 
     /**
@@ -170,6 +163,27 @@ public class RequestSyslog extends SyslogEvent {
                 "[url]\t" + url + "\n" +
                 "[status]\t" + status + "\n" +
                 "[client]\t" + client + "\n";
+    }
+
+    //进行日志分析
+    public void analyzeRecord(Record record, String uri, int status) {
+        //TODO: URI <==> apiRequestTable [TO TEST...]
+        if (record.getApiRequestTable().containsKey(uri)) {
+            int requests = record.getApiRequestTable().get(uri);
+            record.putApiRequestTable(uri, requests + 1);
+        } else {
+            record.putApiRequestTable(uri, 1);
+        }
+
+        //TODO: requestsExceptions
+        if (status != 200) {
+            int exceptions = record.getRequestExceptions();
+            record.setRequestExceptions(exceptions + 1);
+        }
+
+        //TODO: hourRequests & secondRequestsRate
+        int hourRequests = record.getHourRequests();
+        record.setHourRequests(hourRequests + 1);
     }
 
 }

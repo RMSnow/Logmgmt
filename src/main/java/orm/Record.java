@@ -41,6 +41,10 @@ public class Record {
 
     public Record(String serviceName) {
         this.serviceName = serviceName;
+
+        this.loggingErrors = 0;
+        this.requestExceptions = 0;
+        this.hourRequests = 0;
     }
 
     public Record(Document d) {

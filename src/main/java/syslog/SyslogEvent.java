@@ -1,5 +1,6 @@
 package syslog;
 
+import mongodb.MongoService;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 import orm.Record;
 
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.regex.Pattern;
+
+import static java.lang.Thread.sleep;
 
 /**
  * Created by snow on 18/11/2017.
@@ -33,8 +36,6 @@ public class SyslogEvent implements SyslogServerEventIF {
     protected static Hashtable<String, Integer> serviceTable = new Hashtable<>();     //所有的服务名
     protected static int serviceTableIndex = 0;
     protected static ArrayList<Record> serviceRecords = new ArrayList<>();
-
-    //TODO: hourRequests & secondRequestsRate
 
     public SyslogEvent() {
 
@@ -245,12 +246,46 @@ public class SyslogEvent implements SyslogServerEventIF {
     }
 
     //为某个服务新增一条分析记录
-    protected void generateNewRecord(String serviceName) {
-        if (serviceTable.contains(serviceName)) {
-            return;
+    protected Record generateNewRecord(String serviceName) {
+        if (serviceTable.containsKey(serviceName)) {
+            return serviceRecords.get(serviceTable.get(serviceName));
         } else {
             serviceTable.put(serviceName, serviceTableIndex++);
-            serviceRecords.add(new Record(serviceName));
+            Record record = new Record(serviceName);
+            serviceRecords.add(record);
+            return record;
+        }
+    }
+
+    //采用另一个线程测试
+    static class RecordTest implements Runnable {
+
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    sleep(20000);       //20秒
+
+                    for (int i = 0; i < serviceRecords.size(); i++) {
+                        Record record = serviceRecords.get(i);
+                        record.setTimestamp(new Date().toString());
+                        MongoService.getRecordCollection().add(record);
+                    }
+
+                    initRecords();
+
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        //初始化Records
+        public void initRecords(){
+            serviceTable = new Hashtable<>();
+            serviceTableIndex = 0;
+            serviceRecords = new ArrayList<>();
         }
     }
 }

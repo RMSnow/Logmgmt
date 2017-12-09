@@ -1,4 +1,5 @@
 entity/MongoResult.class
+entity/RequestsRate.class
 res/RequestLogRes.class
 conf/LogMgmtConf.class
 entity/Status.class
@@ -9,13 +10,20 @@ res/RecordRes.class
 syslog/SyslogEvent.class
 mongodb/DateUtil.class
 mongodb/MongoService.class
+dock/Apis.class
+syslog/SyslogEvent$RecordTest.class
 syslog/RequestSyslog.class
 orm/RequestLog.class
 res/LoggingLogRes.class
 syslog/UDPSyslogServer.class
 syslog/LoggingSyslog.class
 mongodb/dao/LoggingLogDao.class
+health/HeartbeatTest.class
+dock/Methods.class
+dock/DockService.class
+dock/MessageBuilder.class
 LogMgmt.class
+dock/MessageDetail.class
 mongodb/MongoConnector.class
 entity/Result.class
 res/HeartRes.class
@@ -25,8 +33,8 @@ mongodb/JsonUtil.class
 entity/ConfInfo.class
 mongodb/dao/RecordDao.class
 orm/LoggingLog.class
+dock/RestResultGetter.class
 syslog/Server.class
-util/HTTPTool.class
-util/HeartbeatTest.class
+dock/Services.class
 mongodb/dao/RequestLogDao.class
 orm/Record.class
