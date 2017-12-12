@@ -6,10 +6,7 @@ import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
-import res.ControlRes;
-import res.HeartRes;
-import res.LoggingLogRes;
-import res.RequestLogRes;
+import res.*;
 import health.HeartbeatTest;
 
 /**
@@ -34,12 +31,14 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
 
         final RequestLogRes requestLogRes = new RequestLogRes();
         final LoggingLogRes loggingLogRes = new LoggingLogRes();
+        final RecordRes recordRes = new RecordRes();
 
         final ControlRes controlRes = new ControlRes();
         final HeartRes heartRes = new HeartRes();
 
         environment.jersey().register(requestLogRes);
         environment.jersey().register(loggingLogRes);
+        environment.jersey().register(recordRes);
 
         environment.jersey().register(controlRes);
         environment.jersey().register(heartRes);

@@ -12,16 +12,6 @@ import java.util.Iterator;
  * Created by snow on 05/12/2017.
  */
 public class Record {
-//    _id                 [自动生成]
-//    serviceName         [String]
-//    timestamp           [是否可以自动生成？根据计划任务]
-//
-//    apiRequestTable     [HashTable<String, Integer>]
-//    loggingErrors       [Integer]
-//    requestExceptions   [Integer]
-//    hourRequests        [Integer]
-//    secondRequestsRate  [ObjectArray]
-
     @JsonProperty
     private String id;
     @JsonProperty
@@ -54,11 +44,13 @@ public class Record {
 
         //apiRequestTable
         Document hashDoc = (Document) d.get(RecordDao.KEY_API_REQUEST_TABLE);
-        Iterator hashIt = hashDoc.keySet().iterator();
-        while (hashIt.hasNext()) {
-            String key = (String) hashIt.next();
-            putApiRequestTable(key, hashDoc.getInteger(key));
-            //System.out.println("key = " + key + ", value = " + hashDoc.getInteger(key));
+        if (hashDoc != null && hashDoc.keySet() != null){
+            Iterator hashIt = hashDoc.keySet().iterator();
+            while (hashIt.hasNext()) {
+                String key = (String) hashIt.next();
+                putApiRequestTable(key, hashDoc.getInteger(key));
+                //System.out.println("key = " + key + ", value = " + hashDoc.getInteger(key));
+            }
         }
 
         setLoggingErrors(d.getInteger(RecordDao.KEY_LOGGING_ERRORS));
@@ -67,13 +59,15 @@ public class Record {
 
         //secondRequestsRate
         Document arrayDoc = (Document) d.get(RecordDao.KEY_SECOND_REQUESTS_RATE);
-        Iterator arrayIt = arrayDoc.keySet().iterator();
-        int index = 0;
-        while (arrayIt.hasNext()) {
-            String key = (String) arrayIt.next();
-            RequestsRate rate = new RequestsRate(key, arrayDoc.getDouble(key));
-            //System.out.println(rate);
-            setSecondRequestsRate(index++, rate);
+        if (arrayDoc != null && arrayDoc.keySet() != null){
+            Iterator arrayIt = arrayDoc.keySet().iterator();
+            int index = 0;
+            while (arrayIt.hasNext()) {
+                String key = (String) arrayIt.next();
+                RequestsRate rate = new RequestsRate(key, arrayDoc.getDouble(key));
+                //System.out.println(rate);
+                setSecondRequestsRate(index++, rate);
+            }
         }
 
     }

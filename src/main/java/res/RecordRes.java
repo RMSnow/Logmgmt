@@ -1,21 +1,50 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
+import entity.MongoResult;
 import entity.Result;
+import entity.Status;
+import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
+import syslog.SyslogService;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Created by snow on 05/12/2017.
+ * 日志分析记录资源
  */
 @Path("/api/v1/records")
 @Produces(MediaType.APPLICATION_JSON)
 public class RecordRes {
+    @POST
+    @Timed
+    /**
+     * 每小时需要被定时服务请求一次，以将记录存入数据库
+     */
+    public Result addRecords() {
+        MongoResult result = MongoService.getRecordCollection()
+                .addAll(SyslogService.getServiceRecords());
+
+        if (result.getResultNum() == 0) {
+            return new Result("None Records", Status.NOT_FOUND, "");
+        }
+
+        return new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults());
+    }
+
+    @Path("/{rates}")
+    @POST
+    @Timed
+    /**
+     * 每5分钟需要被定时服务请求一次，以计算近5分钟的每秒访问次数
+     */
+    public Result calculateRequestsRate() {
+        SyslogService.addSecondRequestsRate();
+        return new Result("Done.", Status.OK, "");
+    }
+
+    @Path("/analysis")
     @GET
     @Timed
     public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName,
@@ -35,6 +64,20 @@ public class RecordRes {
 //
 //        # 最近5分钟每秒请求数
 
+
         return null;
     }
+
+    @GET
+    @Timed
+    public Result queryAllRecords(){
+        MongoResult result = MongoService.getRecordCollection().queryAll();
+
+        if (result.getResultNum() == 0) {
+            return new Result("None Records", Status.NOT_FOUND, "");
+        }
+
+        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+    }
+
 }

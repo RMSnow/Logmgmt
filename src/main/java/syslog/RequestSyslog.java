@@ -167,7 +167,7 @@ public class RequestSyslog extends SyslogEvent {
 
     //进行日志分析
     public void analyzeRecord(Record record, String uri, int status) {
-        //TODO: URI <==> apiRequestTable [TO TEST...]
+        //URI <==> apiRequestTable
         if (record.getApiRequestTable().containsKey(uri)) {
             int requests = record.getApiRequestTable().get(uri);
             record.putApiRequestTable(uri, requests + 1);
@@ -175,13 +175,13 @@ public class RequestSyslog extends SyslogEvent {
             record.putApiRequestTable(uri, 1);
         }
 
-        //TODO: requestsExceptions
+        //requestsExceptions
         if (status != 200) {
             int exceptions = record.getRequestExceptions();
             record.setRequestExceptions(exceptions + 1);
         }
 
-        //TODO: hourRequests & secondRequestsRate
+        //hourRequests & secondRequestsRate
         int hourRequests = record.getHourRequests();
         record.setHourRequests(hourRequests + 1);
     }

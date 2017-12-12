@@ -1,8 +1,14 @@
 package syslog;
 
+import entity.RequestsRate;
+import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
+import orm.Record;
 import orm.RequestLog;
+
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  * 实现对数据库的存储
@@ -89,5 +95,49 @@ public class SyslogService {
         log.setUrl(syslog.getUrl());
 
         MongoService.getRequestLogCollection().add(log);
+    }
+
+    /**
+     * 获取SyslogEvent中的日志分析记录
+     */
+    public static ArrayList<Record> getServiceRecords() {
+        return SyslogEvent.serviceRecords;
+    }
+
+    /**
+     * 添加五分钟内的秒访问率
+     */
+    public static void addSecondRequestsRate() {
+        try {
+            ArrayList<Record> records = getServiceRecords();
+            for (int i = 0; i < records.size(); i++) {
+                Record record = records.get(i);
+
+                RequestsRate[] rates = record.getSecondRequestsRate();
+                int requests = 0;
+                for (int j = 0; j < rates.length; j++) {
+                    if (rates[j] != null) {
+                        requests += rates[j].getRequests() * 300;
+                        continue;
+                    } else {
+                        int newRequests = record.getHourRequests() - requests;
+                        record.setSecondRequestsRate(j,
+                                new RequestsRate(DateUtil.getDateNow(), newRequests));
+                        break;
+                    }
+                }
+            }
+        }catch (Exception e){
+            System.err.println("Errors of calculating secondRequestsRate.");
+        }
+    }
+
+    /**
+     * 清空当前与日志记录有关的静态变量
+     */
+    public static void initRecords(){
+        SyslogEvent.serviceTable = new Hashtable<>();
+        SyslogEvent.serviceTableIndex = 0;
+        SyslogEvent.serviceRecords = new ArrayList<>();
     }
 }

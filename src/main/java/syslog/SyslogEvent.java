@@ -33,9 +33,9 @@ public class SyslogEvent implements SyslogServerEventIF {
     protected int endPos;
     protected int tempPos;
 
-    protected static Hashtable<String, Integer> serviceTable = new Hashtable<>();     //所有的服务名
-    protected static int serviceTableIndex = 0;
-    protected static ArrayList<Record> serviceRecords = new ArrayList<>();
+    static Hashtable<String, Integer> serviceTable = new Hashtable<>();     //所有的服务名
+    static int serviceTableIndex = 0;
+    static ArrayList<Record> serviceRecords = new ArrayList<>();
 
     public SyslogEvent() {
 

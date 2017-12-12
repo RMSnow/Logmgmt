@@ -5,10 +5,12 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import entity.MongoResult;
 import entity.RequestsRate;
+import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import orm.Record;
+import syslog.SyslogService;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -16,19 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Created by snow on 05/12/2017.
+ * 日志分析记录
  */
 public class RecordDao {
-//    _id                 [自动生成]
-//    serviceName         [String]
-//    timestamp           [是否可以自动生成？根据计划任务]
-//
-//    apiRequestTable     [HashTable<String, Integer>]
-//    loggingErrors       [Integer]
-//    requestExceptions   [Integer]
-//    hourRequests        [Integer]
-//    secondRequestsRate  [ObjectArray]
-
     public static final String KEY_ID = "_id";
     public static final String KEY_SERVICE_NAME = "service_name";
     public static final String KEY_TIMESTAMP = "timestamp";
@@ -45,6 +37,11 @@ public class RecordDao {
         collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
     }
 
+    /**
+     * 添加一条记录
+     *
+     * @param record
+     */
     public void add(Record record) {
         Document d = new Document();
         if (record.getServiceName() != null) {
@@ -62,7 +59,7 @@ public class RecordDao {
                 hashDoc.append(key, table.get(key));
             }
 
-            if (hashDoc.size() != 0){
+            if (hashDoc.size() != 0) {
                 d.append(KEY_API_REQUEST_TABLE, hashDoc);
             }
         }
@@ -79,12 +76,12 @@ public class RecordDao {
             RequestsRate[] rates = record.getSecondRequestsRate();
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
-                if (rates[i] != null){
+                if (rates[i] != null) {
                     arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
                 }
             }
 
-            if (arrayDoc.size() != 0){
+            if (arrayDoc.size() != 0) {
                 d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
             }
         }
@@ -92,6 +89,37 @@ public class RecordDao {
         collection.insertOne(d);
     }
 
+    /**
+     * 存入生成的记录，并设置静态变量的清空
+     *
+     * @param serviceRecords
+     * @return
+     */
+    public MongoResult addAll(ArrayList<Record> serviceRecords) {
+        try {
+            for (int i = 0; i < serviceRecords.size(); i++) {
+                //TODO: 检查所有的属性
+                Record record = serviceRecords.get(i);
+                record.setTimestamp(DateUtil.getDateNow());
+
+                add(record);
+            }
+
+            //TODO: 静态变量的清空
+            SyslogService.initRecords();
+
+            return new MongoResult(serviceRecords);
+        } catch (Exception e) {
+            System.err.println("Errors in inserting records.");
+        }
+        return null;
+    }
+
+    /**
+     * 查询所有记录
+     *
+     * @return
+     */
     public MongoResult queryAll() {
         FindIterable<Document> it = collection.find();
         ArrayList<Record> records = new ArrayList<>();
@@ -101,6 +129,12 @@ public class RecordDao {
         return new MongoResult(records);
     }
 
+    /**
+     * 查询特定服务的记录
+     *
+     * @param serviceName
+     * @return
+     */
     public MongoResult queryByParam(String serviceName) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
