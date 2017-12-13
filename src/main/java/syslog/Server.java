@@ -87,6 +87,9 @@ public class Server {
 
         // start syslog server
         SyslogServer.createThreadedInstance(syslogProtocol, config);
+
+        //TODO: Record Test
+        new Thread(new SyslogEvent.RecordTest()).start();
     }
 
     //TODO: Record Test

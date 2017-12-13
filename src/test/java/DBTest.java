@@ -11,34 +11,16 @@ import java.util.Date;
  */
 public class DBTest {
     public static void main(String[] args) {
-//        @JsonProperty
-//        private String id;
-//        @JsonProperty
-//        private String serviceName;
-//        @JsonProperty
-//        private String timestamp;
-//        @JsonProperty
-//        private Hashtable<String, Integer> apiRequestTable = new Hashtable<>();
-//        @JsonProperty
-//        private Integer loggingErrors;
-//        @JsonProperty
-//        private Integer requestExceptions;
-//        @JsonProperty
-//        private Integer hourRequests;
-//        @JsonProperty
-//        private RequestsRate[] secondRequestsRate = new RequestsRate[12];
-
-//        mongodbPort: 27017
-//        mongodbHost: localhost
-//        mongodbUserName: wyj
-//        mongodbPassword: 123456
-
         MongoConnector.host = "localhost";
         MongoConnector.port = 27017;
         MongoConnector.userName = "wyj";
         MongoConnector.password = "123456";
         MongoConnector.init();
 
+
+    }
+
+    public void basicDB(){
         for (int i = 0; i < 5; i++) {
             Record record = new Record("recordTest");
             record.setTimestamp(new Date().toString());
@@ -68,12 +50,11 @@ public class DBTest {
         MongoService.getRecordCollection().queryAll();
         System.out.println("----------");
         System.out.println("Query By Param \"DockTest\"...");
-        MongoService.getRecordCollection().queryByParam("DockTest");
+//        MongoService.getRecordCollection().queryByParam("DockTest");
         System.out.println("----------");
         System.out.println("Query By Param \"recordTest\"...");
-        MongoResult result = MongoService.getRecordCollection().queryByParam("recordTest");
-        System.out.println(result.getResultNum() + " results");
-
+//        MongoResult result = MongoService.getRecordCollection().queryByParam("recordTest");
+//        System.out.println(result.getResultNum() + " results");
     }
 }
 

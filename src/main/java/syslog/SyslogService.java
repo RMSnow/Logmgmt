@@ -107,7 +107,7 @@ public class SyslogService {
     /**
      * 添加五分钟内的秒访问率
      */
-    public static void addSecondRequestsRate() {
+    public static int addSecondRequestsRate() {
         try {
             ArrayList<Record> records = getServiceRecords();
             for (int i = 0; i < records.size(); i++) {
@@ -117,7 +117,7 @@ public class SyslogService {
                 int requests = 0;
                 for (int j = 0; j < rates.length; j++) {
                     if (rates[j] != null) {
-                        requests += rates[j].getRequests() * 300;
+                        requests += rates[j].getRequests();
                         continue;
                     } else {
                         int newRequests = record.getHourRequests() - requests;
@@ -127,9 +127,11 @@ public class SyslogService {
                     }
                 }
             }
+            return records.size();
         }catch (Exception e){
             System.err.println("Errors of calculating secondRequestsRate.");
         }
+        return 0;
     }
 
     /**

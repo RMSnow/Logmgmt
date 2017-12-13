@@ -1,8 +1,8 @@
 package syslog;
 
-import mongodb.MongoService;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 import orm.Record;
+import res.RecordRes;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -259,33 +259,39 @@ public class SyslogEvent implements SyslogServerEventIF {
 
     //采用另一个线程测试
     static class RecordTest implements Runnable {
+        RecordRes recordRes = new RecordRes();
 
         @Override
         public void run() {
             while (true) {
                 try {
-                    sleep(20000);       //20秒
-
-                    for (int i = 0; i < serviceRecords.size(); i++) {
-                        Record record = serviceRecords.get(i);
-                        record.setTimestamp(new Date().toString());
-                        MongoService.getRecordCollection().add(record);
+                    //每过5分钟计算一次秒访问率
+                    for (int i = 0; i < 12; i++) {
+                        sleep(5 * 60 * 1000);
+                        recordRes.calculateRequestsRate();
                     }
 
-                    initRecords();
+                    //每过1小时存一次数据库
+                    recordRes.addRecords();
+
+                    //TODO: test
+
+//                    //每过5分钟计算一次秒访问率
+//                    for (int i = 0; i < 5; i++) {
+//                        System.out.println("20秒等待...");
+//                        sleep(20000);       //20秒
+//                        System.out.println("开始计算秒访问率...");
+//                        recordRes.calculateRequestsRate();
+//                    }
+//                    //每过1小时存一次数据库
+//                    System.out.println("开始存数据库...");
+//                    recordRes.addRecords();
 
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
 
-        }
-
-        //初始化Records
-        public void initRecords(){
-            serviceTable = new Hashtable<>();
-            serviceTableIndex = 0;
-            serviceRecords = new ArrayList<>();
         }
     }
 }

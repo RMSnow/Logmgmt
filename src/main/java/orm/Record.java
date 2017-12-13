@@ -13,21 +13,21 @@ import java.util.Iterator;
  */
 public class Record {
     @JsonProperty
-    private String id;
+    protected String id;
     @JsonProperty
-    private String serviceName;
+    protected String serviceName;
     @JsonProperty
-    private String timestamp;
+    protected String timestamp;
     @JsonProperty
-    private Hashtable<String, Integer> apiRequestTable = new Hashtable<>();
+    protected Hashtable<String, Integer> apiRequestTable = new Hashtable<>();
     @JsonProperty
-    private Integer loggingErrors;
+    protected Integer loggingErrors;
     @JsonProperty
-    private Integer requestExceptions;
+    protected Integer requestExceptions;
     @JsonProperty
-    private Integer hourRequests;
+    protected Integer hourRequests;
     @JsonProperty
-    private RequestsRate[] secondRequestsRate = new RequestsRate[12];
+    protected RequestsRate[] secondRequestsRate = new RequestsRate[12];
 
     public Record(String serviceName) {
         this.serviceName = serviceName;

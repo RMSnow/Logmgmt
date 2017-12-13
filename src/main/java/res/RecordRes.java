@@ -1,15 +1,18 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
+import entity.DailyRecord;
 import entity.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
+import orm.Record;
 import syslog.SyslogService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 
 /**
  * 日志分析记录资源
@@ -33,23 +36,21 @@ public class RecordRes {
         return new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults());
     }
 
-    @Path("/{rates}")
+    @Path("/rates")
     @POST
     @Timed
     /**
      * 每5分钟需要被定时服务请求一次，以计算近5分钟的每秒访问次数
      */
     public Result calculateRequestsRate() {
-        SyslogService.addSecondRequestsRate();
-        return new Result("Done.", Status.OK, "");
+        int recordSize = SyslogService.addSecondRequestsRate();
+        return new Result("Successfully calculate rates for " + recordSize + " services.", Status.OK, "");
     }
 
     @Path("/analysis")
     @GET
     @Timed
-    public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName,
-                                    @QueryParam("fromDatetime") String fromDateTime,
-                                    @QueryParam("toDatetime") String toDateTime) {
+    public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName) {
 
         //TODO: res & docs
 
@@ -64,13 +65,28 @@ public class RecordRes {
 //
 //        # 最近5分钟每秒请求数
 
+        ArrayList<Record> records = MongoService.getRecordCollection().getDailyRecords(serviceName);
+        if (records.size() == 0) {
+            return new Result("None Records", Status.NOT_FOUND, "");
+        }
 
-        return null;
+        DailyRecord dailyRecord = new DailyRecord(serviceName, records);
+        return new Result("The recent analysis of " + serviceName, Status.OK, dailyRecord.getResultTable());
     }
+
+//    @Path("/analysis")
+//    @GET
+//    @Timed
+//    public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName,
+//                                    @QueryParam("fromDatetime") String fromDateTime,
+//                                    @QueryParam("toDatetime") String toDateTime) {
+//
+//        return null;
+//    }
 
     @GET
     @Timed
-    public Result queryAllRecords(){
+    public Result queryAllRecords() {
         MongoResult result = MongoService.getRecordCollection().queryAll();
 
         if (result.getResultNum() == 0) {

@@ -130,16 +130,27 @@ public class RecordDao {
     }
 
     /**
-     * 查询特定服务的记录
+     * 查询特定服务一天内的记录
      *
      * @param serviceName
      * @return
      */
-    public MongoResult queryByParam(String serviceName) {
+//        日志分析接口：传服务名，返回分析结果，结果要包括
+//
+//        新建一个集合，（按小时存储以下），按天返回结果
+//        # 该服务最常被调用的api
+//        # 以及数量
+//        # 服务错误数——Logging
+//        # 不正常返回（非200）数——RequestLog
+//        # 最近30天每天服务访问量
+//
+//        # 最近5分钟每秒请求数
+    public ArrayList<Record> getDailyRecords(String serviceName) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
+        conditions.add(Filters.gte(KEY_TIMESTAMP,DateUtil.getYesterday()));
 
         FindIterable<Document> it = collection.find(Filters.and(conditions));
 
@@ -147,6 +158,6 @@ public class RecordDao {
         for (Document d : it) {
             records.add(new Record(d));
         }
-        return new MongoResult(records);
+        return records;
     }
 }

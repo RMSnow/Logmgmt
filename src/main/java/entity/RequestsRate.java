@@ -20,9 +20,11 @@ public class RequestsRate {
         rate = requests / 300;
     }
 
-    public RequestsRate(String timescale, double rate){
+    public RequestsRate(String timescale, double rate) {
         this.timescale = timescale;
         this.rate = rate;
+
+        requests = (int) (rate * 300);
     }
 
     public String getTimescale() {

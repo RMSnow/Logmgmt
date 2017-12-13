@@ -2,6 +2,7 @@ package mongodb;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -68,5 +69,23 @@ public class DateUtil {
         SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
         format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
         return format.format(new Date());
+    }
+
+    public static String getYesterday() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+
+        SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return format.format(calendar.getTime());
+    }
+
+    public static String getRecentDays() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -30);
+
+        SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return format.format(calendar.getTime());
     }
 }

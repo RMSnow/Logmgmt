@@ -1,5 +1,5 @@
-RestResultGetter.class
 Jackson.class
+Date.class
+service/serviceTest.class
 DockTest.class
 DBTest.class
-SetTest.class

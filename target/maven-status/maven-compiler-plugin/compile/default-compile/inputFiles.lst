@@ -27,6 +27,7 @@
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/dock/MessageBuilder.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/entity/MongoResult.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/orm/LoggingLog.java
+/Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/entity/DailyRecord.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/conf/LogMgmtConf.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/mongodb/dao/RequestLogDao.java
 /Users/snow/snow_学习/大学/课程/_项目/在线教育/logmgmt/src/main/java/health/LogMgmtHealthCheck.java
