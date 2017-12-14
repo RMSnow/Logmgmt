@@ -16,6 +16,9 @@ public class DailyRecord extends Record {
     private int dailyRequests = 0;
 
     @JsonProperty
+    private int recentDaysRequests = 0;
+
+    @JsonProperty
     private Hashtable<String, Object> resultTable = new Hashtable<>();
 
 //        日志分析接口：传服务名，返回分析结果，结果要包括
@@ -76,6 +79,20 @@ public class DailyRecord extends Record {
         this.dailyRequests = dailyRequests;
     }
 
+    public int getRecentDaysRequests() {
+        return recentDaysRequests;
+    }
+
+    public void setRecentDaysRequests(int recentDaysRequests) {
+        this.recentDaysRequests = recentDaysRequests;
+    }
+
+    public void setRecentDaysRequests(ArrayList<Record> records) {
+        for (int i = 0; i < records.size(); i++) {
+            this.setRecentDaysRequests(recentDaysRequests + records.get(i).getHourRequests());
+        }
+    }
+
     public Hashtable<String, Object> getResultTable() {
         return resultTable;
     }
@@ -92,5 +109,6 @@ public class DailyRecord extends Record {
         resultTable.put("requestExceptions", requestExceptions);
         resultTable.put("dailyRequests", dailyRequests);
         resultTable.put("latestRequestRates", secondRequestsRate);
+        resultTable.put("recentDaysRequests", recentDaysRequests);
     }
 }

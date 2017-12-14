@@ -160,4 +160,24 @@ public class RecordDao {
         }
         return records;
     }
+
+    /**
+     * recent days
+     */
+    public ArrayList getRecentRecords(String serviceName){
+        List<Bson> conditions = new ArrayList<Bson>();
+        if (serviceName != null) {
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
+        }
+        conditions.add(Filters.gte(KEY_TIMESTAMP,DateUtil.getRecentDays()));
+
+        FindIterable<Document> it = collection.find(Filters.and(conditions));
+
+        ArrayList<Record> records = new ArrayList<>();
+        for (Document d : it) {
+            records.add(new Record(d));
+        }
+        return records;
+    }
+
 }

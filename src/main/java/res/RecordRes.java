@@ -71,6 +71,9 @@ public class RecordRes {
         }
 
         DailyRecord dailyRecord = new DailyRecord(serviceName, records);
+        //最近30天每天服务访问量
+        dailyRecord.setRecentDaysRequests(MongoService.getRecordCollection().
+                getRecentRecords(serviceName));
         return new Result("The recent analysis of " + serviceName, Status.OK, dailyRecord.getResultTable());
     }
 
