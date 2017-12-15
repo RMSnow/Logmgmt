@@ -4,9 +4,9 @@ ip: 119.29.228.21
 logmgmtPort: 9999
 syslogPort: 9898
 mongodbHost: 119.29.228.21
-mongodbPort: 27017
+mongodbPort: 8610
 mongodbUserName: logmgt
-mongodbPassword: logmgt
+mongodbPassword: testDb
 
 server:
   type: simple
