@@ -121,6 +121,7 @@ public class SyslogService {
                         continue;
                     } else {
                         int newRequests = record.getHourRequests() - requests;
+                        //TODO: 目前存的是5分钟内的访问次数，不是秒频率
                         record.setSecondRequestsRate(j,
                                 new RequestsRate(DateUtil.getDateNow(), newRequests));
                         break;

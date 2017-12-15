@@ -77,7 +77,8 @@ public class RecordDao {
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
                 if (rates[i] != null) {
-                    arrayDoc.append(rates[i].getTimescale(), rates[i].getRate());
+                    //TODO: 目前存的是5分钟内的访问次数，不是秒频率
+                    arrayDoc.append(rates[i].getTimescale(), rates[i].getRequests());
                 }
             }
 

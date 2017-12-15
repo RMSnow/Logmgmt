@@ -7,9 +7,11 @@ import entity.Result;
 import entity.Status;
 import mongodb.MongoConnector;
 import mongodb.MongoService;
+import res.RecordRes;
 import syslog.Server;
 import syslog.SyslogService;
 
+import static entity.ConfInfo.serviceName;
 import static java.lang.Thread.sleep;
 
 
@@ -26,36 +28,44 @@ public class serviceTest {
 
         new Server();
 
+        //add();
+        queryRecent();
+    }
+
+    public static void add() throws InterruptedException, JsonProcessingException {
         //jackson
         ObjectMapper mapper = new ObjectMapper();
         String json;
 
-        for (int i = 0; i < 2; i++) {
-            //访问courseservice
-            System.out.println("10秒内访问courseservice...");
-            sleep(20000);
-            System.out.println("10秒结束...");
+        MongoResult result;
 
-            //计算rates
-            SyslogService.addSecondRequestsRate();
-        }
+        for (int j = 0; j < 2; j++) {
+            //第二次不访问，检测是否清空静态变量
+            for (int i = 0; i < 2; i++) {
+                //访问courseservice
+                System.out.println("10秒内访问courseservice...");
+                sleep(5000);
+                System.out.println("10秒结束...");
 
-        //增加：将record存入数据库
-        MongoResult result = MongoService.getRecordCollection()
-                .addAll(SyslogService.getServiceRecords());
+                //计算rates
+                SyslogService.addSecondRequestsRate();
+            }
 
-        if (result.getResultNum() == 0) {
+            //增加：将record存入数据库
+            result = MongoService.getRecordCollection()
+                    .addAll(SyslogService.getServiceRecords());
+
+            if (result.getResultNum() == 0) {
+                json = mapper.writeValueAsString(
+                        new Result("None Records", Status.NOT_FOUND, ""));
+                System.out.println(json);
+            }
+
             json = mapper.writeValueAsString(
-                    new Result("None Records", Status.NOT_FOUND, ""));
+                    new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults())
+            );
             System.out.println(json);
         }
-
-        json = mapper.writeValueAsString(
-                new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults())
-        );
-        System.out.println(json);
-
-        //循环-----
 
         //查询
         result = MongoService.getRecordCollection().queryAll();
@@ -73,6 +83,15 @@ public class serviceTest {
         System.out.println(json);
     }
 
+    public static void queryRecent() throws JsonProcessingException {
+        //jackson
+        ObjectMapper mapper = new ObjectMapper();
+        String json;
+
+        Result result = new RecordRes().queryDailyRecords("test");
+        json = mapper.writeValueAsString(result);
+        System.out.println(json);
+    }
 
 }
 

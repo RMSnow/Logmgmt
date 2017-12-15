@@ -91,6 +91,7 @@ public class DailyRecord extends Record {
         for (int i = 0; i < records.size(); i++) {
             this.setRecentDaysRequests(recentDaysRequests + records.get(i).getHourRequests());
         }
+        resultTable.put("recentDaysRequests", recentDaysRequests);
     }
 
     public Hashtable<String, Object> getResultTable() {
@@ -109,6 +110,5 @@ public class DailyRecord extends Record {
         resultTable.put("requestExceptions", requestExceptions);
         resultTable.put("dailyRequests", dailyRequests);
         resultTable.put("latestRequestRates", secondRequestsRate);
-        resultTable.put("recentDaysRequests", recentDaysRequests);
     }
 }

@@ -64,7 +64,8 @@ public class Record {
             int index = 0;
             while (arrayIt.hasNext()) {
                 String key = (String) arrayIt.next();
-                RequestsRate rate = new RequestsRate(key, arrayDoc.getDouble(key));
+                //TODO: 目前存的是5分钟内的访问次数，不是秒频率
+                RequestsRate rate = new RequestsRate(key, arrayDoc.getInteger(key));
                 //System.out.println(rate);
                 setSecondRequestsRate(index++, rate);
             }
