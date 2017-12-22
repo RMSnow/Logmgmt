@@ -8,9 +8,9 @@ classes
 localtest.yml
 
 # target
-target/classes
-target/generated-sources
-target/maven-archiver
-target/maven-status
-target/surefire-reports
-target/test-classes
+target/classes/*
+target/generated-sources/*
+target/maven-archiver/*
+target/maven-status/*
+target/surefire-reports/*
+target/test-classes/*
