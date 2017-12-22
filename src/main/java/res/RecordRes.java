@@ -52,29 +52,12 @@ public class RecordRes {
     @GET
     @Timed
     public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName) {
-
-        //TODO: res & docs
-
-//        日志分析接口：传服务名，返回分析结果，结果要包括
-//
-//        新建一个集合，（按小时存储以下），按天返回结果
-//        # 该服务最常被调用的api
-//        # 以及数量
-//        # 服务错误数——Logging
-//        # 不正常返回（非200）数——RequestLog
-//        # 最近30天每天服务访问量
-//
-//        # 最近5分钟每秒请求数
-
         ArrayList<Record> records = MongoService.getRecordCollection().getDailyRecords(serviceName);
         if (records.size() == 0) {
             return new Result("None Records", Status.NOT_FOUND, "");
         }
 
         DailyRecord dailyRecord = new DailyRecord(serviceName, records);
-        //最近30天每天服务访问量
-        dailyRecord.setRecentDaysRequests(MongoService.getRecordCollection().
-                getRecentRecords(serviceName));
         return new Result("The daily analysis of " + serviceName, Status.OK, dailyRecord.getResultTable());
     }
 

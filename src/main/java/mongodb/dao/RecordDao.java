@@ -4,14 +4,13 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import entity.MongoResult;
-import entity.RequestsRate;
+import entity.RequestsOfScale;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import orm.Record;
 import syslog.SyslogEvent;
-import syslog.SyslogService;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -73,8 +72,8 @@ public class RecordDao {
         if (record.getHourRequests() != null) {
             d.append(KEY_HOUR_REQUESTS, record.getHourRequests());
         }
-        if (record.getSecondRequestsRate() != null) {
-            RequestsRate[] rates = record.getSecondRequestsRate();
+        if (record.getSecondRequestsOfScale() != null) {
+            RequestsOfScale[] rates = record.getSecondRequestsOfScale();
             Document arrayDoc = new Document();
             for (int i = 0; i < 12; i++) {
                 if (rates[i] != null) {
@@ -132,27 +131,41 @@ public class RecordDao {
     }
 
     /**
-     * 查询特定服务一天内的记录
+     * 查询昨天开始的记录
      *
      * @param serviceName
      * @return
      */
-//        日志分析接口：传服务名，返回分析结果，结果要包括
-//
-//        新建一个集合，（按小时存储以下），按天返回结果
-//        # 该服务最常被调用的api
-//        # 以及数量
-//        # 服务错误数——Logging
-//        # 不正常返回（非200）数——RequestLog
-//        # 最近30天每天服务访问量
-//
-//        # 最近5分钟每秒请求数
     public ArrayList<Record> getDailyRecords(String serviceName) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
-        conditions.add(Filters.gte(KEY_TIMESTAMP,DateUtil.getYesterday()));
+        conditions.add(Filters.gte(KEY_TIMESTAMP, DateUtil.getYesterday()));
+
+        FindIterable<Document> it = collection.find(Filters.and(conditions));
+
+        ArrayList<Record> records = new ArrayList<>();
+        for (Document d : it) {
+            records.add(new Record(d));
+        }
+        return records;
+    }
+
+    /**
+     * 查询特定某一天的记录
+     *
+     * @param serviceName
+     * @param amount
+     * @return
+     */
+    public ArrayList<Record> getDailyRecords(String serviceName, int amount) {
+        List<Bson> conditions = new ArrayList<Bson>();
+        if (serviceName != null) {
+            conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
+        }
+        conditions.add(Filters.gte(KEY_TIMESTAMP, DateUtil.getTheDay(amount)));
+        conditions.add(Filters.lte(KEY_TIMESTAMP, DateUtil.getTheDay(amount + 1)));
 
         FindIterable<Document> it = collection.find(Filters.and(conditions));
 
@@ -166,12 +179,12 @@ public class RecordDao {
     /**
      * recent days
      */
-    public ArrayList getRecentRecords(String serviceName){
+    public ArrayList getRecentRecords(String serviceName) {
         List<Bson> conditions = new ArrayList<Bson>();
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
-        conditions.add(Filters.gte(KEY_TIMESTAMP,DateUtil.getRecentDays()));
+        conditions.add(Filters.gte(KEY_TIMESTAMP, DateUtil.getRecentDays()));
 
         FindIterable<Document> it = collection.find(Filters.and(conditions));
 

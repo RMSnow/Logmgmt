@@ -1,6 +1,6 @@
 package syslog;
 
-import entity.RequestsRate;
+import entity.RequestsOfScale;
 import mongodb.DateUtil;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 import orm.Record;
@@ -289,7 +289,7 @@ public class SyslogEvent implements SyslogServerEventIF {
             for (int i = 0; i < records.size(); i++) {
                 Record record = records.get(i);
 
-                RequestsRate[] rates = record.getSecondRequestsRate();
+                RequestsOfScale[] rates = record.getSecondRequestsOfScale();
                 int requests = 0;
                 for (int j = 0; j < rates.length; j++) {
                     if (rates[j] != null) {
@@ -299,14 +299,14 @@ public class SyslogEvent implements SyslogServerEventIF {
                         int newRequests = record.getHourRequests() - requests;
                         //TODO: 目前存的是5分钟内的访问次数，不是秒频率
                         record.setSecondRequestsRate(j,
-                                new RequestsRate(DateUtil.getDateNow(), newRequests));
+                                new RequestsOfScale(DateUtil.getDateNow(), newRequests));
                         break;
                     }
                 }
             }
             return records.size();
         }catch (Exception e){
-            System.err.println("Errors of calculating secondRequestsRate.");
+            System.err.println("Errors of calculating secondRequestsOfScale.");
         }
         return 0;
     }

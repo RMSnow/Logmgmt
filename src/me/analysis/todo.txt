@@ -21,7 +21,7 @@ a doc/hour
 
     "hourRequests" : 1000,
 
-    "secondRequestsRate" : [
+    "secondRequestsOfScale" : [
         {"13:05:00" : 5.2},
         {"13:10:00" : 5.2},
         {"13:15:00" : 5.2},
@@ -46,7 +46,7 @@ apiRequestTable     [HashTable<String, Integer>]
 loggingErrors       [Integer]
 requestExceptions   [Integer]
 hourRequests        [Integer]
-secondRequestsRate  [ObjectArray]
+secondRequestsOfScale  [ObjectArray]
 
 ----------------------------
 
@@ -69,7 +69,7 @@ Daily Record
 
     "dailyRequests" : 1000,
 
-    "secondRequestsRate" : [
+    "secondRequestsOfScale" : [
         {"13:05:00" : 5.2},
         {"13:10:00" : 5.2},
         {"13:15:00" : 5.2},

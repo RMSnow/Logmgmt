@@ -1,7 +1,7 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import entity.RequestsRate;
+import entity.RequestsOfScale;
 import mongodb.dao.RecordDao;
 import org.bson.Document;
 
@@ -27,7 +27,7 @@ public class Record {
     @JsonProperty
     protected Integer hourRequests;
     @JsonProperty
-    protected RequestsRate[] secondRequestsRate = new RequestsRate[12];
+    protected RequestsOfScale[] secondRequestsOfScale = new RequestsOfScale[12];
 
     public Record(String serviceName) {
         this.serviceName = serviceName;
@@ -57,7 +57,7 @@ public class Record {
         setRequestExceptions(d.getInteger(RecordDao.KEY_REQUEST_EXCEPTIONS));
         setHourRequests(d.getInteger(RecordDao.KEY_HOUR_REQUESTS));
 
-        //secondRequestsRate
+        //secondRequestsOfScale
         Document arrayDoc = (Document) d.get(RecordDao.KEY_SECOND_REQUESTS_RATE);
         if (arrayDoc != null && arrayDoc.keySet() != null){
             Iterator arrayIt = arrayDoc.keySet().iterator();
@@ -65,7 +65,7 @@ public class Record {
             while (arrayIt.hasNext()) {
                 String key = (String) arrayIt.next();
                 //TODO: 目前存的是5分钟内的访问次数，不是秒频率
-                RequestsRate rate = new RequestsRate(key, arrayDoc.getInteger(key));
+                RequestsOfScale rate = new RequestsOfScale(key, arrayDoc.getInteger(key));
                 //System.out.println(rate);
                 setSecondRequestsRate(index++, rate);
             }
@@ -129,19 +129,19 @@ public class Record {
         this.hourRequests = hourRequests;
     }
 
-    public RequestsRate[] getSecondRequestsRate() {
-        return secondRequestsRate;
+    public RequestsOfScale[] getSecondRequestsOfScale() {
+        return secondRequestsOfScale;
     }
 
-    public void setSecondRequestsRate(RequestsRate[] secondRequestsRate) {
-        this.secondRequestsRate = secondRequestsRate;
+    public void setSecondRequestsOfScale(RequestsOfScale[] secondRequestsOfScale) {
+        this.secondRequestsOfScale = secondRequestsOfScale;
     }
 
     public void putApiRequestTable(String key, Integer value) {
         apiRequestTable.put(key, value);
     }
 
-    public void setSecondRequestsRate(int index, RequestsRate requestsRate) {
-        secondRequestsRate[index] = requestsRate;
+    public void setSecondRequestsRate(int index, RequestsOfScale requestsOfScale) {
+        secondRequestsOfScale[index] = requestsOfScale;
     }
 }

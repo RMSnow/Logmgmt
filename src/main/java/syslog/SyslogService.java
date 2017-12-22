@@ -1,14 +1,8 @@
 package syslog;
 
-import entity.RequestsRate;
-import mongodb.DateUtil;
 import mongodb.MongoService;
 import orm.LoggingLog;
-import orm.Record;
 import orm.RequestLog;
-
-import java.util.ArrayList;
-import java.util.Hashtable;
 
 /**
  * 实现对数据库的存储

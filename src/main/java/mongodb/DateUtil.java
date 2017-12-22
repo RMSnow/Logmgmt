@@ -80,6 +80,15 @@ public class DateUtil {
         return format.format(calendar.getTime());
     }
 
+    public static String getTheDay(int amount) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, amount);
+
+        SimpleDateFormat format = new SimpleDateFormat(PATTERN_TARGET);
+        format.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        return format.format(calendar.getTime());
+    }
+
     public static String getRecentDays() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -30);

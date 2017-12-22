@@ -1,11 +1,7 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.RequestsRate;
-import orm.Record;
+import entity.RequestsOfScale;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Hashtable;
 import java.util.LinkedHashMap;
 
 /**
@@ -35,14 +31,14 @@ public class Jackson {
 //        String json = mapper.writeValueAsString(record);
 //        System.out.println(json);
 
-        RequestsRate[] rates = new RequestsRate[12];
+        RequestsOfScale[] rates = new RequestsOfScale[12];
         for (int j = 0; j < 12; j++) {
-            RequestsRate rate = new RequestsRate(new Date().toString() + "_" + j,
+            RequestsOfScale rate = new RequestsOfScale(new Date().toString() + "_" + j,
                     100);
             rates[j] = rate;
             System.out.println(rate);
         }
-        LinkedHashMap<String, RequestsRate[]> testMap = new LinkedHashMap<>();
+        LinkedHashMap<String, RequestsOfScale[]> testMap = new LinkedHashMap<>();
         testMap.put("test",rates);
 
         System.out.println("ok");
@@ -58,7 +54,7 @@ public class Jackson {
     "loggingErrors":null,
     "requestExceptions":20,
     "hourRequests":10,
-    "secondRequestsRate":null,
+    "secondRequestsOfScale":null,
 
     "testJsonTable":{"test3":3,"test2":2,"test1":1},
 

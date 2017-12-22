@@ -3,9 +3,9 @@ package entity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * 一个小时之内，每五分钟的秒访问率
+ * 一个时间段内的请求
  */
-public class RequestsRate {
+public class RequestsOfScale {
     @JsonProperty
     private String timescale;
     @JsonProperty
@@ -13,14 +13,14 @@ public class RequestsRate {
     @JsonProperty
     private double rate;
 
-    public RequestsRate(String timescale, int requests) {
+    public RequestsOfScale(String timescale, int requests) {
         this.timescale = timescale;
         this.requests = requests;
 
-        rate = requests / 300;
+        rate = requests / 300;      //TODO: 确认合适的scale
     }
 
-    public RequestsRate(String timescale, double rate) {
+    public RequestsOfScale(String timescale, double rate) {
         this.timescale = timescale;
         this.rate = rate;
 

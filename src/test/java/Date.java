@@ -1,8 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import entity.RequestsRate;
 import mongodb.DateUtil;
-
-import java.util.LinkedHashMap;
 
 /**
  * Created by snow on 07/12/2017.
@@ -12,5 +9,6 @@ public class Date {
         System.out.println(DateUtil.getDateNow());
         System.out.println(DateUtil.getYesterday());
         System.out.println(DateUtil.getRecentDays());
+        System.out.println(DateUtil.getTheDay(0));
     }
 }

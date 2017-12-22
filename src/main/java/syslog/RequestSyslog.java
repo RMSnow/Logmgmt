@@ -181,7 +181,7 @@ public class RequestSyslog extends SyslogEvent {
             record.setRequestExceptions(exceptions + 1);
         }
 
-        //hourRequests & secondRequestsRate
+        //hourRequests & secondRequestsOfScale
         int hourRequests = record.getHourRequests();
         record.setHourRequests(hourRequests + 1);
     }

@@ -2,6 +2,7 @@ package entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import mongodb.DateUtil;
+import mongodb.MongoService;
 import orm.Record;
 
 import java.util.ArrayList;
@@ -16,21 +17,13 @@ public class DailyRecord extends Record {
     private int dailyRequests = 0;
 
     @JsonProperty
-    private int recentDaysRequests = 0;
+    private int[] recentDaysRequests = new int[30];
+
+    @JsonProperty
+    private RequestsOfScale[] recentDaysRequestsTable = new RequestsOfScale[30];
 
     @JsonProperty
     private Hashtable<String, Object> resultTable = new Hashtable<>();
-
-//        日志分析接口：传服务名，返回分析结果，结果要包括
-//
-//        新建一个集合，（按小时存储以下），按天返回结果
-//        # 该服务最常被调用的api
-//        # 以及数量
-//        # 服务错误数——Logging
-//        # 不正常返回（非200）数——RequestLog
-//        # 最近30天每天服务访问量
-//
-//        # 最近5分钟每秒请求数
 
     public DailyRecord(String serviceName, ArrayList<Record> records) {
         super(serviceName);
@@ -64,8 +57,23 @@ public class DailyRecord extends Record {
 
             //最近一小时的秒访问率
             if (i == records.size() - 1) {
-                this.setSecondRequestsRate(record.getSecondRequestsRate());
+                this.setSecondRequestsOfScale(record.getSecondRequestsOfScale());
             }
+        }
+
+        //最近三十天的日访问次数
+        for (int i = 0; i < 30; i++) {
+            recentDaysRequests[i] = 0;
+
+            int amount = i - 30;
+            ArrayList<Record> theDayRecords = MongoService.getRecordCollection().
+                    getDailyRecords(serviceName, amount);
+
+            for (int j = 0; j < theDayRecords.size(); j++) {
+                recentDaysRequests[i] += theDayRecords.get(j).getHourRequests();
+            }
+
+            recentDaysRequestsTable[i] = new RequestsOfScale(DateUtil.getTheDay(amount + 1), recentDaysRequests[i]);
         }
 
         setResultTable();
@@ -79,20 +87,6 @@ public class DailyRecord extends Record {
         this.dailyRequests = dailyRequests;
     }
 
-    public int getRecentDaysRequests() {
-        return recentDaysRequests;
-    }
-
-    public void setRecentDaysRequests(int recentDaysRequests) {
-        this.recentDaysRequests = recentDaysRequests;
-    }
-
-    public void setRecentDaysRequests(ArrayList<Record> records) {
-        for (int i = 0; i < records.size(); i++) {
-            this.setRecentDaysRequests(recentDaysRequests + records.get(i).getHourRequests());
-        }
-        resultTable.put("recentDaysRequests", recentDaysRequests);
-    }
 
     public Hashtable<String, Object> getResultTable() {
         return resultTable;
@@ -109,6 +103,8 @@ public class DailyRecord extends Record {
         resultTable.put("loggingErrors", loggingErrors);
         resultTable.put("requestExceptions", requestExceptions);
         resultTable.put("dailyRequests", dailyRequests);
-        resultTable.put("latestRequestRates", secondRequestsRate);
+        resultTable.put("latestRequestRates", secondRequestsOfScale);
+
+        resultTable.put("recentDaysRequestsTable", recentDaysRequestsTable);
     }
 }

@@ -1,5 +1,4 @@
-import entity.MongoResult;
-import entity.RequestsRate;
+import entity.RequestsOfScale;
 import mongodb.MongoConnector;
 import mongodb.MongoService;
 import orm.Record;
@@ -34,7 +33,7 @@ public class DBTest {
             record.setHourRequests(i * 1000);
 
             for (int j = 0; j < 12; j++) {
-                RequestsRate rate = new RequestsRate(new Date().toString() + "_" + i + "_" + j,
+                RequestsOfScale rate = new RequestsOfScale(new Date().toString() + "_" + i + "_" + j,
                         record.getHourRequests() / 12);
                 //System.out.println(rate);
                 record.setSecondRequestsRate(j, rate);
