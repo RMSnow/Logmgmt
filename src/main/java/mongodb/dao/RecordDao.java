@@ -10,6 +10,7 @@ import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import orm.Record;
+import syslog.SyslogEvent;
 import syslog.SyslogService;
 
 import java.util.ArrayList;
@@ -99,7 +100,6 @@ public class RecordDao {
     public MongoResult addAll(ArrayList<Record> serviceRecords) {
         try {
             for (int i = 0; i < serviceRecords.size(); i++) {
-                //TODO: 检查所有的属性
                 Record record = serviceRecords.get(i);
                 record.setTimestamp(DateUtil.getDateNow());
 
@@ -107,7 +107,8 @@ public class RecordDao {
             }
 
             //TODO: 静态变量的清空
-            SyslogService.initRecords();
+            //SyslogService.initRecords();
+            SyslogEvent.initRecords();
 
             return new MongoResult(serviceRecords);
         } catch (Exception e) {

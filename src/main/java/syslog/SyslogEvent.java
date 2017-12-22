@@ -1,5 +1,7 @@
 package syslog;
 
+import entity.RequestsRate;
+import mongodb.DateUtil;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
 import orm.Record;
 import res.RecordRes;
@@ -245,8 +247,13 @@ public class SyslogEvent implements SyslogServerEventIF {
         return className;
     }
 
-    //为某个服务新增一条分析记录
-    protected Record generateNewRecord(String serviceName) {
+    /**
+     * 为某个服务新增一条分析记录
+     *
+     * @param serviceName
+     * @return
+     */
+    protected synchronized static Record generateNewRecord(String serviceName) {
         if (serviceTable.containsKey(serviceName)) {
             return serviceRecords.get(serviceTable.get(serviceName));
         } else {
@@ -255,6 +262,53 @@ public class SyslogEvent implements SyslogServerEventIF {
             serviceRecords.add(record);
             return record;
         }
+    }
+
+    /**
+     * 清空当前与日志记录有关的静态变量
+     */
+    public synchronized static void initRecords() {
+        serviceTable = new Hashtable<>();
+        serviceTableIndex = 0;
+        serviceRecords = new ArrayList<>();
+    }
+
+    /**
+     * 获取SyslogEvent中的日志分析记录
+     */
+    public synchronized static ArrayList<Record> getServiceRecords() {
+        return serviceRecords;
+    }
+
+    /**
+     * 添加五分钟内的秒访问率
+     */
+    public synchronized static int addSecondRequestsRate() {
+        try {
+            ArrayList<Record> records = serviceRecords;
+            for (int i = 0; i < records.size(); i++) {
+                Record record = records.get(i);
+
+                RequestsRate[] rates = record.getSecondRequestsRate();
+                int requests = 0;
+                for (int j = 0; j < rates.length; j++) {
+                    if (rates[j] != null) {
+                        requests += rates[j].getRequests();
+                        continue;
+                    } else {
+                        int newRequests = record.getHourRequests() - requests;
+                        //TODO: 目前存的是5分钟内的访问次数，不是秒频率
+                        record.setSecondRequestsRate(j,
+                                new RequestsRate(DateUtil.getDateNow(), newRequests));
+                        break;
+                    }
+                }
+            }
+            return records.size();
+        }catch (Exception e){
+            System.err.println("Errors of calculating secondRequestsRate.");
+        }
+        return 0;
     }
 
     //采用另一个线程测试

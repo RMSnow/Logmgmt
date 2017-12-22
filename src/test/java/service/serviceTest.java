@@ -9,6 +9,7 @@ import mongodb.MongoConnector;
 import mongodb.MongoService;
 import res.RecordRes;
 import syslog.Server;
+import syslog.SyslogEvent;
 import syslog.SyslogService;
 
 import static entity.ConfInfo.serviceName;
@@ -28,8 +29,8 @@ public class serviceTest {
 
         new Server();
 
-        //add();
-        queryRecent();
+        add();
+        //queryRecent();
     }
 
     public static void add() throws InterruptedException, JsonProcessingException {
@@ -48,12 +49,12 @@ public class serviceTest {
                 System.out.println("10秒结束...");
 
                 //计算rates
-                SyslogService.addSecondRequestsRate();
+                SyslogEvent.addSecondRequestsRate();
             }
 
             //增加：将record存入数据库
             result = MongoService.getRecordCollection()
-                    .addAll(SyslogService.getServiceRecords());
+                    .addAll(SyslogEvent.getServiceRecords());
 
             if (result.getResultNum() == 0) {
                 json = mapper.writeValueAsString(
@@ -94,44 +95,3 @@ public class serviceTest {
     }
 
 }
-
-//    @POST
-//    @Timed
-//    /**
-//     * 每小时需要被定时服务请求一次，以将记录存入数据库
-//     */
-//    public Result addRecords() {
-//        MongoResult result = MongoService.getRecordCollection()
-//                .addAll(SyslogService.getServiceRecords());
-//
-//        if (result.getResultNum() == 0) {
-//            return new Result("None Records", Status.NOT_FOUND, "");
-//        }
-//
-//        return new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults());
-//    }
-//
-//    @Path("/{rates}")
-//    @POST
-//    @Timed
-//    /**
-//     * 每5分钟需要被定时服务请求一次，以计算近5分钟的每秒访问次数
-//     */
-//    public Result calculateRequestsRate() {
-//        SyslogService.addSecondRequestsRate();
-//        return new Result("Done.", Status.OK, "");
-//    }
-//
-//
-//    @GET
-//    @Timed
-//    public Result queryAllRecords(){
-//        MongoResult result = MongoService.getRecordCollection().queryAll();
-//
-//        if (result.getResultNum() == 0) {
-//            return new Result("None Records", Status.NOT_FOUND, "");
-//        }
-//
-//        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
-//    }
-

@@ -8,6 +8,7 @@ import entity.Status;
 import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
 import orm.Record;
+import syslog.SyslogEvent;
 import syslog.SyslogService;
 
 import javax.ws.rs.*;
@@ -23,11 +24,11 @@ public class RecordRes {
     @POST
     @Timed
     /**
-     * 每小时需要被定时服务请求一次，以将记录存入数据库
+     * 每小时需要被定时服务请求一次，以将记录存入数据库（需线程安全）
      */
     public Result addRecords() {
         MongoResult result = MongoService.getRecordCollection()
-                .addAll(SyslogService.getServiceRecords());
+                .addAll(SyslogEvent.getServiceRecords());
 
         if (result.getResultNum() == 0) {
             return new Result("None Records", Status.NOT_FOUND, "");
@@ -40,10 +41,10 @@ public class RecordRes {
     @POST
     @Timed
     /**
-     * 每5分钟需要被定时服务请求一次，以计算近5分钟的每秒访问次数
+     * 每5分钟需要被定时服务请求一次，以计算近5分钟的每秒访问次数（需线程安全）
      */
     public Result calculateRequestsRate() {
-        int recordSize = SyslogService.addSecondRequestsRate();
+        int recordSize = SyslogEvent.addSecondRequestsRate();
         return new Result("Successfully calculate rates for " + recordSize + " services.", Status.OK, "");
     }
 

@@ -98,3 +98,9 @@ Daily Record
 学习：
 （1）@JsonProperty注解，ArrayList自动映射? [ok]
 （2）定时服务等，自动生成timestamp属性
+
+----------------------------
+
+添加多线程处理前，最近一条的record记录：
+
+"timestamp" : "2017-12-19 22:56:43"

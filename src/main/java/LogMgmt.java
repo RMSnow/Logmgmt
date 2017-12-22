@@ -47,4 +47,6 @@ public class LogMgmt {
     java -jar target/cloudclass_logmgmt-1.0-SNAPSHOT.jar server localtest.yml
 
     mongod --config /usr/local/etc/mongod.conf
+
+    mongo 119.29.228.21:8610/logs -u logmgt -p testDb
  */
