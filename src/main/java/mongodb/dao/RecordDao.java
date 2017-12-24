@@ -43,51 +43,55 @@ public class RecordDao {
      * @param record
      */
     public void add(Record record) {
-        Document d = new Document();
-        if (record.getServiceName() != null) {
-            d.append(KEY_SERVICE_NAME, record.getServiceName());
-        }
-        if (record.getTimestamp() != null) {
-            d.append(KEY_TIMESTAMP, record.getTimestamp());
-        }
-        if (record.getApiRequestTable() != null) {
-            Hashtable<String, Integer> table = record.getApiRequestTable();
-            Document hashDoc = new Document();
-            Iterator it = table.keySet().iterator();
-            while (it.hasNext()) {
-                String key = (String) it.next();
-                hashDoc.append(key, table.get(key));
+        try{
+            Document d = new Document();
+            if (record.getServiceName() != null) {
+                d.append(KEY_SERVICE_NAME, record.getServiceName());
             }
+            if (record.getTimestamp() != null) {
+                d.append(KEY_TIMESTAMP, record.getTimestamp());
+            }
+            if (record.getApiRequestTable() != null) {
+                Hashtable<String, Integer> table = record.getApiRequestTable();
+                Document hashDoc = new Document();
+                Iterator it = table.keySet().iterator();
+                while (it.hasNext()) {
+                    String key = (String) it.next();
+                    hashDoc.append(key, table.get(key));
+                }
 
-            if (hashDoc.size() != 0) {
-                d.append(KEY_API_REQUEST_TABLE, hashDoc);
+                if (hashDoc.size() != 0) {
+                    d.append(KEY_API_REQUEST_TABLE, hashDoc);
+                }
             }
-        }
-        if (record.getLoggingErrors() != null) {
-            d.append(KEY_LOGGING_ERRORS, record.getLoggingErrors());
-        }
-        if (record.getRequestExceptions() != null) {
-            d.append(KEY_REQUEST_EXCEPTIONS, record.getRequestExceptions());
-        }
-        if (record.getHourRequests() != null) {
-            d.append(KEY_HOUR_REQUESTS, record.getHourRequests());
-        }
-        if (record.getSecondRequestsOfScale() != null) {
-            RequestsOfScale[] rates = record.getSecondRequestsOfScale();
-            Document arrayDoc = new Document();
-            for (int i = 0; i < 12; i++) {
-                if (rates[i] != null) {
-                    //TODO: 目前存的是5分钟内的访问次数，不是秒频率
-                    arrayDoc.append(rates[i].getTimescale(), rates[i].getRequests());
+            if (record.getLoggingErrors() != null) {
+                d.append(KEY_LOGGING_ERRORS, record.getLoggingErrors());
+            }
+            if (record.getRequestExceptions() != null) {
+                d.append(KEY_REQUEST_EXCEPTIONS, record.getRequestExceptions());
+            }
+            if (record.getHourRequests() != null) {
+                d.append(KEY_HOUR_REQUESTS, record.getHourRequests());
+            }
+            if (record.getSecondRequestsOfScale() != null) {
+                RequestsOfScale[] rates = record.getSecondRequestsOfScale();
+                Document arrayDoc = new Document();
+                for (int i = 0; i < 12; i++) {
+                    if (rates[i] != null) {
+                        //TODO: 目前存的是5分钟内的访问次数，不是秒频率
+                        arrayDoc.append(rates[i].getTimescale(), rates[i].getRequests());
+                    }
+                }
+
+                if (arrayDoc.size() != 0) {
+                    d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
                 }
             }
 
-            if (arrayDoc.size() != 0) {
-                d.append(KEY_SECOND_REQUESTS_RATE, arrayDoc);
-            }
+            collection.insertOne(d);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
-        collection.insertOne(d);
     }
 
     /**
@@ -111,7 +115,7 @@ public class RecordDao {
 
             return new MongoResult(serviceRecords);
         } catch (Exception e) {
-            System.err.println("Errors in inserting records.");
+            e.printStackTrace();
         }
         return null;
     }
@@ -122,12 +126,17 @@ public class RecordDao {
      * @return
      */
     public MongoResult queryAll() {
-        FindIterable<Document> it = collection.find();
-        ArrayList<Record> records = new ArrayList<>();
-        for (Document d : it) {
-            records.add(new Record(d));
+        try {
+            FindIterable<Document> it = collection.find();
+            ArrayList<Record> records = new ArrayList<>();
+            for (Document d : it) {
+                records.add(new Record(d));
+            }
+            return new MongoResult(records);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return new MongoResult(records);
+        return null;
     }
 
     /**

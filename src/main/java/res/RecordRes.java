@@ -9,7 +9,6 @@ import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
 import orm.Record;
 import syslog.SyslogEvent;
-import syslog.SyslogService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -30,11 +29,16 @@ public class RecordRes {
         MongoResult result = MongoService.getRecordCollection()
                 .addAll(SyslogEvent.getServiceRecords());
 
-        if (result.getResultNum() == 0) {
-            return new Result("None Records", Status.NOT_FOUND, "");
-        }
+        if (result != null) {
+            if (result.getResultNum() == 0) {
+                return new Result("None Records", Status.NOT_FOUND, "");
+            }
 
-        return new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults());
+            return new Result(result.getResultNum() + " records have been added.", Status.OK, result.getResults());
+        } else {
+            System.err.println("Errors in inserting records.");
+            return new Result("Errors in inserting records.", Status.SERVER_ERROR, "");
+        }
     }
 
     @Path("/rates")
@@ -53,12 +57,16 @@ public class RecordRes {
     @Timed
     public Result queryDailyRecords(@NotEmpty @QueryParam("serviceName") String serviceName) {
         ArrayList<Record> records = MongoService.getRecordCollection().getDailyRecords(serviceName);
-        if (records.size() == 0) {
-            return new Result("None Records", Status.NOT_FOUND, "");
-        }
+        if (records != null) {
+            if (records.size() == 0) {
+                return new Result("None Records", Status.NOT_FOUND, "");
+            }
 
-        DailyRecord dailyRecord = new DailyRecord(serviceName, records);
-        return new Result("The daily analysis of " + serviceName, Status.OK, dailyRecord.getResultTable());
+            DailyRecord dailyRecord = new DailyRecord(serviceName, records);
+            return new Result("The daily analysis of " + serviceName, Status.OK, dailyRecord.getResultTable());
+        } else {
+            return new Result("Errors of Server.", Status.SERVER_ERROR, "");
+        }
     }
 
 //    @Path("/analysis")
@@ -75,12 +83,15 @@ public class RecordRes {
     @Timed
     public Result queryAllRecords() {
         MongoResult result = MongoService.getRecordCollection().queryAll();
+        if (result != null) {
+            if (result.getResultNum() == 0) {
+                return new Result("None Records", Status.NOT_FOUND, "");
+            }
 
-        if (result.getResultNum() == 0) {
-            return new Result("None Records", Status.NOT_FOUND, "");
+            return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+        } else {
+            return new Result("Errors of Server.", Status.SERVER_ERROR, "");
         }
-
-        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
     }
 
 }
