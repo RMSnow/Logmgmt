@@ -14,11 +14,11 @@ import org.bson.types.ObjectId;
 import orm.RequestLog;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by WYJ on 2017/11/7.
- */
+
 public class RequestLogDao {
     public static final String KEY_ID = "_id";
     public static final String KEY_FACILITY = "facility";
@@ -35,8 +35,17 @@ public class RequestLogDao {
     private static final String COLLECTION_NAME = "request";
     private MongoCollection<Document> collection;
 
+    private static HashSet<String> METHOD_SET = new HashSet<>();
+    private static HashSet<String> QUERY_METHOD_SET = new HashSet<>();
+
     public RequestLogDao() {
         collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
+
+        METHOD_SET.add("DELETE");
+        METHOD_SET.add("PATCH");
+        METHOD_SET.add("PUT");
+        METHOD_SET.add("POST");
+        METHOD_SET.add("GET");
     }
 
     public MongoResult queryAll() {
@@ -47,6 +56,7 @@ public class RequestLogDao {
         }
         return new MongoResult(logs);
     }
+
     /*
     *query datetime format:
     *   yyyy-MM-dd hh:mm:ss
@@ -57,7 +67,6 @@ public class RequestLogDao {
     *equals:
     *   2017-11-24 00:00:00
      */
-
     public MongoResult queryByParam(String serviceName,
                                     String fromId,
                                     String host,
@@ -88,7 +97,41 @@ public class RequestLogDao {
             conditions.add(Filters.lte(KEY_DATETIME, toTimestamp));
         }
         if (method != null) {
-            conditions.add(Filters.eq(KEY_METHOD, method));
+//            DELETE | PATCH | PUT | POST | GET
+//            16     | 8     | 4   | 2    | 1
+
+            char index = method.charAt(0);
+            if (Character.isDigit(index)) {
+                int cond = Integer.valueOf(method);
+                if ((cond & 1) == 1) {
+                    QUERY_METHOD_SET.add("GET");
+                }
+                if ((cond & 2) == 2) {
+                    QUERY_METHOD_SET.add("POST");
+                }
+                if ((cond & 4) == 4) {
+                    QUERY_METHOD_SET.add("PUT");
+                }
+                if ((cond & 8) == 8) {
+                    QUERY_METHOD_SET.add("PATCH");
+                }
+                if ((cond & 16) == 16) {
+                    QUERY_METHOD_SET.add("DELETE");
+                }
+
+                Iterator iterator = METHOD_SET.iterator();
+                while (iterator.hasNext()) {
+                    String element = (String) iterator.next();
+                    if (!QUERY_METHOD_SET.contains(element)) {
+                        conditions.add(Filters.ne(KEY_METHOD, element));
+                    }
+                }
+
+                QUERY_METHOD_SET = new HashSet<>();
+
+            } else {     //单值查询
+                conditions.add(Filters.eq(KEY_METHOD, method));
+            }
         }
         if (status != null) {
             conditions.add(Filters.eq(KEY_STATUS, Integer.valueOf(status)));

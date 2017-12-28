@@ -14,11 +14,10 @@ import org.bson.types.ObjectId;
 import orm.LoggingLog;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
-/**
- * Created by WYJ on 2017/11/8.
- */
 public class LoggingLogDao {
     public static final String KEY_ID = "_id";
     public static final String KEY_FACILITY = "facility";
@@ -32,8 +31,15 @@ public class LoggingLogDao {
     private static final String COLLECTION_NAME = "logging";
     MongoCollection<Document> collection;
 
+    private static HashSet<Integer> LEVEL_SET = new HashSet<>();
+    private static HashSet<Integer> QUERY_LEVEL_SET = new HashSet<>();
+
     public LoggingLogDao() {
         collection = MongoConnector.getCollection(MongoConnector.DB_NAME, COLLECTION_NAME);
+
+        for (int i = 0; i < 8; i++) {
+            LEVEL_SET.add(i);
+        }
     }
 
     public MongoResult queryAll() {
@@ -68,16 +74,63 @@ public class LoggingLogDao {
         if (serviceName != null) {
             conditions.add(Filters.eq(KEY_SERVICE_NAME, serviceName));
         }
-        if (fromId != null){
+        if (fromId != null) {
             Document doc = queryById(fromId);
-            if (doc != null){
+            if (doc != null) {
                 conditions.add(Filters.gt(KEY_TIMESTAMP, doc.getString(KEY_TIMESTAMP)));
                 fromDatetime = null;
                 //fromDatetime = doc.getString(KEY_TIMESTAMP);
             }
         }
         if (level != null) {
-            conditions.add(Filters.eq(KEY_LEVEL, Integer.valueOf(level)));
+
+//            0       Emergency: system is unusable
+//            1       Alert: action must be taken immediately
+//            2       Critical: critical conditions
+//            3       Error: error conditions
+//            4       Warning: warning conditions
+//            5       Notice: normal but significant condition
+//            6       Informational: informational messages
+//            7       Debug: debug-level messages
+
+//            Emergency | Alert | Critical | Error | Warning | Notice | Informational | Debug
+//            128       | 64    | 32       | 16    | 8       | 4      | 2             | 1
+
+            int cond = Integer.valueOf(level);
+            if ((cond & 1) == 1) {
+                QUERY_LEVEL_SET.add(7);
+            }
+            if ((cond & 2) == 2) {
+                QUERY_LEVEL_SET.add(6);
+            }
+            if ((cond & 4) == 4) {
+                QUERY_LEVEL_SET.add(5);
+            }
+            if ((cond & 8) == 8) {
+                QUERY_LEVEL_SET.add(4);
+            }
+            if ((cond & 16) == 16) {
+                QUERY_LEVEL_SET.add(3);
+            }
+            if ((cond & 32) == 32) {
+                QUERY_LEVEL_SET.add(2);
+            }
+            if ((cond & 64) == 64) {
+                QUERY_LEVEL_SET.add(1);
+            }
+            if ((cond & 128) == 128) {
+                QUERY_LEVEL_SET.add(0);
+            }
+
+            Iterator iterator = LEVEL_SET.iterator();
+            while (iterator.hasNext()) {
+                int element = (Integer) iterator.next();
+                if (!QUERY_LEVEL_SET.contains(element)) {
+                    conditions.add(Filters.ne(KEY_LEVEL, element));
+                }
+            }
+
+            QUERY_LEVEL_SET = new HashSet<>();
         }
         if (host != null) {
             conditions.add(Filters.eq(KEY_HOST, host));
