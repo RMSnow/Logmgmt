@@ -1,0 +1,68 @@
+----------------------------
+
+应用层客户端日志-数据库设计
+
+----------------------------
+
+[ORM层]
+
+LogEntity 数据类型：
+
+id
+timestamp
+
+ip      String  [访问客户端ip]
+userId  String  [操作用户id]
+time    long    [响应时间]
+api     String  [调用api及其参数]
+status  String  [返回状态码]
+error   String  [错误]
+msg     String  [消息]
+
+----------------------------
+
+[DAO层]
+
+（1）增加
+
+（2）查询
+
+    参数列表：
+    # fromTimestamp
+    # toTimestamp
+
+    # ip
+    # userId
+    # api
+    # status
+
+    # limit
+
+（3）删除
+
+----------------------------
+
+API返回的Json信息
+
+{
+    "_id" : ObjectId(XXX),
+
+    "timestamp" : "2017-12-07 14:00:00",
+
+    "ip" : "",
+
+    "userId" : "",
+
+    "responseTime" : "",
+
+    "api" : "",
+
+    "status" : "",
+
+    "error" : "",
+
+    "msg" : ""
+
+}
+
+----------------------------
