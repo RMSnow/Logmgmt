@@ -1,6 +1,7 @@
 package orm;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import mongodb.DateUtil;
 import mongodb.dao.ClientLogDao;
 import org.bson.Document;
 
@@ -48,6 +49,23 @@ public class ClientLog {
         setStatus(d.getString(ClientLogDao.KEY_STATUS));
         setError(d.getString(ClientLogDao.KEY_ERROR));
         setMsg(d.getString(ClientLogDao.KEY_MSG));
+    }
+
+    public ClientLog(String ip, String userId, String responseTime,
+                     String api, String status, String error, String msg) {
+       try {
+           this.timestamp = DateUtil.getDateNow();
+
+           this.ip = ip;
+           this.userId = userId;
+           this.responseTime = Long.parseLong(responseTime);
+           this.api = api;
+           this.status = status;
+           this.error = error;
+           this.msg = msg;
+       }catch (Exception e){
+           e.printStackTrace();
+       }
     }
 
     public String getId() {

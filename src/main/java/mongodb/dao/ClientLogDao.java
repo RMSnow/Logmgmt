@@ -4,6 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import entity.MongoResult;
+import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
@@ -50,7 +51,7 @@ public class ClientLogDao {
      *
      * @param clientLog
      */
-    public void add(ClientLog clientLog) {
+    public MongoResult add(ClientLog clientLog) {
         try {
             Document d = new Document();
             if (clientLog.getTimestamp() != null) {
@@ -77,9 +78,19 @@ public class ClientLogDao {
             if (clientLog.getMsg() != null) {
                 d.append(KEY_MSG, clientLog.getMsg());
             }
+
+            collection.insertOne(d);
+
+//            ArrayList<ClientLog> logs = new ArrayList<>();
+//            logs.add(clientLog);
+//            return new MongoResult(logs);
+
+            return queryByParam(clientLog.getTimestamp(), clientLog.getTimestamp(),
+                    null, null, null, null, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -138,6 +149,8 @@ public class ClientLogDao {
             }
             if (toTimestamp != null) {
                 conditions.add(Filters.lte(KEY_TIMESTAMP, toTimestamp));
+            }else {
+                conditions.add(Filters.lte(KEY_TIMESTAMP, DateUtil.getDateNow()));
             }
             if (ip != null) {
                 conditions.add(Filters.eq(KEY_IP, ip));

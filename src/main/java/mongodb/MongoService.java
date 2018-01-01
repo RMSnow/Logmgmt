@@ -1,5 +1,6 @@
 package mongodb;
 
+import mongodb.dao.ClientLogDao;
 import mongodb.dao.LoggingLogDao;
 import mongodb.dao.RecordDao;
 import mongodb.dao.RequestLogDao;
@@ -18,6 +19,10 @@ public class MongoService {
 
     public static RecordDao getRecordCollection(){
         return new RecordDao();
+    }
+
+    public static ClientLogDao getClientLogCollection(){
+        return new ClientLogDao();
     }
 
 }

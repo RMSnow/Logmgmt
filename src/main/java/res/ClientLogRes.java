@@ -1,8 +1,12 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
+import entity.MongoResult;
 import entity.Result;
+import entity.Status;
+import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
+import orm.ClientLog;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -32,8 +36,17 @@ public class ClientLogRes {
                                @NotEmpty @QueryParam("api") String api,
                                @NotEmpty @QueryParam("status") String status,
                                @NotEmpty @QueryParam("error") String error,
-                               @NotEmpty @QueryParam("msg") String msg){
-        return null;
+                               @NotEmpty @QueryParam("msg") String msg) {
+
+        MongoResult result = MongoService.getClientLogCollection().add(
+                new ClientLog(ip, userId, responseTime, api, status, error, msg));
+
+        if (result != null) {
+            return new Result("The log have been added.", Status.OK, result.getResults());
+        } else {
+            System.err.println("Errors in inserting the log.");
+            return new Result("Errors in inserting the log.", Status.SERVER_ERROR, "");
+        }
     }
 
     @GET
@@ -44,8 +57,20 @@ public class ClientLogRes {
                             @QueryParam("userId") String userId,
                             @QueryParam("api") String api,
                             @QueryParam("status") String status,
-                            @QueryParam("limit") String limit){
-        return null;
+                            @QueryParam("limit") String limit) {
+
+        MongoResult result = MongoService.getClientLogCollection().
+                queryByParam(fromTimestamp, toTimestamp, ip, userId, api, status, limit);
+
+        if (result != null) {
+            if (result.getResultNum() == 0) {
+                return new Result("None Logs", Status.NOT_FOUND, "");
+            }
+            return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+        } else {
+            System.err.println("Errors in querying logs.");
+            return new Result("Errors in querying logs.", Status.SERVER_ERROR, "");
+        }
     }
 
 }

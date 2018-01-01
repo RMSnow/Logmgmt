@@ -32,6 +32,7 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         final RequestLogRes requestLogRes = new RequestLogRes();
         final LoggingLogRes loggingLogRes = new LoggingLogRes();
         final RecordRes recordRes = new RecordRes();
+        final ClientLogRes clientLogRes = new ClientLogRes();
 
         final ControlRes controlRes = new ControlRes();
         final HeartRes heartRes = new HeartRes();
@@ -39,6 +40,7 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         environment.jersey().register(requestLogRes);
         environment.jersey().register(loggingLogRes);
         environment.jersey().register(recordRes);
+        environment.jersey().register(clientLogRes);
 
         environment.jersey().register(controlRes);
         environment.jersey().register(heartRes);
