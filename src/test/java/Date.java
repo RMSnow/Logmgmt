@@ -10,10 +10,22 @@ public class Date {
 //        System.out.println(DateUtil.getRecentDays());
 //        System.out.println(DateUtil.getTheDay(0));
 
-        System.out.println(args.length);
-        for (int i = 0; i < args.length; i++) {
-            System.out.println(args[i]);
+        final int a = 1;
+        final int b = 2;
+
+        int i = 3;
+        switch (i){
+            case a:
+                System.out.println("a");
+                break;
+            case b:
+                System.out.println("b");
+                break;
+            default:
+                System.out.println("others");
+                break;
         }
+
     }
 
 }
