@@ -13,18 +13,20 @@ import java.util.concurrent.TimeUnit;
 public class HeartbeatTest implements Runnable {
     @Override
     public void run() {
-        try{
-            while (true){
-                if(HeartRes.OK){
+        while (true) {
+            try {
+                if (HeartRes.OK) {
                     HeartRes.OK = false;
-                }else{
+                } else {
                     Result result = DockService.registerApi();
                     System.out.println(JSON.toJSONString(result));
                 }
                 TimeUnit.MILLISECONDS.sleep(180000);//每隔三分钟检测一次heart
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (InterruptedException e){
-            e.printStackTrace();
         }
     }
 }
