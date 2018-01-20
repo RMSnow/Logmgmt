@@ -35,7 +35,13 @@ public class LoggingLogRes {
             return new Result("NOT FOUND", Status.NOT_FOUND, "");
         }
 
-        return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+        if (limit != null) {
+            return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+        } else {
+            return new Result("Default quantity of results is " + result.getResultNum() + ". " +
+                    "You can set it with the parameter \'limit\'.",
+                    Status.OK, result.getResults());
+        }
     }
 
     @DELETE

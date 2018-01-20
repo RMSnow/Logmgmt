@@ -81,14 +81,20 @@ public class RecordRes {
 
     @GET
     @Timed
-    public Result queryAllRecords() {
-        MongoResult result = MongoService.getRecordCollection().queryAll();
+    public Result queryAllRecords(@QueryParam("limit") String limit) {
+        MongoResult result = MongoService.getRecordCollection().queryAll(limit);
         if (result != null) {
             if (result.getResultNum() == 0) {
                 return new Result("None Records", Status.NOT_FOUND, "");
             }
 
-            return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+            if (limit != null) {
+                return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+            } else {
+                return new Result("Default quantity of results is " + result.getResultNum() + ". " +
+                        "You can set it with the parameter \'limit\'.",
+                        Status.OK, result.getResults());
+            }
         } else {
             return new Result("Errors of Server.", Status.SERVER_ERROR, "");
         }

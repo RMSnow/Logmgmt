@@ -3,6 +3,7 @@ package mongodb.dao;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import entity.MongoResult;
 import entity.RequestsOfScale;
 import mongodb.DateUtil;
@@ -125,9 +126,15 @@ public class RecordDao {
      *
      * @return
      */
-    public MongoResult queryAll() {
+    public MongoResult queryAll(String limit) {
         try {
-            FindIterable<Document> it = collection.find();
+            FindIterable<Document> it;
+            if (limit != null) {
+                it = collection.find().sort(Sorts.descending(KEY_TIMESTAMP)).limit(Integer.valueOf(limit));
+            }else {
+                it = collection.find().sort(Sorts.descending(KEY_TIMESTAMP)).limit(20);
+            }
+
             ArrayList<Record> records = new ArrayList<>();
             for (Document d : it) {
                 records.add(new Record(d));

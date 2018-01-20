@@ -4,6 +4,7 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
 import entity.MongoResult;
 import mongodb.DateUtil;
@@ -143,9 +144,12 @@ public class LoggingLogDao {
         }
         FindIterable<Document> it = null;
         if (limit != null) {
-            it = collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+            it = collection.find(Filters.and(conditions))
+                    .sort(Sorts.descending(KEY_TIMESTAMP))
+                    .limit(Integer.valueOf(limit));
         } else {
-            it = collection.find(Filters.and(conditions));
+            it = collection.find(Filters.and(conditions))
+                    .sort(Sorts.descending(KEY_TIMESTAMP)).limit(20);
         }
         if (queryDetails != null) {
             if (queryDetails.equals("0")) {

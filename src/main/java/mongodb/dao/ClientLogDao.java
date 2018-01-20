@@ -3,6 +3,7 @@ package mongodb.dao;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import entity.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
@@ -167,9 +168,13 @@ public class ClientLogDao {
 
             FindIterable<Document> it = null;
             if (limit != null) {
-                it = collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+                it = collection.find(Filters.and(conditions))
+                        .sort(Sorts.descending(KEY_TIMESTAMP))
+                        .limit(Integer.valueOf(limit));
             } else {
-                it = collection.find(Filters.and(conditions));
+                it = collection.find(Filters.and(conditions))
+                        .sort(Sorts.descending(KEY_TIMESTAMP))
+                        .limit(20);
             }
 
             ArrayList<ClientLog> logs = new ArrayList<>();

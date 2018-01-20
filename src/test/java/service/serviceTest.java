@@ -69,7 +69,7 @@ public class serviceTest {
         }
 
         //查询
-        result = MongoService.getRecordCollection().queryAll();
+        result = MongoService.getRecordCollection().queryAll(null);
 
         if (result.getResultNum() == 0) {
             json = mapper.writeValueAsString(

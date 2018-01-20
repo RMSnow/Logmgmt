@@ -66,7 +66,14 @@ public class ClientLogRes {
             if (result.getResultNum() == 0) {
                 return new Result("None Logs", Status.NOT_FOUND, "");
             }
-            return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+
+            if (limit != null) {
+                return new Result(result.getResultNum() + " results.", Status.OK, result.getResults());
+            } else {
+                return new Result("Default quantity of results is " + result.getResultNum() + ". " +
+                        "You can set it with the parameter \'limit\'.",
+                        Status.OK, result.getResults());
+            }
         } else {
             System.err.println("Errors in querying logs.");
             return new Result("Errors in querying logs.", Status.SERVER_ERROR, "");

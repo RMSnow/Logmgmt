@@ -46,7 +46,7 @@ public class DBTest {
 
         System.out.println("----------");
         System.out.println("All Record...");
-        MongoService.getRecordCollection().queryAll();
+        MongoService.getRecordCollection().queryAll(null);
         System.out.println("----------");
         System.out.println("Query By Param \"DockTest\"...");
 //        MongoService.getRecordCollection().queryByParam("DockTest");

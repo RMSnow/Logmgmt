@@ -4,6 +4,7 @@ package mongodb.dao;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
 import entity.MongoResult;
 import mongodb.DateUtil;
@@ -138,9 +139,15 @@ public class RequestLogDao {
         }
         FindIterable<Document> it = null;
         if (limit != null) {
-            it = collection.find(Filters.and(conditions)).limit(Integer.valueOf(limit));
+            //TODO: 自动查找最近的limit条记录
+            it = collection.find(Filters.and(conditions))
+                    .sort(Sorts.descending(KEY_DATETIME))
+                    .limit(Integer.valueOf(limit));
         } else {
-            it = collection.find(Filters.and(conditions));
+            //TODO: 不设置limit参数时，自动查找最近的20条记录
+            it = collection.find(Filters.and(conditions))
+                    .sort(Sorts.descending(KEY_DATETIME))
+                    .limit(20);
         }
         ArrayList<RequestLog> logs = new ArrayList<>();
         for (Document d : it) {
