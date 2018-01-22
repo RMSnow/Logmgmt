@@ -26,6 +26,19 @@ public class LogMgmtConf extends Configuration {
     private String mongodbPassword;
     @NotEmpty
     private String url;
+    @NotEmpty
+    private String pswd;
+    @NotEmpty
+    private String registryIp;
+    @NotEmpty
+    private String registryPort;
+    @NotEmpty
+    private String discoverPort;
+
+//    pswd:
+//    registryIp: 123.207.73.150
+//    registryPort: 8000
+//    discoverPort: 8001
 
     @JsonProperty
     public String getName() {
@@ -115,5 +128,45 @@ public class LogMgmtConf extends Configuration {
     @JsonProperty
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    @JsonProperty
+    public String getPswd() {
+        return pswd;
+    }
+
+    @JsonProperty
+    public void setPswd(String pswd) {
+        this.pswd = pswd;
+    }
+
+    @JsonProperty
+    public String getRegistryIp() {
+        return registryIp;
+    }
+
+    @JsonProperty
+    public void setRegistryIp(String registryIp) {
+        this.registryIp = registryIp;
+    }
+
+    @JsonProperty
+    public String getRegistryPort() {
+        return registryPort;
+    }
+
+    @JsonProperty
+    public void setRegistryPort(String registryPort) {
+        this.registryPort = registryPort;
+    }
+
+    @JsonProperty
+    public String getDiscoverPort() {
+        return discoverPort;
+    }
+
+    @JsonProperty
+    public void setDiscoverPort(String discoverPort) {
+        this.discoverPort = discoverPort;
     }
 }

@@ -22,9 +22,25 @@ public class Apis {
     @JsonProperty
     private int ping;
 
-
     @JsonProperty
     private String token;
+
+    @JsonProperty
+    private String id;
+
+    @JsonProperty
+    private String secret;
+
+    @JsonProperty
+    private String pswd;
+
+    public void setPswd(String pswd) {
+        this.pswd = pswd;
+    }
+
+    public String getPswd() {
+        return pswd;
+    }
 
     public String getStatus() {
         return status;
@@ -72,6 +88,22 @@ public class Apis {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     @Override

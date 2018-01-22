@@ -21,4 +21,12 @@ public class ConfInfo {
     public static String mongodbUserName;
 
     public static String mongodbPassword;
+
+    public static String pswd;
+
+    public static String registryIp;
+
+    public static String registryPort;
+
+    public static String discoverPort;
 }

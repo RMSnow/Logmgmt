@@ -7,6 +7,10 @@ mongodbHost: 119.29.228.21
 mongodbPort: 8610
 mongodbUserName: logmgt
 mongodbPassword: testDb
+pswd: d50e43d9fe9a418692eb5db78217af7b
+registryIp: 123.207.73.150
+registryPort: 8000
+discoverPort: 8001
 
 server:
   type: simple

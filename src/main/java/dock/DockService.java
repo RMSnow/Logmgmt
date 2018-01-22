@@ -20,21 +20,21 @@ public class DockService {
     public static String port = ConfInfo.logmgmtPort;
 
     //注册API
-    public static Result registerApi() {
-        MessageDetail msg = MessageBuilder.newMessage().setApiUrl("/application/api/v1/apis")
-                .setParam("ip", ip)
-                .setParam("port", port)
-                .setParam("name", name)
-                .setServiceName(Services.API_REGISTRY)
-                .build();
-        JSONObject json = RestResultGetter.newResult(msg).post().start();
-        Result result = new Result("", Status.ERR_NETWORK, "");
-        if (json != null) {
-            result.setMsg(json.get("msg"));
-            result.setStatus((int) json.get("status"));
-            result.setData(json.get("data"));
-        }
-        System.out.println(JSON.toJSONString(result));
-        return result;
-    }
+//    public static Result registerApi() {
+//        MessageDetail msg = MessageBuilder.newMessage().setApiUrl("/application/api/v1/apis")
+//                .setParam("ip", ip)
+//                .setParam("port", port)
+//                .setParam("name", name)
+//                .setServiceName(Services.API_REGISTRY)
+//                .build();
+//        JSONObject json = RestResultGetter.newResult(msg).post().start();
+//        Result result = new Result("", Status.ERR_NETWORK, "");
+//        if (json != null) {
+//            result.setMsg(json.get("msg"));
+//            result.setStatus((int) json.get("status"));
+//            result.setData(json.get("data"));
+//        }
+//        System.out.println(JSON.toJSONString(result));
+//        return result;
+//    }
 }

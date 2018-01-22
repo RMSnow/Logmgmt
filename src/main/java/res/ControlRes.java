@@ -16,14 +16,6 @@ import javax.ws.rs.core.MediaType;
 @Path("/api/v1/control")
 @Produces(MediaType.APPLICATION_JSON)
 public class ControlRes {
-    @POST
-    @Timed
-    public Result register(){
-        //注册API
-        Result result = DockService.registerApi();
-        return result;
-    }
-
     @DELETE
     @Timed
     public Result repeal(){

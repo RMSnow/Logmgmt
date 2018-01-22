@@ -55,6 +55,10 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         ConfInfo.mongodbHost = configuration.getMongodbHost();
         ConfInfo.mongodbUserName = configuration.getMongodbUserName();
         ConfInfo.mongodbPassword = configuration.getMongodbPassword();
+        ConfInfo.pswd = configuration.getPswd();
+        ConfInfo.registryIp = configuration.getRegistryIp();
+        ConfInfo.registryPort = configuration.getRegistryPort();
+        ConfInfo.discoverPort = configuration.getDiscoverPort();
 
         new Thread(new HeartbeatTest()).start();
     }
