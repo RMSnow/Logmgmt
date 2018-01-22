@@ -46,13 +46,8 @@ public class RestResultGetter {
         ownApi.setPswd(ConfInfo.pswd);
         registryApi.setIp(ConfInfo.registryIp);
         registryApi.setPort(Integer.parseInt(ConfInfo.registryPort));
-        discoverApi.setIp(ConfInfo.discoverPort);
+        discoverApi.setIp(ConfInfo.registryIp);
         discoverApi.setPort(Integer.parseInt(ConfInfo.discoverPort));
-
-        //TODO：本地测试使用token
-        ownApi.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
-                "eyJwb3J0Ijo5OTk5LCJpcCI6IjExOS4yOS4yMjguMjEiLCJpc3MiOiJhcGktZ2F0ZXdheSJ9." +
-                "866FC2FD514D1EA18FB62E10FDBE9AE4FA31A5AB757ECA0B2D19CB3EB25F4591");
 
     }
 
@@ -175,11 +170,6 @@ public class RestResultGetter {
                 ownApi.setId(newApi.getId());
                 ownApi.setSecret(newApi.getSecret());
                 ownApi.setToken(newApi.getToken());
-
-                //TODO：本地测试使用token
-//                ownApi.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
-//                        "eyJwb3J0Ijo5OTk5LCJpcCI6IjExOS4yOS4yMjguMjEiLCJpc3MiOiJhcGktZ2F0ZXdheSJ9." +
-//                        "866FC2FD514D1EA18FB62E10FDBE9AE4FA31A5AB757ECA0B2D19CB3EB25F4591");
             }
         } catch (Exception e) {
             e.printStackTrace();

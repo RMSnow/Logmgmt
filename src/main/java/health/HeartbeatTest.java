@@ -9,6 +9,8 @@ import res.HeartRes;
 
 import java.util.concurrent.TimeUnit;
 
+import static dock.RestResultGetter.ownApi;
+
 /**
  * Created by snow on 01/12/2017.
  */
@@ -22,17 +24,12 @@ public class HeartbeatTest implements Runnable {
         while (true) {
             try {
                 //TODO: 心跳包5秒发送一次
-//                for (int i = 0; i < 3; i++) {
-//
-//                }
 
-                //15秒检测一次是否断线
-//                if (HeartRes.OK) {
-//                    HeartRes.OK = false;
-//                } else {
-//                    Result result = DockService.registerApi();
-//                    System.out.println(JSON.toJSONString(result));
-//                }
+                //TODO：本地测试使用token
+//                ownApi.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
+//                        "eyJwb3J0Ijo5OTk5LCJpcCI6IjExOS4yOS4yMjguMjEiLCJpc3MiOiJhcGktZ2F0ZXdheSJ9." +
+//                        "866FC2FD514D1EA18FB62E10FDBE9AE4FA31A5AB757ECA0B2D19CB3EB25F4591");
+
 
                 if(OK){
                     OK = false;
@@ -40,7 +37,7 @@ public class HeartbeatTest implements Runnable {
                     RestResultGetter.registerApi();
                     //？？？
                     if(HeartRes.tokens.size() < 16)
-                        HeartRes.tokens.add(RestResultGetter.ownApi.getToken());
+                        HeartRes.tokens.add(ownApi.getToken());
                     RestResultGetter.listApis();
                 }
 
