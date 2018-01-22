@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by snow on 02/12/2017.
  */
-@Path("/api/v2/heart")
+@Path("/api/v2")
 @Produces(MediaType.APPLICATION_JSON)
 public class HeartRes {
 //    public static volatile boolean OK = false;
