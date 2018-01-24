@@ -89,8 +89,6 @@ public class Server {
         SyslogServer.createThreadedInstance(syslogProtocol, config);
 
         new Thread(new SyslogEvent.RecordTest()).start();
-
-        //TODO: 定时更新IP白名单
     }
 
     private static SyslogServerConfigIF getSyslogConfig(String syslogProtocol) {

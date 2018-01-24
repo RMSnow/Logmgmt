@@ -36,6 +36,8 @@ public class RequestSyslog extends SyslogEvent {
         endPos = searchChar(raw, startPos, ' ');
         clientIP = getString(raw, startPos, endPos);
 
+        //TODO: clientIP与IP白名单的分析比对
+
         //date
         startPos = endPos + 1;
         startPos = searchChar(raw, startPos, '[') + 1;
