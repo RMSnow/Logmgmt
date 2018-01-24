@@ -1,6 +1,6 @@
 package syslog;
 
-import orm.Record;
+import orm.record.Record;
 
 /**
  * 处理访问API的日志

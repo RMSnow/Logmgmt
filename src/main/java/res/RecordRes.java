@@ -1,13 +1,13 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
-import entity.DailyRecord;
-import entity.MongoResult;
+import orm.record.DailyRecord;
+import mongodb.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoService;
 import org.hibernate.validator.constraints.NotEmpty;
-import orm.Record;
+import orm.record.Record;
 import syslog.SyslogEvent;
 
 import javax.ws.rs.*;

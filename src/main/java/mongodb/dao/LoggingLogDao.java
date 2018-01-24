@@ -6,7 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
 import com.mongodb.client.result.DeleteResult;
-import entity.MongoResult;
+import mongodb.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;

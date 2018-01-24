@@ -1,7 +1,6 @@
-package orm;
+package orm.record;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import entity.RequestsOfScale;
 import mongodb.dao.RecordDao;
 import org.bson.Document;
 

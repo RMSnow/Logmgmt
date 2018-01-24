@@ -1,10 +1,7 @@
-package entity;
+package mongodb;
 
 import java.util.ArrayList;
 
-/**
- * Created by WYJ on 2017/11/27.
- */
 public class MongoResult {
     long resultNum;
     ArrayList results;

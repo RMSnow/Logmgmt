@@ -1,9 +1,8 @@
-package entity;
+package orm.record;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import mongodb.DateUtil;
 import mongodb.MongoService;
-import orm.Record;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

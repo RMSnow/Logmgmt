@@ -1,7 +1,6 @@
 package mongodb;
 
 import com.mongodb.client.FindIterable;
-import entity.MongoResult;
 import org.bson.Document;
 
 import java.util.ArrayList;

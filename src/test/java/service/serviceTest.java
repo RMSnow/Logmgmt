@@ -2,7 +2,7 @@ package service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import entity.MongoResult;
+import mongodb.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoConnector;
@@ -10,9 +10,7 @@ import mongodb.MongoService;
 import res.RecordRes;
 import syslog.Server;
 import syslog.SyslogEvent;
-import syslog.SyslogService;
 
-import static entity.ConfInfo.serviceName;
 import static java.lang.Thread.sleep;
 
 

@@ -1,7 +1,6 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
-import dock.DockService;
 import entity.Result;
 
 import javax.ws.rs.DELETE;

@@ -1,4 +1,4 @@
-package entity;
+package orm.record;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

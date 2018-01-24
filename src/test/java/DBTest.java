@@ -1,7 +1,7 @@
-import entity.RequestsOfScale;
+import orm.record.RequestsOfScale;
 import mongodb.MongoConnector;
 import mongodb.MongoService;
-import orm.Record;
+import orm.record.Record;
 
 import java.util.Date;
 

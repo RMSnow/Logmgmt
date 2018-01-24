@@ -88,20 +88,9 @@ public class Server {
         // start syslog server
         SyslogServer.createThreadedInstance(syslogProtocol, config);
 
-        //TODO: Record Test
         new Thread(new SyslogEvent.RecordTest()).start();
-    }
 
-    public static void main(String[] args) throws SyslogRuntimeException, UnknownHostException {
-//        MongoConnector.host = "localhost";
-//        MongoConnector.port = 27017;
-//        MongoConnector.userName = "wyj";
-//        MongoConnector.password = "123456";
-//        MongoConnector.init();
-//
-//        new Server();
-//
-//        new Thread(new SyslogEvent.RecordTest()).start();
+        //TODO: 定时更新IP白名单
     }
 
     private static SyslogServerConfigIF getSyslogConfig(String syslogProtocol) {

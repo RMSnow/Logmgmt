@@ -1,5 +1,5 @@
 import com.fasterxml.jackson.core.JsonProcessingException;
-import entity.RequestsOfScale;
+import orm.record.RequestsOfScale;
 
 import java.util.Date;
 import java.util.LinkedHashMap;

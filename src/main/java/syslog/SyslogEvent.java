@@ -1,9 +1,9 @@
 package syslog;
 
-import entity.RequestsOfScale;
+import orm.record.RequestsOfScale;
 import mongodb.DateUtil;
 import org.productivity.java.syslog4j.server.SyslogServerEventIF;
-import orm.Record;
+import orm.record.Record;
 import res.RecordRes;
 
 import java.io.UnsupportedEncodingException;

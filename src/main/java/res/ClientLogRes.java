@@ -1,7 +1,7 @@
 package res;
 
 import com.codahale.metrics.annotation.Timed;
-import entity.MongoResult;
+import mongodb.MongoResult;
 import entity.Result;
 import entity.Status;
 import mongodb.MongoService;

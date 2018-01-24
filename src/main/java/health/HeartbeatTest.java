@@ -1,7 +1,6 @@
 package health;
 
 import com.alibaba.fastjson.JSON;
-import dock.DockService;
 import dock.RestResultGetter;
 import entity.Result;
 import org.springframework.stereotype.Service;
@@ -23,14 +22,12 @@ public class HeartbeatTest implements Runnable {
     public void run() {
         while (true) {
             try {
-                //TODO: 心跳包5秒发送一次
-
                 //TODO：本地测试使用token
 //                ownApi.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
 //                        "eyJwb3J0Ijo5OTk5LCJpcCI6IjExOS4yOS4yMjguMjEiLCJpc3MiOiJhcGktZ2F0ZXdheSJ9." +
 //                        "866FC2FD514D1EA18FB62E10FDBE9AE4FA31A5AB757ECA0B2D19CB3EB25F4591");
 
-
+                //每隔15秒检测一次服务是否连接
                 if(OK){
                     OK = false;
                 }else{

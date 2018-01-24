@@ -4,7 +4,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
-import entity.MongoResult;
+import mongodb.MongoResult;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;

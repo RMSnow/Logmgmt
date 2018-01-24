@@ -4,13 +4,13 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Sorts;
-import entity.MongoResult;
-import entity.RequestsOfScale;
+import mongodb.MongoResult;
+import orm.record.RequestsOfScale;
 import mongodb.DateUtil;
 import mongodb.MongoConnector;
 import org.bson.Document;
 import org.bson.conversions.Bson;
-import orm.Record;
+import orm.record.Record;
 import syslog.SyslogEvent;
 
 import java.util.ArrayList;

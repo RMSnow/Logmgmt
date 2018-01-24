@@ -12,11 +12,6 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 
-//import com.wordnik.swagger.annotations.Api;
-//import orm.Apis;
-
-//import static service.gateway.MessageBuilder.newMessage;
-
 public class RestResultGetter {
 
     public static Apis ownApi;
@@ -39,7 +34,7 @@ public class RestResultGetter {
         registryApi = new Apis();
         discoverApi = new Apis();
 
-        //TODO: 初始化配置信息
+        //初始化配置信息
         ownApi.setIp(ConfInfo.ip);
         ownApi.setName(ConfInfo.serviceName);
         ownApi.setPort(Integer.parseInt(ConfInfo.logmgmtPort));
