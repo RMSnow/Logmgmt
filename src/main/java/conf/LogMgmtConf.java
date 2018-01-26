@@ -35,11 +35,6 @@ public class LogMgmtConf extends Configuration {
     @NotEmpty
     private String discoverPort;
 
-//    pswd:
-//    registryIp: 123.207.73.150
-//    registryPort: 8000
-//    discoverPort: 8001
-
     @JsonProperty
     public String getName() {
         return name;

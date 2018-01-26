@@ -32,7 +32,7 @@ public class LogMgmt {
         MongoConnector.init();
 
         //Syslog入口
-        Server syslogServer = new Server();
+        new Server();
 
         System.out.println();
         System.out.println("------------------------------------------");
@@ -49,4 +49,6 @@ public class LogMgmt {
     mongod --config /usr/local/etc/mongod.conf
 
     mongo 119.29.228.21:8610/logs -u logmgt -p testDb
+
+    java -jar target/courseservice-1.0-SNAPSHOT.jar server courseservice.yml
  */

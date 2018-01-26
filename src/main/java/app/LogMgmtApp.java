@@ -2,6 +2,7 @@ package app;
 
 import conf.LogMgmtConf;
 import entity.ConfInfo;
+import exception.IpWhiteListGetter;
 import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
@@ -60,7 +61,11 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         ConfInfo.registryPort = configuration.getRegistryPort();
         ConfInfo.discoverPort = configuration.getDiscoverPort();
 
+        //心跳包检测与断线重连
         new Thread(new HeartbeatTest()).start();
+
+        //IP白名单更新与异常IP捕获
+        new Thread(new IpWhiteListGetter()).start();
     }
 
 }

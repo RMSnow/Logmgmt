@@ -1,32 +1,56 @@
 package exception;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import dock.Apis;
 import dock.RestResultGetter;
 import entity.ConfInfo;
 
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 定时从注册中心获取IP白名单
  */
-public class IpWhiteListGetter {
+public class IpWhiteListGetter implements Runnable {
     public static HashSet<String> ipWhiteList = new HashSet<>();
 
-    //test
-    public static void main(String[] args){
-        ConfInfo.ip = "119.29.228.21";
-        ConfInfo.serviceName = "logmgmt";
-        ConfInfo.logmgmtPort = "9999";
-        ConfInfo.pswd = "d50e43d9fe9a418692eb5db78217af7b";
-        ConfInfo.registryIp = "123.207.73.150";
-        ConfInfo.registryPort = "8000";
-        ConfInfo.discoverPort = "8001";
+    //10分钟更新一次白名单
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                initIpWhiteList();
 
-        JSONObject jsonObject = RestResultGetter.newResult(null).get().ipRequest();
-        System.out.println(jsonObject);
+                JSONArray msgArray = RestResultGetter.newResult(null).get().ipRequest().getJSONArray("msg");
+                for (int i = 0; i < msgArray.size(); i++) {
+                    String ip = (String) ((JSONObject)msgArray.get(i)).get("ip");
+                    ipWhiteList.add(ip);
+                }
+
+                TimeUnit.MINUTES.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
-    //TODO: 10分钟更新一次白名单
+    //初始化白名单
+    public static synchronized void initIpWhiteList(){
+        ipWhiteList = new HashSet<>();
+    }
+
+    //IP分析比对
+    public static synchronized boolean isSecure(String clientIp){
+//        Iterator iterator = ipWhiteList.iterator();
+//        while (iterator.hasNext()){
+//            System.out.println(iterator.next());
+//        }
+
+        if (ipWhiteList.contains(clientIp))
+            return true;
+        else
+            return false;
+    }
 }
 

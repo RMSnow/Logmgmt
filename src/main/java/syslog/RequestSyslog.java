@@ -1,5 +1,6 @@
 package syslog;
 
+import exception.IpWhiteListGetter;
 import orm.record.Record;
 
 /**
@@ -35,8 +36,6 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, ' ');
         clientIP = getString(raw, startPos, endPos);
-
-        //TODO: clientIP与IP白名单的分析比对
 
         //date
         startPos = endPos + 1;
@@ -99,6 +98,17 @@ public class RequestSyslog extends SyslogEvent {
         startPos = tempPos + 1;
         endPos = searchChar(raw, startPos, '\"');
         client = getString(raw, startPos, endPos);
+
+        //clientIP与IP白名单的分析比对
+        try {
+            if (!IpWhiteListGetter.isSecure(clientIP)){
+                //System.out.println("ERROR: EXCEPTED IP !!!");
+
+                //TODO: email
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         System.out.println(this);
         SyslogService.addRequestLog(this);
