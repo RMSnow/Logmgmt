@@ -1,6 +1,7 @@
 package syslog;
 
 import exception.IpWhiteListGetter;
+import exception.MailReport;
 import orm.record.Record;
 
 /**
@@ -101,12 +102,12 @@ public class RequestSyslog extends SyslogEvent {
 
         //clientIP与IP白名单的分析比对
         try {
-            if (!IpWhiteListGetter.isSecure(clientIP)){
-                //System.out.println("ERROR: EXCEPTED IP !!!");
-
-                //TODO: email
+            if (!IpWhiteListGetter.isSecure(clientIP)) {
+                //向管理员发送email报告
+                String richText = this.toRichString();
+                MailReport.reportMessage(MailReport.newRichMessage(MailReport.INSECURE_IP, richText));
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -175,6 +176,59 @@ public class RequestSyslog extends SyslogEvent {
                 "[url]\t" + url + "\n" +
                 "[status]\t" + status + "\n" +
                 "[client]\t" + client + "\n";
+    }
+
+    //html格式的日志内容
+    public String toRichString() {
+        return String.format("<h4>Info of the abnormal log is as follows.</h4>\n" +
+                        "<table border=\"1\" cellpadding=\"10\">\n" +
+                        "    <tr>\n" +
+                        "      <td><b>facility</b></td>\n" +
+                        "      <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>level</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>timestamp</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>host</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>serviceName</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>clientIP</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>datetime</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>method</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>url</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>status</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>client</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "</table>", facility, level, timestamp,
+                host, serviceName, clientIP, datetime,
+                method, url, status, client);
     }
 
     //进行日志分析

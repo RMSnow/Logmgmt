@@ -1,17 +1,29 @@
+# Basic Info
 name: logmgmt
+pswd: d50e43d9fe9a418692eb5db78217af7b
 url: http://123.207.73.150
 ip: 119.29.228.21
 logmgmtPort: 9999
 syslogPort: 9898
-mongodbHost: 119.29.228.21
-mongodbPort: 8610
-mongodbUserName: logmgt
-mongodbPassword: testDb
-pswd: d50e43d9fe9a418692eb5db78217af7b
+
+# Dock
 registryIp: 123.207.73.150
 registryPort: 8000
 discoverPort: 8001
 
+# MongoDB
+mongodbHost: 119.29.228.21
+mongodbPort: 8610
+mongodbUserName: logmgt
+mongodbPassword: testDb
+
+# Mail Report
+recipients: [
+  xueyao_98@foxmail.com,
+  # xxx@xxxx.com
+]
+
+# Server
 server:
   type: simple
   connector:

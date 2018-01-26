@@ -1,10 +1,15 @@
 package entity;
 
+import java.util.ArrayList;
+
 /**
  * 获取配置文件信息
  */
 public class ConfInfo {
+    /* Basic Info */
     public static String serviceName;
+
+    public static String pswd;
 
     public static String ip;
 
@@ -14,6 +19,14 @@ public class ConfInfo {
 
     public static String syslogPort;
 
+    /* Dock */
+    public static String registryIp;
+
+    public static String registryPort;
+
+    public static String discoverPort;
+
+    /* MongoDB */
     public static String mongodbPort;
 
     public static String mongodbHost;
@@ -22,11 +35,6 @@ public class ConfInfo {
 
     public static String mongodbPassword;
 
-    public static String pswd;
-
-    public static String registryIp;
-
-    public static String registryPort;
-
-    public static String discoverPort;
+    /* Mail Report */
+    public static ArrayList<String> recipients = new ArrayList<>();
 }

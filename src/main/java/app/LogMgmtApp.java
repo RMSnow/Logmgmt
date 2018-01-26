@@ -3,12 +3,13 @@ package app;
 import conf.LogMgmtConf;
 import entity.ConfInfo;
 import exception.IpWhiteListGetter;
+import exception.MailReport;
+import health.HeartbeatTest;
 import health.LogMgmtHealthCheck;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import res.*;
-import health.HeartbeatTest;
 
 /**
  * 日志管理APP
@@ -46,20 +47,25 @@ public class LogMgmtApp extends Application<LogMgmtConf> {
         environment.jersey().register(controlRes);
         environment.jersey().register(heartRes);
 
-        //传入配置参数
+        /* 传入配置参数 */
+
         ConfInfo.serviceName = configuration.getName();
+        ConfInfo.pswd = configuration.getPswd();
         ConfInfo.ip = configuration.getIp();
         ConfInfo.url = configuration.getUrl();
         ConfInfo.logmgmtPort = configuration.getLogmgmtPort();
         ConfInfo.syslogPort = configuration.getSyslogPort();
+
+        ConfInfo.registryIp = configuration.getRegistryIp();
+        ConfInfo.registryPort = configuration.getRegistryPort();
+        ConfInfo.discoverPort = configuration.getDiscoverPort();
+
         ConfInfo.mongodbPort = configuration.getMongodbPort();
         ConfInfo.mongodbHost = configuration.getMongodbHost();
         ConfInfo.mongodbUserName = configuration.getMongodbUserName();
         ConfInfo.mongodbPassword = configuration.getMongodbPassword();
-        ConfInfo.pswd = configuration.getPswd();
-        ConfInfo.registryIp = configuration.getRegistryIp();
-        ConfInfo.registryPort = configuration.getRegistryPort();
-        ConfInfo.discoverPort = configuration.getDiscoverPort();
+
+        ConfInfo.recipients = configuration.getRecipients();
 
         //心跳包检测与断线重连
         new Thread(new HeartbeatTest()).start();

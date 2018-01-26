@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import java.util.ArrayList;
+
 /**
  * 配置信息
  */
@@ -34,6 +36,8 @@ public class LogMgmtConf extends Configuration {
     private String registryPort;
     @NotEmpty
     private String discoverPort;
+    @NotEmpty
+    private ArrayList<String> recipients = new ArrayList<>();
 
     @JsonProperty
     public String getName() {
@@ -163,5 +167,15 @@ public class LogMgmtConf extends Configuration {
     @JsonProperty
     public void setDiscoverPort(String discoverPort) {
         this.discoverPort = discoverPort;
+    }
+
+    @JsonProperty
+    public ArrayList<String> getRecipients() {
+        return recipients;
+    }
+
+    @JsonProperty
+    public void setRecipients(ArrayList<String> recipients) {
+        this.recipients = recipients;
     }
 }
