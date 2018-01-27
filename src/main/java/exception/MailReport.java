@@ -25,6 +25,7 @@ public class MailReport {
     private static Session session;
 
     public static final String INSECURE_IP = "[日志服务] 异常IP访问";
+    public static final String LOGGING_ERROR = "[日志服务] 服务运行异常";
 
     static {
         try {

@@ -193,7 +193,7 @@ public class RestResultGetter {
         return null;
     }
 
-    //TODO: 版本迭代为v2
+    //版本迭代为v2
     public JSONObject ipRequest(){
 //        String url = "http://123.207.73.150:8000/application/api/v1/apis/list";
 //        JSONObject discover = restTemplate.getForObject(url, JSONObject.class);
@@ -204,7 +204,8 @@ public class RestResultGetter {
 //            api = discover.getObject("msg", Apis.class);
 //        return request(api);
 
-        String url = "http://123.207.73.150:8000/application/api/v1/apis/list";
+        //String url = "http://123.207.73.150:8000/application/api/v1/apis/list";
+        String url = "http://123.207.73.150:8000/application/api/v2/apis";
         RestTemplate savedTemplate = restTemplate;
         JSONObject result = restTemplate.getForObject(url, JSONObject.class);
         restTemplate = savedTemplate;

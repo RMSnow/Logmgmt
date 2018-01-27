@@ -3,9 +3,11 @@ package health;
 import com.alibaba.fastjson.JSON;
 import dock.RestResultGetter;
 import entity.Result;
+import exception.IpWhiteListGetter;
 import org.springframework.stereotype.Service;
 import res.HeartRes;
 
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 import static dock.RestResultGetter.ownApi;
@@ -22,10 +24,16 @@ public class HeartbeatTest implements Runnable {
     public void run() {
         while (true) {
             try {
-                //TODO：本地测试使用token
+//                //本地测试使用token
 //                ownApi.setToken("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9." +
 //                        "eyJwb3J0Ijo5OTk5LCJpcCI6IjExOS4yOS4yMjguMjEiLCJpc3MiOiJhcGktZ2F0ZXdheSJ9." +
 //                        "866FC2FD514D1EA18FB62E10FDBE9AE4FA31A5AB757ECA0B2D19CB3EB25F4591");
+
+//                //IP白名单
+//                Iterator iterator = IpWhiteListGetter.ipWhiteList.iterator();
+//                while (iterator.hasNext()){
+//                    System.out.println(iterator.next());
+//                }
 
                 //每隔15秒检测一次服务是否连接
                 if(OK){

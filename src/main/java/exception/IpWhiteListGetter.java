@@ -22,10 +22,12 @@ public class IpWhiteListGetter implements Runnable {
             try {
                 initIpWhiteList();
 
-                JSONArray msgArray = RestResultGetter.newResult(null).get().ipRequest().getJSONArray("msg");
-                for (int i = 0; i < msgArray.size(); i++) {
-                    String ip = (String) ((JSONObject)msgArray.get(i)).get("ip");
-                    ipWhiteList.add(ip);
+                JSONArray msgArray = RestResultGetter.newResult(null).get().ipRequest().getJSONArray("data");
+                if (msgArray != null){
+                    for (int i = 0; i < msgArray.size(); i++) {
+                        String ip = (String) ((JSONObject)msgArray.get(i)).get("ip");
+                        ipWhiteList.add(ip);
+                    }
                 }
 
                 TimeUnit.MINUTES.sleep(10);

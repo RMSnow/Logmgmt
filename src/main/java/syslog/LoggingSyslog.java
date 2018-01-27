@@ -89,7 +89,7 @@ public class LoggingSyslog extends SyslogEvent {
             endPos = searchChar(raw, startPos, '[');
             serviceName = getString(raw, startPos, endPos);
 
-            //TODO: loggingErrors
+            //新增分析记录
             Record record = generateNewRecord(serviceName);
             int errors = record.getLoggingErrors();
             record.setLoggingErrors(errors + 1);
@@ -120,6 +120,45 @@ public class LoggingSyslog extends SyslogEvent {
                 "[className]\t" + className + "\n" +
                 "[message]\n" + message + "\n" +
                 "[errDetails]\n" + errDetails + "\n";
+    }
+
+    public String toRichString(){
+        return String.format("<h4>Info of the abnormal log is as follows.</h4>\n" +
+                        "<table border=\"1\" cellpadding=\"10\">\n" +
+                        "    <tr>\n" +
+                        "      <td><b>facility</b></td>\n" +
+                        "      <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>level</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>timestamp</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>host</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>serviceName</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>className</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>message</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "    <tr>\n" +
+                        "        <td><b>errDetails</b></td>\n" +
+                        "        <td>%s</td>\n" +
+                        "    </tr>\n" +
+                        "</table>", facility, level, timestamp,
+                host, serviceName, className, message, errDetails);
     }
 
     public String getErrDetails() {

@@ -1,5 +1,6 @@
 package syslog;
 
+import exception.MailReport;
 import mongodb.MongoService;
 import orm.LoggingLog;
 import orm.RequestLog;
@@ -37,6 +38,14 @@ public class SyslogService {
     public static void addLoggingError() {
         System.out.println(errHeader.toString());
         addLoggingNormal(errHeader, errHeader.getErrDetails());
+
+        //发送邮件
+        try {
+            String richText = errHeader.toRichString();
+            MailReport.reportMessage(MailReport.newRichMessage(MailReport.LOGGING_ERROR, richText));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void handleLoggingError(LoggingSyslog syslog) {
