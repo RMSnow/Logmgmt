@@ -19,34 +19,34 @@
 服务可通过`logmgmt.yml`文件更改下列配置信息：  
 ```
 name: logmgmt
-url: http://123.207.73.150
-ip: 119.29.228.21
-logmgmtPort: 9999
-syslogPort: 9898
-mongodbHost: 119.29.228.21
-mongodbPort: 8610
-mongodbUserName: logmgt
-mongodbPassword: testDb
+url: 
+ip: 
+logmgmtPort: 
+syslogPort: 
+mongodbHost: 
+mongodbPort: 
+mongodbUserName: 
+mongodbPassword: 
 
 server:
   type: simple
   connector:
     type: http
-    port: 9999
+    port: 
 ```
 各属性的说明如下表所示：  
 
 |       属性名       |             说明              |          默认值          |
 | :-------------: | :-------------------------: | :-------------------: |
-|      name       |            本服务名称            |        logmgmt        |
-|       url       |          注册api的url          | http://123.207.73.150 |
-|       ip        |         注册api的ip地址          |     119.29.228.21     |
-|   logmgmtPort   | 注册api的端口（进行日志**查询**与**删除**） |         9999          |
-|   syslogPort    |       接收（**增加**）日志的端口       |         9898          |
-|   mongodbHost   |            数据库主机            |     119.29.228.21     |
-|   mongodbPort   |            数据库端口            |         8610         |
-| mongodbUserName |          数据库管理员用户名          |        logmgt         |
-| mongodbPassword |          数据库管理员用户名          |        testDb         |
+|      name       |            本服务名称            |        -        |
+|       url       |          注册api的url          | - |
+|       ip        |         注册api的ip地址          |     -     |
+|   logmgmtPort   | 注册api的端口（进行日志**查询**与**删除**） |         -          |
+|   syslogPort    |       接收（**增加**）日志的端口       |         -          |
+|   mongodbHost   |            数据库主机            |     -     |
+|   mongodbPort   |            数据库端口            |         -         |
+| mongodbUserName |          数据库管理员用户名          |        -         |
+| mongodbPassword |          数据库管理员密码          |        -         |
 
 
 在服务器上进行首次配置时，应依次执行下列命令：
