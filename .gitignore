@@ -6,6 +6,7 @@ classes
 # Personal DockTest
 # src/me
 localtest.yml
+*.yml
 
 # target
 target/classes/*
